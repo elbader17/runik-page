@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RUNIK | Consultora IT</title>
-    <!-- Tailwind CSS para el diseño --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de Tailwind para habilitar dark mode por clase -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <!-- Script para evitar el "flash" del tema incorrecto al cargar -->
+    <script>
+        // Por defecto, el sitio carga en modo claro.
+        // Solo se activa el modo oscuro si está explícitamente guardado en localStorage.
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <style>
         /* Aplicamos la fuente a todo el cuerpo y definimos estilos personalizados */
         body {
@@ -33,61 +51,58 @@
         /* Estilo para el patrón rúnico de fondo en el hero */
         .hero-runic-bg {
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="1"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="1"/></svg>');
-            background-size: 100px; /* Ajusta el tamaño de la runa en el patrón */
+            background-size: 100px;
             background-repeat: repeat;
-            opacity: 0.1; /* Transparencia para que sea sutil */
+            opacity: 0.05; /* Reducida la opacidad para el modo oscuro */
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Asegura que el fondo no interfiera con el contenido */
+            pointer-events: none;
         }
 
         /* Estilos para las runas SVG en los servicios */
         .rune-icon {
-            height: 48px; /* Tamaño más grande para los íconos de runas */
+            height: 48px;
             width: 48px;
             margin: auto;
-            stroke: currentColor; /* Asegura que la runa herede el color del texto */
+            stroke: currentColor;
             stroke-width: 1;
             fill: none;
         }
-
-        /* Runa Ansuz para Landing Pages */
-        .rune-ansuz path {
-            d: path("M12 2L2 12L12 22L22 12Z M12 2L22 12M2 12L12 22M7 7L17 17M17 7L7 17");
-        }
-
-        /* Runa Dagaz para Análisis de Mercado */
-        .rune-dagaz path {
-            d: path("M6 2L18 12L6 22Z M18 2L6 12L18 22Z");
-        }
-
-        /* Runa Jera para Automatizaciones */
-        .rune-jera path {
-            d: path("M2 12L12 2L22 12L12 22L2 12Z M12 2L22 12M2 12L12 22");
-        }
     </style>
 </head>
-<body class="bg-white text-black antialiased">
+<body class="bg-white text-black dark:bg-black dark:text-gray-200 antialiased transition-colors duration-500">
 
-    <!-- Encabezado con logo y navegación --><header class="bg-black text-white sticky top-0 z-50 shadow-md">
+    <!-- Encabezado con logo y navegación -->
+    <header class="bg-black text-white sticky top-0 z-50 shadow-md">
         <div class="container mx-auto flex justify-between items-center p-5 px-6">
-            <!-- LOGO --><h1 class="text-4xl tracking-widest logo-font">Runik</h1>
+            <!-- LOGO -->
+            <h1 class="text-4xl tracking-widest logo-font">Runik</h1>
             
-            <!-- Navegación para pantallas grandes --><nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
-                <a href="#servicios" class="hover:text-gray-300 transition-colors duration-300">Servicios</a>
-                <a href="#nosotros" class="hover:text-gray-300 transition-colors duration-300">Nosotros</a>
-                <a href="#contacto" class="hover:text-gray-300 transition-colors duration-300">Contacto</a>
-            </nav>
+            <div class="flex items-center space-x-6 md:space-x-10">
+                <!-- Navegación para pantallas grandes -->
+                <nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
+                    <a href="#servicios" class="hover:text-gray-300 transition-colors duration-300">Servicios</a>
+                    <a href="#nosotros" class="hover:text-gray-300 transition-colors duration-300">Nosotros</a>
+                    <a href="#contacto" class="hover:text-gray-300 transition-colors duration-300">Contacto</a>
+                </nav>
+                <!-- Botón de Dark Mode -->
+                <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
+                    <span class="sr-only">Toggle dark mode</span>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
         </div>
     </header>
 
-    <!-- Sección Principal (Hero) --><main>
+    <!-- Sección Principal (Hero) -->
+    <main>
         <section class="bg-black text-white text-center py-24 md:py-40 relative overflow-hidden">
-            <!-- Patrón rúnico de fondo --><div class="hero-runic-bg"></div>
-
+            <!-- Patrón rúnico de fondo -->
+            <div class="hero-runic-bg"></div>
             <div class="container mx-auto px-6 relative z-10">
                 <h2 class="text-4xl md:text-6xl font-light brand-heading uppercase mb-4">Transformamos Ideas en Soluciones Digitales</h2>
                 <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">Creamos experiencias web limpias, funcionales y eficientes que impulsan tu negocio.</p>
@@ -95,50 +110,54 @@
             </div>
         </section>
 
-        <!-- Sección de Servicios/Productos --><section id="servicios" class="py-20 md:py-28 bg-gray-50">
+        <!-- Sección de Servicios/Productos -->
+        <section id="servicios" class="py-20 md:py-28 bg-gray-50 dark:bg-gray-900">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestros Productos</h3>
-                    <div class="w-24 h-px bg-black mx-auto"></div>
+                    <div class="w-24 h-px bg-black dark:bg-white mx-auto"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-                    <!-- Producto 1: Landing Pages (Runa Ansuz) --><div class="service-card bg-white p-8 rounded-md border border-gray-200 text-center flex flex-col">
+                    <!-- Producto 1: Landing Pages (Runa Ansuz) -->
+                    <div class="service-card bg-white dark:bg-black p-8 rounded-md border border-gray-200 dark:border-gray-800 text-center flex flex-col">
                         <div class="mb-5">
-                            <svg class="rune-icon text-black rune-ansuz" viewBox="0 0 24 24">
+                            <svg class="rune-icon text-black dark:text-white" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 12L12 22L22 12Z M12 2L22 12M2 12L12 22M7 7L17 17M17 7L7 17" />
                             </svg>
                         </div>
                         <h4 class="text-2xl font-medium mb-3">Landing Pages</h4>
-                        <p class="text-gray-600 mb-6 flex-grow">Diseñamos páginas de impacto para captar la atención y convertir visitantes. Integramos desde formularios inteligentes hasta chatbots con IA para llevar la interacción al siguiente nivel. Ideal para profesionales e instituciones.</p>
-                        <!-- Reemplaza '#' con el enlace a tu página de producto --><a href="./pages.html" class="font-semibold text-black hover:text-gray-700 group mt-auto">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Diseñamos páginas de impacto para captar la atención y convertir visitantes. Integramos desde formularios inteligentes hasta chatbots con IA para llevar la interacción al siguiente nivel. Ideal para profesionales e instituciones.</p>
+                        <a href="./pages.html" class="font-semibold text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300 group mt-auto">
                             Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
                         </a>
                     </div>
 
-                    <!-- Producto 2: Análisis de Mercado (Runa Dagaz) --><div class="service-card bg-white p-8 rounded-md border border-gray-200 text-center flex flex-col">
+                    <!-- Producto 2: Análisis de Mercado (Runa Dagaz) -->
+                    <div class="service-card bg-white dark:bg-black p-8 rounded-md border border-gray-200 dark:border-gray-800 text-center flex flex-col">
                         <div class="mb-5">
-                            <svg class="rune-icon text-black rune-dagaz" viewBox="0 0 24 24">
+                            <svg class="rune-icon text-black dark:text-white" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 2L18 12L6 22Z M18 2L6 12L18 22Z" />
                             </svg>
                         </div>
                         <h4 class="text-2xl font-medium mb-3">Análisis de Mercado</h4>
-                        <p class="text-gray-600 mb-6 flex-grow">Transformamos datos en decisiones estratégicas. Realizamos scraping de precios, análisis de competencia y buscamos patrones para darte una ventaja competitiva.</p>
-                        <!-- Reemplaza '#' con el enlace a tu página de producto --><a href="./data.html" class="font-semibold text-black hover:text-gray-700 group mt-auto">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Transformamos datos en decisiones estratégicas. Realizamos scraping de precios, análisis de competencia y buscamos patrones para darte una ventaja competitiva.</p>
+                        <a href="./data.html" class="font-semibold text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300 group mt-auto">
                             Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
                         </a>
                     </div>
 
-                    <!-- Producto 3: Automatizaciones (Runa Jera) --><div class="service-card bg-white p-8 rounded-md border border-gray-200 text-center flex flex-col">
+                    <!-- Producto 3: Automatizaciones (Runa Jera) -->
+                    <div class="service-card bg-white dark:bg-black p-8 rounded-md border border-gray-200 dark:border-gray-800 text-center flex flex-col">
                         <div class="mb-5">
-                            <svg class="rune-icon text-black rune-jera" viewBox="0 0 24 24">
+                            <svg class="rune-icon text-black dark:text-white" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2 12L12 2L22 12L12 22L2 12Z M12 2L22 12M2 12L12 22" />
                             </svg>
                         </div>
                         <h4 class="text-2xl font-medium mb-3">Automatizaciones</h4>
-                        <p class="text-gray-600 mb-6 flex-grow">Optimizamos tus flujos de trabajo. Implementamos soluciones a medida, desde scripts simples hasta inteligencia artificial, para automatizar procesos complejos y liberar el potencial de tu equipo.</p>
-                         <!-- Reemplaza '#' con el enlace a tu página de producto --><a href="./auto.html" class="font-semibold text-black hover:text-gray-700 group mt-auto">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Optimizamos tus flujos de trabajo. Implementamos soluciones a medida, desde scripts simples hasta inteligencia artificial, para automatizar procesos complejos y liberar el potencial de tu equipo.</p>
+                        <a href="./auto.html" class="font-semibold text-black dark:text-white hover:text-gray-700 dark:hover:text-gray-300 group mt-auto">
                              Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
                         </a>
                     </div>
@@ -147,16 +166,18 @@
             </div>
         </section>
         
-        <!-- Sección "Sobre Nosotros" --><section id="nosotros" class="py-20 md:py-28 bg-white">
+        <!-- Sección "Sobre Nosotros" -->
+        <section id="nosotros" class="py-20 md:py-28 bg-white dark:bg-black">
             <div class="container mx-auto px-6 text-center max-w-4xl">
                 <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-4">Sobre RUNIK</h3>
-                <p class="text-gray-700 text-lg leading-relaxed">Somos un equipo de desarrolladores y diseñadores apasionados por la tecnología. Nuestro enfoque se centra en la calidad y la funcionalidad, envuelto en una estética limpia y minimalista. Creemos en el poder de las soluciones simples y bien ejecutadas para crear un impacto duradero.</p>
+                <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">Somos un equipo de desarrolladores y diseñadores apasionados por la tecnología. Nuestro enfoque se centra en la calidad y la funcionalidad, envuelto en una estética limpia y minimalista. Creemos en el poder de las soluciones simples y bien ejecutadas para crear un impacto duradero.</p>
             </div>
         </section>
 
     </main>
 
-    <!-- Pie de Página --><footer id="contacto" class="bg-black text-white py-16">
+    <!-- Pie de Página -->
+    <footer id="contacto" class="bg-black text-white py-16">
         <div class="container mx-auto px-6 text-center relative">
             <h1 class="text-3xl tracking-widest mb-4 logo-font">Runik</h1>
             <p class="text-gray-400 mb-6">¿Listo para empezar tu próximo proyecto?</p>
@@ -170,7 +191,39 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Lógica para el botón de cambio de tema -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const htmlEl = document.documentElement;
 
+        // Función para actualizar los íconos
+        function updateIcons() {
+            if (htmlEl.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        }
+
+        // Muestra el ícono correcto al cargar la página
+        updateIcons();
+
+        // Agrega el evento al botón
+        themeToggleBtn.addEventListener('click', () => {
+            // Alterna la clase 'dark' en el elemento <html>
+            htmlEl.classList.toggle('dark');
+            const isDarkMode = htmlEl.classList.contains('dark');
+            // Guarda la preferencia en localStorage
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            // Actualiza los íconos
+            updateIcons();
+        });
+    </script>
 </body>
 </html>
 
