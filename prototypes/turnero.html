@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Turnos | RUNIK</title>
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuración de Tailwind para habilitar dark mode por clase -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <!-- Script para evitar el "flash" del tema incorrecto al cargar -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        /* Estilos base y fuentes del diseño original */
+        body {
+            font-family: 'Jost', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .brand-heading {
+            letter-spacing: 0.1em;
+        }
+        .logo-font {
+            font-family: 'Major Mono Display', monospace;
+        }
+        
+        /* Estilos específicos para el gestor de turnos */
+        .appointment-card {
+            cursor: grab;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s;
+            position: relative;
+        }
+        .appointment-card:active {
+            cursor: grabbing;
+        }
+        .time-slot {
+            min-height: 80px;
+            transition: background-color 0.3s ease;
+        }
+        .appointments-container {
+             min-height: 100px;
+        }
+        
+        /* Clases para el feedback visual del drag and drop */
+        .dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+        .drag-over {
+            /* Un sutil resaltado en la columna donde se puede soltar */
+            background-color: rgba(128, 128, 128, 0.1);
+        }
+        
+        /* Estilos del modal */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-black dark:bg-gray-900 dark:text-gray-200 antialiased transition-colors duration-500">
+
+    <!-- Encabezado con logo y navegación -->
+    <header class="bg-black text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-5 px-6">
+            <!-- LOGO -->
+            <h1 class="text-4xl tracking-widest logo-font">Runik</h1>
+            
+            <div class="flex items-center space-x-6">
+                <!-- Botón de Dark Mode -->
+                <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
+                    <span class="sr-only">Toggle dark mode</span>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal: Gestor de Turnos -->
+    <main class="container mx-auto px-6 py-12 md:py-16">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Agenda Diaria</h2>
+             <div class="w-24 h-px bg-black dark:bg-white mx-auto mb-6"></div>
+        </div>
+        
+        <!-- Controles de Fecha y Botón de Añadir -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+             <div class="flex items-center gap-4">
+                <button id="prev-day-btn" class="p-2 rounded-md bg-white dark:bg-black border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">&lt;</button>
+                <h3 id="current-date" class="text-xl md:text-2xl font-semibold tracking-wider text-center w-64"></h3>
+                <button id="next-day-btn" class="p-2 rounded-md bg-white dark:bg-black border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">&gt;</button>
+            </div>
+            <button id="add-appointment-btn" class="bg-black text-white dark:bg-white dark:text-black font-medium py-2 px-6 rounded-sm hover:opacity-80 transition duration-300 uppercase text-sm tracking-wider">Añadir Turno</button>
+        </div>
+        
+        <!-- Tablero de Turnos -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Columna de Turnos Sin Asignar -->
+            <div class="lg:col-span-1 bg-white dark:bg-black p-4 rounded-md border border-gray-200 dark:border-gray-800">
+                <h3 class="text-lg font-medium brand-heading uppercase mb-4 text-center">Turnos sin asignar</h3>
+                <div id="unassigned-appointments" class="appointments-container space-y-4 p-2 rounded-md">
+                    <div id="appt-1" class="appointment-card bg-gray-100 dark:bg-gray-800 p-3 rounded-md border border-gray-200 dark:border-gray-700" draggable="true">
+                        <h4 class="font-semibold text-black dark:text-white">Consulta inicial</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Profesional: Dr. Elara Vance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna de la Agenda del Día -->
+            <div id="schedule-container" class="lg:col-span-3 bg-white dark:bg-black p-4 rounded-md border border-gray-200 dark:border-gray-800">
+                <!-- Las franjas horarias se generan con JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="bg-black text-white py-10 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-500 text-sm">&copy; 2024 RUNIK. Gestor de Turnos.</p>
+        </div>
+    </footer>
+    
+    <!-- Modal para Añadir Nuevo Turno -->
+    <div id="appointment-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden opacity-0">
+        <div class="modal-content bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl w-full max-w-md p-6 md:p-8 transform scale-95">
+            <h3 class="text-2xl font-light brand-heading mb-6">Nuevo Turno</h3>
+            <form id="appointment-form">
+                <div class="mb-4">
+                    <label for="appt-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Motivo del Turno</label>
+                    <input type="text" id="appt-title" required class="w-full bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-2 focus:ring-black dark:focus:ring-white outline-none transition">
+                </div>
+                <div class="mb-6">
+                    <label for="appt-professional" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Profesional Asignado</label>
+                    <input type="text" id="appt-professional" required class="w-full bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-2 focus:ring-black dark:focus:ring-white outline-none transition">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" id="cancel-appt-btn" class="bg-gray-200 text-black dark:bg-gray-700 dark:text-white font-medium py-2 px-6 rounded-sm hover:opacity-80 transition duration-300 uppercase text-sm tracking-wider">Cancelar</button>
+                    <button type="submit" class="bg-black text-white dark:bg-white dark:text-black font-medium py-2 px-6 rounded-sm hover:opacity-80 transition duration-300 uppercase text-sm tracking-wider">Añadir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- LÓGICA DEL DARK MODE (del diseño original) ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const htmlEl = document.documentElement;
+
+            function updateIcons() {
+                if (htmlEl.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    darkIcon.classList.remove('hidden');
+                    lightIcon.classList.add('hidden');
+                }
+            }
+            updateIcons();
+            themeToggleBtn.addEventListener('click', () => {
+                htmlEl.classList.toggle('dark');
+                localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+                updateIcons();
+            });
+
+            // --- LÓGICA DEL GESTOR DE TURNOS ---
+            const modal = document.getElementById('appointment-modal');
+            const addAppointmentBtn = document.getElementById('add-appointment-btn');
+            const cancelApptBtn = document.getElementById('cancel-appt-btn');
+            const appointmentForm = document.getElementById('appointment-form');
+            const unassignedContainer = document.getElementById('unassigned-appointments');
+            const scheduleContainer = document.getElementById('schedule-container');
+            const currentDateEl = document.getElementById('current-date');
+            const prevDayBtn = document.getElementById('prev-day-btn');
+            const nextDayBtn = document.getElementById('next-day-btn');
+
+            let currentDate = new Date();
+            let draggedItem = null;
+
+            // --- MANEJO DE FECHAS ---
+            function renderDate() {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                currentDateEl.textContent = currentDate.toLocaleDateString('es-ES', options);
+                renderSchedule();
+            }
+
+            prevDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 1);
+                renderDate();
+            });
+
+            nextDayBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 1);
+                renderDate();
+            });
+
+            // --- RENDERIZADO DE LA AGENDA ---
+            function renderSchedule() {
+                scheduleContainer.innerHTML = ''; // Limpiar la agenda
+                for (let hour = 8; hour <= 20; hour++) {
+                    const timeSlot = document.createElement('div');
+                    timeSlot.className = 'time-slot flex items-start gap-4 border-t border-gray-200 dark:border-gray-700 p-2';
+                    timeSlot.dataset.hour = hour;
+
+                    const timeLabel = document.createElement('div');
+                    timeLabel.className = 'w-16 text-right text-sm text-gray-500 pt-1';
+                    timeLabel.textContent = `${hour}:00`;
+
+                    const droppableArea = document.createElement('div');
+                    droppableArea.className = 'flex-1 appointments-container space-y-2';
+                    
+                    timeSlot.appendChild(timeLabel);
+                    timeSlot.appendChild(droppableArea);
+                    scheduleContainer.appendChild(timeSlot);
+                }
+                addDropEventsToContainers();
+            }
+
+            // --- LÓGICA DEL MODAL ---
+            const openModal = () => {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.querySelector('.modal-content').classList.remove('scale-95');
+                }, 10);
+            };
+
+            const closeModal = () => {
+                modal.classList.add('opacity-0');
+                modal.querySelector('.modal-content').classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    appointmentForm.reset();
+                }, 300);
+            };
+
+            addAppointmentBtn.addEventListener('click', openModal);
+            cancelApptBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            appointmentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const title = document.getElementById('appt-title').value;
+                const professional = document.getElementById('appt-professional').value;
+
+                if (!title || !professional) return;
+
+                const newAppt = createAppointmentElement(title, professional);
+                unassignedContainer.appendChild(newAppt);
+                closeModal();
+            });
+
+            function createAppointmentElement(title, professional) {
+                const apptEl = document.createElement('div');
+                apptEl.id = 'appt-' + Date.now();
+                apptEl.className = 'appointment-card bg-gray-100 dark:bg-gray-800 p-3 rounded-md border border-gray-200 dark:border-gray-700';
+                apptEl.draggable = true;
+                apptEl.innerHTML = `
+                    <h4 class="font-semibold text-black dark:text-white">${title}</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Profesional: ${professional}</p>
+                `;
+                addDragEventsToCard(apptEl);
+                return apptEl;
+            }
+
+            // --- LÓGICA DE DRAG AND DROP ---
+            function addDragEventsToCard(card) {
+                card.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    setTimeout(() => e.target.classList.add('dragging'), 0);
+                });
+
+                card.addEventListener('dragend', () => {
+                    setTimeout(() => {
+                        draggedItem.classList.remove('dragging');
+                        draggedItem = null;
+                    }, 0);
+                });
+            }
+
+            function addDropEventsToContainers() {
+                const containers = document.querySelectorAll('.appointments-container');
+                containers.forEach(container => {
+                    container.addEventListener('dragover', e => {
+                        e.preventDefault();
+                        container.classList.add('drag-over');
+                    });
+                    container.addEventListener('dragleave', () => {
+                        container.classList.remove('drag-over');
+                    });
+                    container.addEventListener('drop', e => {
+                        e.preventDefault();
+                        container.classList.remove('drag-over');
+                        if(draggedItem) {
+                            container.appendChild(draggedItem);
+                        }
+                    });
+                });
+            }
+
+            // Inicialización
+            document.querySelectorAll('.appointment-card').forEach(addDragEventsToCard);
+            renderDate();
+        });
+    </script>
+</body>
+</html>
+
