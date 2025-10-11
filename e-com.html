@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNIK | Soluciones E-commerce</title>
+    <!-- Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <style>
+        /* Aplicamos la fuente a todo el cuerpo y definimos estilos personalizados */
+        body {
+            font-family: 'Jost', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Estilo para los encabezados, imitando el espaciado del logo */
+        .brand-heading {
+            letter-spacing: 0.1em;
+        }
+        /* Clase específica para la fuente del logo */
+        .logo-font {
+            font-family: 'Major Mono Display', monospace;
+        }
+        /* Efecto de hover sutil para las tarjetas de características */
+        .feature-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+        }
+        /* Estilo para el patrón rúnico de fondo en el hero */
+        .hero-runic-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="1"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="1"/></svg>');
+            background-size: 100px;
+            background-repeat: repeat;
+            opacity: 0.1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        /* Estilos para los iconos SVG */
+        .icon {
+            stroke-width: 1.5;
+        }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+    <!-- Encabezado con logo y navegación -->
+    <header class="bg-black text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-5 px-6">
+            <!-- LOGO -->
+            <a href="index.html" class="text-4xl tracking-widest logo-font">Runik</a>
+            
+            <!-- Navegación para pantallas grandes -->
+            <nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
+                <!-- Cambia 'index.html' por la ruta a tu página principal -->
+                <a href="index.html#servicios" class="hover:text-gray-300 transition-colors duration-300">Servicios</a>
+                <a href="index.html#nosotros" class="hover:text-gray-300 transition-colors duration-300">Nosotros</a>
+                <a href="#contacto" class="hover:text-gray-300 transition-colors duration-300">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sección Principal (Hero) del Producto -->
+        <section class="bg-black text-white text-center py-20 md:py-32 relative overflow-hidden">
+            <!-- Patrón rúnico de fondo -->
+            <div class="hero-runic-bg"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl md:text-6xl font-light brand-heading uppercase mb-4">Soluciones E-commerce</h2>
+                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">Creamos tiendas online potentes, seguras y diseñadas para vender.</p>
+            </div>
+        </section>
+
+        <!-- Sección de Características Clave -->
+        <section id="caracteristicas" class="py-20 md:py-28 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Tu Negocio Abierto 24/7</h3>
+                    <div class="w-24 h-px bg-black mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Característica 1: Tiendas Robustas -->
+                    <div class="feature-card bg-white p-6 rounded-md border border-gray-200 text-center">
+                        <div class="flex justify-center items-center h-16 w-16 bg-gray-100 rounded-full mx-auto mb-5">
+                            <svg class="h-8 w-8 text-black icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-medium mb-2">Tiendas Robustas</h4>
+                        <p class="text-gray-600">Construimos plataformas escalables que crecen con tu negocio, capaces de manejar catálogos extensos y alto tráfico.</p>
+                    </div>
+
+                    <!-- Característica 2: Pagos Seguros -->
+                    <div class="feature-card bg-white p-6 rounded-md border border-gray-200 text-center">
+                         <div class="flex justify-center items-center h-16 w-16 bg-gray-100 rounded-full mx-auto mb-5">
+                            <svg class="h-8 w-8 text-black icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-medium mb-2">Pagos Seguros</h4>
+                        <p class="text-gray-600">Integramos las principales pasarelas de pago del mercado, garantizando transacciones seguras para ti y tus clientes.</p>
+                    </div>
+
+                    <!-- Característica 3: Experiencia Optimizada -->
+                    <div class="feature-card bg-white p-6 rounded-md border border-gray-200 text-center">
+                         <div class="flex justify-center items-center h-16 w-16 bg-gray-100 rounded-full mx-auto mb-5">
+                           <svg class="h-8 w-8 text-black icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-medium mb-2">Experiencia de Compra</h4>
+                        <p class="text-gray-600">Diseñamos un proceso de compra intuitivo y rápido, optimizado para la conversión en ordenadores y móviles.</p>
+                    </div>
+
+                    <!-- Característica 4: Gestión Sencilla -->
+                    <div class="feature-card bg-white p-6 rounded-md border border-gray-200 text-center">
+                        <div class="flex justify-center items-center h-16 w-16 bg-gray-100 rounded-full mx-auto mb-5">
+                            <svg class="h-8 w-8 text-black icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-medium mb-2">Gestión Sencilla</h4>
+                        <p class="text-gray-600">Te entregamos un panel de control para que puedas administrar productos, pedidos y clientes de forma autónoma y fácil.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Proceso -->
+        <section id="proceso" class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-16">
+                    <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestro Proceso</h3>
+                    <div class="w-24 h-px bg-black mx-auto"></div>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+                    <!-- Paso 1 -->
+                    <div>
+                        <div class="text-5xl font-light text-gray-300 mb-2">01</div>
+                        <h4 class="text-xl font-medium mb-2">Consulta y Estrategia</h4>
+                        <p class="text-gray-600">Analizamos tu modelo de negocio y catálogo de productos para definir la plataforma y estrategia adecuadas.</p>
+                    </div>
+                    <!-- Paso 2 -->
+                    <div>
+                        <div class="text-5xl font-light text-gray-300 mb-2">02</div>
+                        <h4 class="text-xl font-medium mb-2">Diseño y Desarrollo</h4>
+                        <p class="text-gray-600">Creamos una tienda online atractiva, funcional y segura, integrando todas las herramientas necesarias.</p>
+                    </div>
+                    <!-- Paso 3 -->
+                    <div>
+                        <div class="text-5xl font-light text-gray-300 mb-2">03</div>
+                        <h4 class="text-xl font-medium mb-2">Lanzamiento y Soporte</h4>
+                        <p class="text-gray-600">Publicamos tu tienda y te ofrecemos el soporte para que empieces a vender con confianza desde el primer día.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pie de Página (igual al de la página principal) -->
+    <footer id="contacto" class="bg-black text-white py-16">
+        <div class="container mx-auto px-6 text-center relative">
+            <h1 class="text-3xl tracking-widest mb-4 logo-font">Runik</h1>
+            <p class="text-gray-400 mb-6">¿Listo para llevar tu negocio al siguiente nivel?</p>
+            <a href="mailto:contacto@runik.com" class="bg-white text-black font-medium py-3 px-8 rounded-sm hover:bg-gray-200 transition duration-300 uppercase text-sm tracking-wider">Empezar a Vender</a>
+            <div class="mt-12 border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm">&copy; 2024 RUNIK. Todos los derechos reservados. <span class="ml-2 text-gray-700 inline-block align-middle">
+                    <svg class="h-4 w-4 inline-block align-middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 12L12 22L22 12Z M12 2L22 12M2 12L12 22" />
+                    </svg>
+                </span></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

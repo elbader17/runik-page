@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUNIK | Consultora IT</title>
+    <!-- Tailwind CSS para el diseño --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <style>
+        /* Aplicamos la fuente a todo el cuerpo y definimos estilos personalizados */
+        body {
+            font-family: 'Jost', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Estilo para los encabezados, imitando el espaciado del logo */
+        .brand-heading {
+            letter-spacing: 0.1em;
+        }
+        /* Clase específica para la fuente del logo */
+        .logo-font {
+            font-family: 'Major Mono Display', monospace;
+        }
+        /* Efecto de hover sutil para las tarjetas de servicios */
+        .service-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+        }
+        /* Estilo para el patrón rúnico de fondo en el hero */
+        .hero-runic-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="1"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="1"/></svg>');
+            background-size: 100px; /* Ajusta el tamaño de la runa en el patrón */
+            background-repeat: repeat;
+            opacity: 0.1; /* Transparencia para que sea sutil */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Asegura que el fondo no interfiera con el contenido */
+        }
+
+        /* Estilos para las runas SVG en los servicios */
+        .rune-icon {
+            height: 48px; /* Tamaño más grande para los íconos de runas */
+            width: 48px;
+            margin: auto;
+            stroke: currentColor; /* Asegura que la runa herede el color del texto */
+            stroke-width: 1;
+            fill: none;
+        }
+
+        /* Runa Ansuz para Landing Pages */
+        .rune-ansuz path {
+            d: path("M12 2L2 12L12 22L22 12Z M12 2L22 12M2 12L12 22M7 7L17 17M17 7L7 17");
+        }
+
+        /* Runa Dagaz para Análisis de Mercado */
+        .rune-dagaz path {
+            d: path("M6 2L18 12L6 22Z M18 2L6 12L18 22Z");
+        }
+
+        /* Runa Jera para Automatizaciones */
+        .rune-jera path {
+            d: path("M2 12L12 2L22 12L12 22L2 12Z M12 2L22 12M2 12L12 22");
+        }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+    <!-- Encabezado con logo y navegación --><header class="bg-black text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-5 px-6">
+            <!-- LOGO --><h1 class="text-4xl tracking-widest logo-font">Runik</h1>
+            
+            <!-- Navegación para pantallas grandes --><nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
+                <a href="#servicios" class="hover:text-gray-300 transition-colors duration-300">Servicios</a>
+                <a href="#nosotros" class="hover:text-gray-300 transition-colors duration-300">Nosotros</a>
+                <a href="#contacto" class="hover:text-gray-300 transition-colors duration-300">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección Principal (Hero) --><main>
+        <section class="bg-black text-white text-center py-24 md:py-40 relative overflow-hidden">
+            <!-- Patrón rúnico de fondo --><div class="hero-runic-bg"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-4xl md:text-6xl font-light brand-heading uppercase mb-4">Transformamos Ideas en Soluciones Digitales</h2>
+                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-8">Creamos experiencias web limpias, funcionales y eficientes que impulsan tu negocio.</p>
+                <a href="#servicios" class="bg-white text-black font-medium py-3 px-8 rounded-sm hover:bg-gray-200 transition duration-300 uppercase text-sm tracking-wider">Nuestros Servicios</a>
+            </div>
+        </section>
+
+        <!-- Sección de Servicios/Productos --><section id="servicios" class="py-20 md:py-28 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestros Productos</h3>
+                    <div class="w-24 h-px bg-black mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Producto 1: Landing Pages (Runa Ansuz) --><div class="service-card bg-white p-8 rounded-md border border-gray-200 text-center flex flex-col">
+                        <div class="mb-5">
+                            <svg class="rune-icon text-black rune-ansuz" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 12L12 22L22 12Z M12 2L22 12M2 12L12 22M7 7L17 17M17 7L7 17" />
+                            </svg>
+                        </div>
+                        <h4 class="text-2xl font-medium mb-3">Landing Pages</h4>
+                        <p class="text-gray-600 mb-6 flex-grow">Diseñamos páginas de impacto para captar la atención y convertir visitantes. Integramos desde formularios inteligentes hasta chatbots con IA para llevar la interacción al siguiente nivel. Ideal para profesionales e instituciones.</p>
+                        <!-- Reemplaza '#' con el enlace a tu página de producto --><a href="./pages.html" class="font-semibold text-black hover:text-gray-700 group mt-auto">
+                            Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
+                        </a>
+                    </div>
+
+                    <!-- Producto 2: Análisis de Mercado (Runa Dagaz) --><div class="service-card bg-white p-8 rounded-md border border-gray-200 text-center flex flex-col">
+                        <div class="mb-5">
+                            <svg class="rune-icon text-black rune-dagaz" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 2L18 12L6 22Z M18 2L6 12L18 22Z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-2xl font-medium mb-3">Análisis de Mercado</h4>
+                        <p class="text-gray-600 mb-6 flex-grow">Transformamos datos en decisiones estratégicas. Realizamos scraping de precios, análisis de competencia y buscamos patrones para darte una ventaja competitiva.</p>
+                        <!-- Reemplaza '#' con el enlace a tu página de producto --><a href="./reportes.html" class="font-semibold text-black hover:text-gray-700 group mt-auto">
+                            Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
+                        </a>
+                    </div>
+
+                    <!-- Producto 3: Automatizaciones (Runa Jera) --><div class="service-card bg-white p-8 rounded-md border border-gray-200 text-center flex flex-col">
+                        <div class="mb-5">
+                            <svg class="rune-icon text-black rune-jera" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2 12L12 2L22 12L12 22L2 12Z M12 2L22 12M2 12L12 22" />
+                            </svg>
+                        </div>
+                        <h4 class="text-2xl font-medium mb-3">Automatizaciones</h4>
+                        <p class="text-gray-600 mb-6 flex-grow">Optimizamos tus flujos de trabajo. Implementamos soluciones a medida, desde scripts simples hasta inteligencia artificial, para automatizar procesos complejos y liberar el potencial de tu equipo.</p>
+                         <!-- Reemplaza '#' con el enlace a tu página de producto --><a href="./auto.html" class="font-semibold text-black hover:text-gray-700 group mt-auto">
+                             Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección "Sobre Nosotros" --><section id="nosotros" class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6 text-center max-w-4xl">
+                <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-4">Sobre RUNIK</h3>
+                <p class="text-gray-700 text-lg leading-relaxed">Somos un equipo de desarrolladores y diseñadores apasionados por la tecnología. Nuestro enfoque se centra en la calidad y la funcionalidad, envuelto en una estética limpia y minimalista. Creemos en el poder de las soluciones simples y bien ejecutadas para crear un impacto duradero.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pie de Página --><footer id="contacto" class="bg-black text-white py-16">
+        <div class="container mx-auto px-6 text-center relative">
+            <h1 class="text-3xl tracking-widest mb-4 logo-font">Runik</h1>
+            <p class="text-gray-400 mb-6">¿Listo para empezar tu próximo proyecto?</p>
+            <a href="mailto:contacto@runik.com" class="bg-white text-black font-medium py-3 px-8 rounded-sm hover:bg-gray-200 transition duration-300 uppercase text-sm tracking-wider">Contáctanos</a>
+            <div class="mt-12 border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm">&copy; 2024 RUNIK. Todos los derechos reservados. <span class="ml-2 text-gray-700 inline-block align-middle">
+                    <svg class="h-4 w-4 inline-block align-middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 12L12 22L22 12Z M12 2L22 12M2 12L12 22" />
+                    </svg>
+                </span></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+
