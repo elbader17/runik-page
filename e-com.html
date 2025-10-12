@@ -3,23 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUNIK | Soluciones E-commerce</title>
-    <!-- Tailwind CSS para el diseño -->
+    <title>RUNIK | E-commerce de Alto Impacto</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Configuración de Tailwind para habilitar dark mode por clase -->
     <script>
         tailwind.config = {
-            darkMode: 'class'
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-gold': '#D4AF37', // Color de acento premium
+                        'dark-bg': '#121212', // Gris oscuro en lugar de negro puro
+                        'light-bg': '#F9F9F9', // Blanco roto en lugar de blanco puro
+                        'dark-card': '#1a1a1a',
+                    }
+                }
+            }
         }
     </script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Major+Mono+Display&display=swap" rel="stylesheet">
-    <!-- Script para el dark mode -->
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <!-- Script para evitar el "flash" del tema incorrecto al cargar -->
     <script>
-        // Por defecto, el sitio carga en modo claro.
-        // Solo se activa el modo oscuro si está explícitamente guardado en localStorage.
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
@@ -27,66 +37,57 @@
         }
     </script>
     <style>
-        /* Aplicamos la fuente a todo el cuerpo y definimos estilos personalizados */
         body {
             font-family: 'Jost', sans-serif;
             scroll-behavior: smooth;
         }
-        /* Estilo para los encabezados, imitando el espaciado del logo */
         .brand-heading {
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
         }
-        /* Clase específica para la fuente del logo */
         .logo-font {
             font-family: 'Major Mono Display', monospace;
         }
-        /* Efecto de hover sutil para las tarjetas de características */
         .feature-card {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
         .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
         }
-        /* Estilo para el patrón rúnico de fondo en el hero */
         .hero-runic-bg {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="1"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="1"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="1"/></svg>');
-            background-size: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200" 200><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="0.5"/></svg>');
+            background-size: 150px;
             background-repeat: repeat;
-            opacity: 0.05;
+            opacity: 0.03;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
         }
-        /* Estilos para los iconos SVG */
         .icon {
             stroke-width: 1.5;
+            transition: color 0.3s;
+        }
+        .feature-card:hover .icon {
+            color: #D4AF37;
         }
     </style>
 </head>
-<body class="bg-white text-black dark:bg-black dark:text-gray-200 antialiased transition-colors duration-500">
+<body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 antialiased transition-colors duration-500">
 
-    <!-- Encabezado con logo y navegación -->
-    <header class="bg-black text-white sticky top-0 z-50 shadow-md">
+    <!-- Encabezado -->
+    <header class="bg-dark-bg/80 dark:bg-dark-bg/80 backdrop-blur-sm text-white sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto flex justify-between items-center p-5 px-6">
-            <!-- LOGO -->
             <a href="index.html" class="text-4xl tracking-widest logo-font">Runik</a>
-            
             <div class="flex items-center space-x-6 md:space-x-10">
-                <!-- Navegación para pantallas grandes -->
                 <nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
-                    <a href="index.html#servicios" class="hover:text-gray-300 transition-colors duration-300">Servicios</a>
-                    <a href="index.html#nosotros" class="hover:text-gray-300 transition-colors duration-300">Nosotros</a>
-                    <a href="#contacto" class="hover:text-gray-300 transition-colors duration-300">Contacto</a>
+                    <a href="index.html#servicios" class="hover:text-brand-gold transition-colors duration-300">Servicios</a>
+                    <a href="index.html#proceso" class="hover:text-brand-gold transition-colors duration-300">Proceso</a>
+                    <a href="#contacto" class="hover:text-brand-gold transition-colors duration-300">Contacto</a>
                 </nav>
-                <!-- Botón de Dark Mode -->
                 <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
                     <span class="sr-only">Toggle dark mode</span>
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
         </div>
@@ -94,96 +95,95 @@
 
     <main>
         <!-- Sección Principal (Hero) del Producto -->
-        <section class="bg-black text-white text-center py-20 md:py-32 relative overflow-hidden">
-            <!-- Patrón rúnico de fondo -->
+        <section class="bg-dark-bg text-white text-center py-24 md:py-40 relative overflow-hidden">
             <div class="hero-runic-bg"></div>
             <div class="container mx-auto px-6 relative z-10">
-                <h2 class="text-4xl md:text-6xl font-light brand-heading uppercase mb-4">Soluciones E-commerce</h2>
-                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">Creamos tiendas online potentes, seguras y diseñadas para vender.</p>
+                <h2 class="text-4xl md:text-6xl font-light brand-heading uppercase mb-6" data-aos="fade-down">E-commerce de Alto Impacto</h2>
+                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">Construimos experiencias de compra digitales que son potentes, seguras y diseñadas para la conversión.</p>
             </div>
         </section>
 
         <!-- Sección de Características Clave -->
-        <section id="caracteristicas" class="py-20 md:py-28 bg-gray-50 dark:bg-gray-900">
+        <section id="caracteristicas" class="py-24 md:py-32 bg-gray-100 dark:bg-dark-bg/50">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Tu Negocio Abierto 24/7</h3>
-                    <div class="w-24 h-px bg-black dark:bg-white mx-auto"></div>
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Plataformas de Venta que Convierten</h3>
+                    <div class="w-24 h-px bg-gray-800 dark:bg-gray-200 mx-auto"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Característica 1: Tiendas Robustas -->
-                    <div class="feature-card bg-white dark:bg-black dark:border-gray-800 p-6 rounded-md border border-gray-200 text-center">
-                        <div class="flex justify-center items-center h-16 w-16 bg-gray-100 dark:bg-gray-800 rounded-full mx-auto mb-5">
-                            <svg class="h-8 w-8 text-black dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <!-- Característica 1: Arquitectura Escalable -->
+                    <div class="feature-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex justify-center items-center h-16 w-16 bg-gray-200 dark:bg-gray-800 rounded-full mx-auto mb-5">
+                             <svg class="h-8 w-8 text-gray-800 dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-medium mb-2">Tiendas Robustas</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Construimos plataformas escalables que crecen con tu negocio, capaces de manejar catálogos extensos y alto tráfico.</p>
+                        <h4 class="text-xl font-medium mb-2">Arquitectura Escalable</h4>
+                        <p class="text-gray-600 dark:text-gray-400">Diseñamos plataformas que crecen con su negocio, capaces de gestionar catálogos extensos y picos de alto tráfico sin esfuerzo.</p>
                     </div>
 
-                    <!-- Característica 2: Pagos Seguros -->
-                    <div class="feature-card bg-white dark:bg-black dark:border-gray-800 p-6 rounded-md border border-gray-200 text-center">
-                        <div class="flex justify-center items-center h-16 w-16 bg-gray-100 dark:bg-gray-800 rounded-full mx-auto mb-5">
-                            <svg class="h-8 w-8 text-black dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <!-- Característica 2: Transacciones Seguras -->
+                    <div class="feature-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex justify-center items-center h-16 w-16 bg-gray-200 dark:bg-gray-800 rounded-full mx-auto mb-5">
+                            <svg class="h-8 w-8 text-gray-800 dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-medium mb-2">Pagos Seguros</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Integramos las principales pasarelas de pago del mercado, garantizando transacciones seguras para ti y tus clientes.</p>
+                        <h4 class="text-xl font-medium mb-2">Transacciones Seguras</h4>
+                        <p class="text-gray-600 dark:text-gray-400">Integramos las pasarelas de pago más fiables, garantizando la máxima seguridad y confianza para usted y sus clientes.</p>
                     </div>
 
-                    <!-- Característica 3: Experiencia Optimizada -->
-                    <div class="feature-card bg-white dark:bg-black dark:border-gray-800 p-6 rounded-md border border-gray-200 text-center">
-                        <div class="flex justify-center items-center h-16 w-16 bg-gray-100 dark:bg-gray-800 rounded-full mx-auto mb-5">
-                            <svg class="h-8 w-8 text-black dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <!-- Característica 3: Experiencia de Usuario Superior -->
+                    <div class="feature-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex justify-center items-center h-16 w-16 bg-gray-200 dark:bg-gray-800 rounded-full mx-auto mb-5">
+                            <svg class="h-8 w-8 text-gray-800 dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-medium mb-2">Experiencia de Compra</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Diseñamos un proceso de compra intuitivo y rápido, optimizado para la conversión en ordenadores y móviles.</p>
+                        <h4 class="text-xl font-medium mb-2">Experiencia Superior (UX)</h4>
+                        <p class="text-gray-600 dark:text-gray-400">Desarrollamos un flujo de compra intuitivo, rápido y sin fricciones, optimizado para maximizar la conversión en cualquier dispositivo.</p>
                     </div>
 
-                    <!-- Característica 4: Gestión Sencilla -->
-                    <div class="feature-card bg-white dark:bg-black dark:border-gray-800 p-6 rounded-md border border-gray-200 text-center">
-                        <div class="flex justify-center items-center h-16 w-16 bg-gray-100 dark:bg-gray-800 rounded-full mx-auto mb-5">
-                            <svg class="h-8 w-8 text-black dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <!-- Característica 4: Gestión Intuitiva -->
+                    <div class="feature-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center" data-aos="fade-up" data-aos-delay="400">
+                        <div class="flex justify-center items-center h-16 w-16 bg-gray-200 dark:bg-gray-800 rounded-full mx-auto mb-5">
+                            <svg class="h-8 w-8 text-gray-800 dark:text-white icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
                         </div>
-                        <h4 class="text-xl font-medium mb-2">Gestión Sencilla</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Te entregamos un panel de control para que puedas administrar productos, pedidos y clientes de forma autónoma y fácil.</p>
+                        <h4 class="text-xl font-medium mb-2">Gestión Intuitiva</h4>
+                        <p class="text-gray-600 dark:text-gray-400">Le entregamos un panel de control a medida para que pueda administrar productos, pedidos y clientes con total autonomía.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Sección de Proceso -->
-        <section id="proceso" class="py-20 md:py-28 bg-white dark:bg-black">
+        <section id="proceso" class="py-24 md:py-32 bg-light-bg dark:bg-dark-bg">
             <div class="container mx-auto px-6">
-                    <div class="text-center mb-16">
-                        <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestro Proceso</h3>
-                        <div class="w-24 h-px bg-black dark:bg-white mx-auto"></div>
+                <div class="text-center mb-20" data-aos="fade-up">
+                    <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestro Proceso Estratégico</h3>
+                    <div class="w-24 h-px bg-gray-800 dark:bg-gray-200 mx-auto"></div>
                 </div>
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
                     <!-- Paso 1 -->
-                    <div>
+                    <div data-aos="fade-up" data-aos-delay="100">
                         <div class="text-5xl font-light text-gray-300 dark:text-gray-700 mb-2">01</div>
-                        <h4 class="text-xl font-medium mb-2">Consulta y Estrategia</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Analizamos tu modelo de negocio y catálogo de productos para definir la plataforma y estrategia adecuadas.</p>
+                        <h4 class="text-xl font-medium mb-2">Inmersión y Estrategia</h4>
+                        <p class="text-gray-600 dark:text-gray-400">Analizamos su modelo de negocio y catálogo para definir la arquitectura tecnológica y la estrategia de conversión.</p>
                     </div>
                     <!-- Paso 2 -->
-                    <div>
+                    <div data-aos="fade-up" data-aos-delay="200">
                         <div class="text-5xl font-light text-gray-300 dark:text-gray-700 mb-2">02</div>
-                        <h4 class="text-xl font-medium mb-2">Diseño y Desarrollo</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Creamos una tienda online atractiva, funcional y segura, integrando todas las herramientas necesarias.</p>
+                        <h4 class="text-xl font-medium mb-2">Diseño y Construcción</h4>
+                        <p class="text-gray-600 dark:text-gray-400">Creamos una tienda online atractiva, veloz y segura, integrando todas las herramientas para una operación exitosa.</p>
                     </div>
                     <!-- Paso 3 -->
-                    <div>
+                    <div data-aos="fade-up" data-aos-delay="300">
                         <div class="text-5xl font-light text-gray-300 dark:text-gray-700 mb-2">03</div>
-                        <h4 class="text-xl font-medium mb-2">Lanzamiento y Soporte</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Publicamos tu tienda y te ofrecemos el soporte para que empieces a vender con confianza desde el primer día.</p>
+                        <h4 class="text-xl font-medium mb-2">Lanzamiento y Acompañamiento</h4>
+                        <p class="text-gray-600 dark:text-gray-400">Lanzamos su tienda y le ofrecemos soporte estratégico para que pueda empezar a vender con confianza desde el día uno.</p>
                     </div>
                 </div>
             </div>
@@ -191,21 +191,27 @@
 
     </main>
 
-    <!-- Pie de Página (igual al de la página principal) -->
-    <footer id="contacto" class="bg-black text-white py-16">
+    <!-- Pie de Página -->
+    <footer id="contacto" class="bg-dark-bg text-white py-20">
         <div class="container mx-auto px-6 text-center relative">
-            <h1 class="text-3xl tracking-widest mb-4 logo-font">Runik</h1>
-            <p class="text-gray-400 mb-6">¿Listo para llevar tu negocio al siguiente nivel?</p>
-            <a href="mailto:contacto@runik.com" class="bg-white text-black font-medium py-3 px-8 rounded-sm hover:bg-gray-200 transition duration-300 uppercase text-sm tracking-wider">Empezar a Vender</a>
-            <div class="mt-12 border-t border-gray-800 pt-8">
-                <p class="text-gray-500 text-sm">&copy; 2024 RUNIK. Todos los derechos reservados. <span class="ml-2 text-gray-700 inline-block align-middle">
-                    <svg class="h-4 w-4 inline-block align-middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 12L12 22L22 12Z M12 2L22 12M2 12L12 22" />
-                    </svg>
-                </span></p>
+            <h1 class="text-3xl tracking-widest mb-4 logo-font" data-aos="fade-down">Runik</h1>
+            <p class="text-gray-400 mb-8" data-aos="fade-up">¿Listo para construir su imperio digital?</p>
+            <a href="mailto:contacto@runik.com" class="bg-brand-gold text-dark-bg font-semibold py-3 px-10 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider" data-aos="fade-up" data-aos-delay="100">Comenzar Proyecto E-commerce</a>
+            <div class="mt-16 border-t border-gray-800 pt-8">
+                <p class="text-gray-500 text-sm">&copy; 2024 RUNIK. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
+    
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+    </script>
     
     <!-- Lógica para el botón de cambio de tema -->
     <script>
@@ -223,9 +229,7 @@
                 lightIcon.classList.add('hidden');
             }
         }
-
         updateIcons();
-
         themeToggleBtn.addEventListener('click', () => {
             htmlEl.classList.toggle('dark');
             const isDarkMode = htmlEl.classList.contains('dark');
@@ -236,4 +240,3 @@
 
 </body>
 </html>
-
