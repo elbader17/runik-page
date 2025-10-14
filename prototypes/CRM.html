@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es" class=""> <!-- La clase 'dark' se controla con JS -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CRM Interno para RUNIK. Gestión de clientes y proyectos.">
+    <title>RUNIK CRM | Gestión de Clientes</title>
+    <!-- Tailwind CSS -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Configuración de Tailwind para habilitar dark mode y colores de marca -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-gold': '#D4AF37',
+                        'dark-bg': '#121212',
+                        'light-bg': '#F9F9F9',
+                        'dark-card': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    
+    <!-- Script para evitar el "flash" del tema incorrecto -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Jost', sans-serif;
+        }
+        .logo-font {
+            font-family: 'Major Mono Display', monospace;
+        }
+        .brand-heading {
+            letter-spacing: 0.15em;
+        }
+        /* Estilos para el scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2a2a2a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+        /* Transición suave para modales y tarjetas */
+        .modal, .client-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .client-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .kanban-column {
+            height: calc(100vh - 200px); /* Ajustar altura para scroll */
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 antialiased transition-colors duration-500">
+
+    <!-- Encabezado Fijo -->
+    <header class="bg-dark-bg/80 dark:bg-dark-bg/80 backdrop-blur-sm text-white sticky top-0 z-40 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center p-5 px-6">
+            <h1 class="text-4xl tracking-widest logo-font">Runik CRM</h1>
+            <div class="flex items-center space-x-6">
+                <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
+                    <span class="sr-only">Toggle dark mode</span>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6">
+        <!-- Cabecera del CRM -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <h2 class="text-3xl font-light brand-heading uppercase mb-4 md:mb-0">Gestión de Clientes</h2>
+            <button id="add-client-btn" class="bg-brand-gold text-dark-bg font-semibold py-2 px-6 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider flex items-center space-x-2">
+                <i class="fas fa-plus"></i>
+                <span>Añadir Cliente</span>
+            </button>
+        </div>
+
+        <!-- Tablero Kanban -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Columna 1: Nuevos Leads -->
+            <div class="bg-gray-100/50 dark:bg-dark-card/30 rounded-lg p-4">
+                <h3 class="font-semibold text-lg mb-4 text-center tracking-wider border-b-2 border-gray-300 dark:border-gray-600 pb-2">NUEVO LEAD</h3>
+                <div id="col-lead" class="space-y-4 kanban-column pr-2">
+                    <!-- Las tarjetas de clientes se insertarán aquí -->
+                </div>
+            </div>
+            <!-- Columna 2: Contactados -->
+            <div class="bg-gray-100/50 dark:bg-dark-card/30 rounded-lg p-4">
+                <h3 class="font-semibold text-lg mb-4 text-center tracking-wider border-b-2 border-gray-300 dark:border-gray-600 pb-2">CONTACTADO</h3>
+                <div id="col-contacted" class="space-y-4 kanban-column pr-2">
+                    <!-- Las tarjetas de clientes se insertarán aquí -->
+                </div>
+            </div>
+            <!-- Columna 3: Propuesta -->
+            <div class="bg-gray-100/50 dark:bg-dark-card/30 rounded-lg p-4">
+                <h3 class="font-semibold text-lg mb-4 text-center tracking-wider border-b-2 border-gray-300 dark:border-gray-600 pb-2">PROPUESTA</h3>
+                <div id="col-proposal" class="space-y-4 kanban-column pr-2">
+                    <!-- Las tarjetas de clientes se insertarán aquí -->
+                </div>
+            </div>
+            <!-- Columna 4: Ganado -->
+            <div class="bg-gray-100/50 dark:bg-dark-card/30 rounded-lg p-4">
+                <h3 class="font-semibold text-lg mb-4 text-center tracking-wider border-b-2 border-brand-gold pb-2 text-brand-gold">GANADO</h3>
+                <div id="col-won" class="space-y-4 kanban-column pr-2">
+                    <!-- Las tarjetas de clientes se insertarán aquí -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para Añadir/Editar Cliente -->
+    <div id="client-modal" class="modal fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-light-bg dark:bg-dark-card rounded-lg shadow-2xl p-8 w-full max-w-lg relative transform transition-all opacity-0 -translate-y-10">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-brand-gold transition">
+                <i class="fas fa-times fa-lg"></i>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-light brand-heading uppercase mb-6">Nuevo Cliente</h3>
+            <form id="client-form">
+                <input type="hidden" id="client-id">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Nombre</label>
+                        <input type="text" id="name" required class="w-full bg-gray-100 dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-brand-gold focus:border-brand-gold transition">
+                    </div>
+                    <div>
+                        <label for="company" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Empresa</label>
+                        <input type="text" id="company" class="w-full bg-gray-100 dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-brand-gold focus:border-brand-gold transition">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Email</label>
+                        <input type="email" id="email" required class="w-full bg-gray-100 dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-brand-gold focus:border-brand-gold transition">
+                    </div>
+                     <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Teléfono</label>
+                        <input type="tel" id="phone" class="w-full bg-gray-100 dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-brand-gold focus:border-brand-gold transition">
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label for="status" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Estado</label>
+                    <select id="status" class="w-full bg-gray-100 dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-brand-gold focus:border-brand-gold transition">
+                        <option value="lead">Nuevo Lead</option>
+                        <option value="contacted">Contactado</option>
+                        <option value="proposal">Propuesta</option>
+                        <option value="won">Ganado</option>
+                    </select>
+                </div>
+                <div class="mt-4">
+                    <label for="notes" class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Notas</label>
+                    <textarea id="notes" rows="4" class="w-full bg-gray-100 dark:bg-dark-bg border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:ring-brand-gold focus:border-brand-gold transition"></textarea>
+                </div>
+                <div class="flex justify-between items-center mt-6">
+                    <button id="delete-client-btn" type="button" class="text-red-500 hover:text-red-400 font-semibold transition hidden">
+                        <i class="fas fa-trash-alt mr-2"></i>Eliminar
+                    </button>
+                    <button type="submit" class="bg-brand-gold text-dark-bg font-semibold py-2 px-8 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Lógica del Tema Oscuro ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const htmlEl = document.documentElement;
+
+            function updateIcons() {
+                if (htmlEl.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    darkIcon.classList.remove('hidden');
+                    lightIcon.classList.add('hidden');
+                }
+            }
+            updateIcons();
+            themeToggleBtn.addEventListener('click', () => {
+                htmlEl.classList.toggle('dark');
+                localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
+                updateIcons();
+            });
+
+            // --- Lógica del CRM ---
+            const addClientBtn = document.getElementById('add-client-btn');
+            const clientModal = document.getElementById('client-modal');
+            const modalContent = clientModal.querySelector('div');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const clientForm = document.getElementById('client-form');
+            const modalTitle = document.getElementById('modal-title');
+            const deleteClientBtn = document.getElementById('delete-client-btn');
+            
+            // Columnas del Kanban
+            const columns = {
+                lead: document.getElementById('col-lead'),
+                contacted: document.getElementById('col-contacted'),
+                proposal: document.getElementById('col-proposal'),
+                won: document.getElementById('col-won'),
+            };
+
+            // Datos de clientes (se guardarán en localStorage)
+            let clients = JSON.parse(localStorage.getItem('runik-crm-clients')) || [
+                { id: 1, name: 'Quantum Dynamics', company: 'Tech Corp', email: 'contact@quantum.com', phone: '123-456-7890', status: 'proposal', notes: 'Interesados en automatización de procesos. Enviar propuesta detallada.' },
+                { id: 2, name: 'Nexus Solutions', company: 'Innovate LLC', email: 'info@nexus.io', phone: '987-654-3210', status: 'lead', notes: 'Nuevo lead de la campaña de LinkedIn.' },
+                { id: 3, name: 'Apex Industries', company: 'Apex Group', email: 'ceo@apex.com', phone: '555-123-4567', status: 'won', notes: 'Proyecto de desarrollo de plataforma interna cerrado. Inicio en Q3.' },
+                { id: 4, name: 'Stellar Ventures', company: 'Finance Inc.', email: 'projects@stellar.com', phone: '555-987-6543', status: 'contacted', notes: 'Primera llamada realizada. Mostraron interés en análisis de datos.' }
+            ];
+
+            const saveClients = () => {
+                localStorage.setItem('runik-crm-clients', JSON.stringify(clients));
+            };
+
+            const renderClients = () => {
+                // Limpiar columnas
+                Object.values(columns).forEach(col => col.innerHTML = '');
+
+                // Renderizar tarjetas
+                clients.forEach(client => {
+                    const clientCard = document.createElement('div');
+                    clientCard.className = 'client-card bg-light-bg dark:bg-dark-bg p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer';
+                    clientCard.dataset.id = client.id;
+                    
+                    clientCard.innerHTML = `
+                        <h4 class="font-bold text-lg text-gray-800 dark:text-gray-100">${client.name}</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">${client.company}</p>
+                        <div class="flex items-center text-xs text-brand-gold">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>${client.email}</span>
+                        </div>
+                    `;
+                    
+                    clientCard.addEventListener('click', () => openModal(client.id));
+                    
+                    if (columns[client.status]) {
+                        columns[client.status].appendChild(clientCard);
+                    }
+                });
+            };
+
+            const openModal = (id = null) => {
+                clientForm.reset();
+                if (id) {
+                    // Modo Edición
+                    const client = clients.find(c => c.id === id);
+                    if (!client) return;
+                    
+                    modalTitle.textContent = 'Editar Cliente';
+                    document.getElementById('client-id').value = client.id;
+                    document.getElementById('name').value = client.name;
+                    document.getElementById('company').value = client.company;
+                    document.getElementById('email').value = client.email;
+                    document.getElementById('phone').value = client.phone;
+                    document.getElementById('status').value = client.status;
+                    document.getElementById('notes').value = client.notes;
+                    deleteClientBtn.classList.remove('hidden');
+                } else {
+                    // Modo Creación
+                    modalTitle.textContent = 'Nuevo Cliente';
+                    document.getElementById('client-id').value = '';
+                    deleteClientBtn.classList.add('hidden');
+                }
+                clientModal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.classList.remove('opacity-0', '-translate-y-10');
+                }, 10);
+            };
+
+            const closeModal = () => {
+                 modalContent.classList.add('opacity-0', '-translate-y-10');
+                 setTimeout(() => {
+                    clientModal.classList.add('hidden');
+                }, 300);
+            };
+
+            // Event Listeners
+            addClientBtn.addEventListener('click', () => openModal());
+            closeModalBtn.addEventListener('click', closeModal);
+            clientModal.addEventListener('click', (e) => {
+                if (e.target === clientModal) closeModal();
+            });
+
+            clientForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('client-id').value;
+                const clientData = {
+                    name: document.getElementById('name').value,
+                    company: document.getElementById('company').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    status: document.getElementById('status').value,
+                    notes: document.getElementById('notes').value
+                };
+
+                if (id) {
+                    // Actualizar cliente
+                    const index = clients.findIndex(c => c.id == id);
+                    if (index > -1) {
+                        clients[index] = { ...clients[index], ...clientData };
+                    }
+                } else {
+                    // Crear nuevo cliente
+                    clientData.id = Date.now(); // ID único simple
+                    clients.push(clientData);
+                }
+                
+                saveClients();
+                renderClients();
+                closeModal();
+            });
+
+            deleteClientBtn.addEventListener('click', () => {
+                const id = document.getElementById('client-id').value;
+                if(confirm('¿Estás seguro de que quieres eliminar este cliente?')) {
+                    clients = clients.filter(c => c.id != id);
+                    saveClients();
+                    renderClients();
+                    closeModal();
+                }
+            });
+
+            // Renderizado inicial
+            renderClients();
+        });
+    </script>
+</body>
+</html>
