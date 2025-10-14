@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RUNIK: Sistema de Gestión de Stock.">
+    <title>RUNIK | Gestión de Stock</title>
+    <!-- Tailwind CSS -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Configuración de Tailwind para habilitar dark mode por clase -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-gold': '#D4AF37', // Color de acento premium
+                        'dark-bg': '#121212', // Gris oscuro en lugar de negro puro
+                        'light-bg': '#F9F9F9', // Blanco roto en lugar de blanco puro
+                        'dark-card': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <!-- Script para evitar el "flash" del tema incorrecto al cargar -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Jost', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .brand-heading {
+            letter-spacing: 0.15em;
+        }
+        .logo-font {
+            font-family: 'Major Mono Display', monospace;
+        }
+        /* Estilos mejorados para los campos de formulario */
+        /* .form-input se aplicará directamente como clases de Tailwind */
+
+        /* Se eliminaron las reglas de @apply para los botones, se aplicarán directamente en el HTML */
+    </style>
+</head>
+<body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 antialiased transition-colors duration-500 min-h-screen flex flex-col">
+
+    <!-- Encabezado -->
+    <header class="bg-dark-bg/80 dark:bg-dark-bg/80 backdrop-blur-sm text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center p-5 px-6">
+            <h1 class="text-4xl tracking-widest logo-font">Runik</h1>
+            <div class="flex items-center space-x-6 md:space-x-10">
+                 <nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
+                     <a href="#inventario" class="hover:text-brand-gold transition-colors duration-300">Inventario</a>
+                     <a href="#agregar" class="hover:text-brand-gold transition-colors duration-300">Agregar Producto</a>
+                 </nav>
+                <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
+                    <span class="sr-only">Toggle dark mode</span>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Sección de gestión de stock -->
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                
+                <!-- Formulario para agregar/editar productos -->
+                <div id="agregar" class="bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 mb-16" data-aos="fade-up">
+                    <h3 id="form-title" class="text-2xl md:text-3xl font-light brand-heading uppercase mb-6">Agregar Nuevo Producto</h3>
+                    <form id="product-form" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-end">
+                        <input type="hidden" id="product-id">
+                        <div>
+                            <label for="product-name" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Nombre</label>
+                            <input type="text" id="product-name" name="product-name" class="w-full bg-white dark:bg-black border-2 border-gray-300 dark:border-gray-700 py-2 px-3 rounded-md text-gray-900 dark:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-transparent transition-all duration-300" required>
+                        </div>
+                        <div>
+                            <label for="product-sku" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">SKU</label>
+                            <input type="text" id="product-sku" name="product-sku" class="w-full bg-white dark:bg-black border-2 border-gray-300 dark:border-gray-700 py-2 px-3 rounded-md text-gray-900 dark:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-transparent transition-all duration-300" required>
+                        </div>
+                        <div>
+                            <label for="product-quantity" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Cantidad</label>
+                            <input type="number" id="product-quantity" name="product-quantity" class="w-full bg-white dark:bg-black border-2 border-gray-300 dark:border-gray-700 py-2 px-3 rounded-md text-gray-900 dark:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-transparent transition-all duration-300" required min="0">
+                        </div>
+                        <div>
+                            <label for="product-price" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Precio (ARS)</label>
+                            <input type="number" id="product-price" name="product-price" class="w-full bg-white dark:bg-black border-2 border-gray-300 dark:border-gray-700 py-2 px-3 rounded-md text-gray-900 dark:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-transparent transition-all duration-300" required min="0" step="0.01">
+                        </div>
+                        <div class="flex space-x-2">
+                             <button type="submit" class="w-full bg-brand-gold text-dark-bg font-semibold py-2 px-6 rounded-md hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider">Guardar</button>
+                             <button type="button" id="cancel-edit-btn" class="w-full bg-gray-500 text-white font-semibold py-2 px-6 rounded-md hover:bg-gray-600 transition duration-300 uppercase text-sm tracking-wider hidden">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabla de inventario -->
+                <div id="inventario" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-12">
+                        <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Inventario Actual</h3>
+                        <div class="w-24 h-px bg-gray-800 dark:bg-gray-200 mx-auto"></div>
+                    </div>
+
+                    <div class="overflow-x-auto bg-light-bg dark:bg-dark-card rounded-lg border border-gray-200 dark:border-gray-800">
+                        <table class="w-full text-left">
+                            <thead class="border-b border-gray-200 dark:border-gray-700 uppercase text-sm text-gray-500 dark:text-gray-400">
+                                <tr>
+                                    <th class="px-6 py-4 font-medium">Nombre</th>
+                                    <th class="px-6 py-4 font-medium">SKU</th>
+                                    <th class="px-6 py-4 font-medium">Cantidad</th>
+                                    <th class="px-6 py-4 font-medium">Precio</th>
+                                    <th class="px-6 py-4 font-medium text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-table-body">
+                                <!-- Las filas de productos se insertarán aquí -->
+                            </tbody>
+                        </table>
+                         <div id="empty-state" class="hidden text-center py-16 px-6">
+                            <p class="text-gray-500 dark:text-gray-400">No hay productos en el inventario. Agregue uno para comenzar.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Venta -->
+    <div id="sell-modal-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 hidden transition-opacity duration-300">
+        <div id="sell-modal" class="bg-light-bg dark:bg-dark-card rounded-lg shadow-xl w-full max-w-md p-6 transform transition-transform duration-300 scale-95">
+            <!-- Header -->
+            <div class="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
+                <h4 class="text-xl font-semibold brand-heading uppercase">Vender Producto</h4>
+                <button id="close-sell-modal-btn" class="text-2xl text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition">&times;</button>
+            </div>
+            <!-- Body -->
+            <div class="py-6">
+                <p class="mb-2 text-lg">Producto: <strong id="modal-product-name" class="text-brand-gold font-semibold"></strong></p>
+                <p class="mb-5 text-sm text-gray-500 dark:text-gray-400">Stock Actual: <strong id="modal-product-stock"></strong> unidades</p>
+                <div>
+                    <label for="sell-quantity" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Cantidad a Vender:</label>
+                    <input type="number" id="sell-quantity" name="sell-quantity" class="w-full bg-white dark:bg-black border-2 border-gray-300 dark:border-gray-700 py-2 px-3 rounded-md text-gray-900 dark:text-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/50 focus:border-transparent transition-all duration-300 text-lg" min="1">
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button id="cancel-sell-btn" class="bg-gray-500 text-white font-semibold py-2 px-6 rounded-md hover:bg-gray-600 transition duration-300 uppercase text-sm tracking-wider">Cancelar</button>
+                <button id="confirm-sell-btn" class="bg-brand-gold text-dark-bg font-semibold py-2 px-6 rounded-md hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider">Confirmar Venta</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Pie de Página -->
+    <footer class="bg-dark-bg text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+             <div class="border-t border-gray-800 pt-8">
+                 <p class="text-gray-400 text-sm">&copy; 2025 RUNIK. Sistema de Stock.</p>
+             </div>
+        </div>
+    </footer>
+    
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+    </script>
+    
+    <!-- Lógica para el botón de cambio de tema -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const htmlEl = document.documentElement;
+
+        function updateIcons() {
+            if (htmlEl.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        }
+        updateIcons();
+        themeToggleBtn.addEventListener('click', () => {
+            htmlEl.classList.toggle('dark');
+            const isDarkMode = htmlEl.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            updateIcons();
+        });
+    </script>
+
+    <!-- Lógica del sistema de Stock -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Formulario y tabla
+            const productForm = document.getElementById('product-form');
+            const formTitle = document.getElementById('form-title');
+            const tableBody = document.getElementById('inventory-table-body');
+            const productIdInput = document.getElementById('product-id');
+            const productNameInput = document.getElementById('product-name');
+            const productSkuInput = document.getElementById('product-sku');
+            const productQuantityInput = document.getElementById('product-quantity');
+            const productPriceInput = document.getElementById('product-price');
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
+            const emptyState = document.getElementById('empty-state');
+
+            // Modal de venta
+            const sellModalOverlay = document.getElementById('sell-modal-overlay');
+            const sellModal = document.getElementById('sell-modal');
+            const modalProductName = document.getElementById('modal-product-name');
+            const modalProductStock = document.getElementById('modal-product-stock');
+            const sellQuantityInput = document.getElementById('sell-quantity');
+            const confirmSellBtn = document.getElementById('confirm-sell-btn');
+            const cancelSellBtn = document.getElementById('cancel-sell-btn');
+            const closeSellModalBtn = document.getElementById('close-sell-modal-btn');
+
+
+            let products = JSON.parse(localStorage.getItem('stockProducts')) || [];
+
+            const renderTable = () => {
+                tableBody.innerHTML = '';
+                if (products.length === 0) {
+                    emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                    products.forEach(product => {
+                        const row = document.createElement('tr');
+                        row.className = 'border-b border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-dark-bg transition-colors duration-200';
+                        const isOutOfStock = product.quantity === 0;
+                        row.innerHTML = `
+                            <td class="px-6 py-4">${product.name}</td>
+                            <td class="px-6 py-4 font-mono text-gray-500">${product.sku}</td>
+                            <td class="px-6 py-4 font-bold ${isOutOfStock ? 'text-red-500' : ''}">${product.quantity}</td>
+                            <td class="px-6 py-4">$${parseFloat(product.price).toFixed(2)}</td>
+                            <td class="px-6 py-4 text-center">
+                                <div class="flex justify-center items-center space-x-2">
+                                    <button class="w-full font-semibold py-2 px-4 rounded-md transition duration-300 uppercase text-xs tracking-wider disabled:opacity-50 disabled:cursor-not-allowed border-2 border-brand-gold bg-white text-brand-gold hover:bg-yellow-50 dark:bg-black dark:text-brand-gold dark:hover:bg-gray-900" onclick="openSellModal('${product.id}')" ${isOutOfStock ? 'disabled' : ''}>Vender</button>
+                                    <button class="w-full font-semibold py-2 px-4 rounded-md transition duration-300 uppercase text-xs tracking-wider disabled:opacity-50 disabled:cursor-not-allowed bg-yellow-500 text-dark-bg hover:bg-yellow-600" onclick="editProduct('${product.id}')">Editar</button>
+                                    <button class="w-full font-semibold py-2 px-4 rounded-md transition duration-300 uppercase text-xs tracking-wider disabled:opacity-50 disabled:cursor-not-allowed border-2 border-brand-gold bg-white text-brand-gold hover:bg-yellow-50 dark:bg-black dark:text-brand-gold dark:hover:bg-gray-900" onclick="deleteProduct('${product.id}')">Eliminar</button>
+                                </div>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                }
+            };
+
+            const saveProducts = () => {
+                localStorage.setItem('stockProducts', JSON.stringify(products));
+            };
+
+            const resetForm = () => {
+                productForm.reset();
+                productIdInput.value = '';
+                formTitle.textContent = 'Agregar Nuevo Producto';
+                cancelEditBtn.classList.add('hidden');
+            }
+
+            productForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = productIdInput.value;
+                const newProduct = {
+                    id: id || Date.now().toString(),
+                    name: productNameInput.value,
+                    sku: productSkuInput.value,
+                    quantity: parseInt(productQuantityInput.value),
+                    price: parseFloat(productPriceInput.value)
+                };
+
+                if (id) {
+                    products = products.map(p => p.id === id ? newProduct : p);
+                } else {
+                    products.push(newProduct);
+                }
+
+                saveProducts();
+                renderTable();
+                resetForm();
+            });
+
+            cancelEditBtn.addEventListener('click', resetForm);
+
+            window.editProduct = (id) => {
+                const product = products.find(p => p.id === id);
+                if (product) {
+                    productIdInput.value = product.id;
+                    productNameInput.value = product.name;
+                    productSkuInput.value = product.sku;
+                    productQuantityInput.value = product.quantity;
+                    productPriceInput.value = product.price;
+                    formTitle.textContent = 'Editando Producto';
+                    cancelEditBtn.classList.remove('hidden');
+                    window.location.href = '#agregar';
+                }
+            };
+
+            window.deleteProduct = (id) => {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                renderTable();
+            };
+            
+            // --- Lógica del Modal de Venta ---
+
+            window.openSellModal = (id) => {
+                const product = products.find(p => p.id === id);
+                if (!product) return;
+
+                modalProductName.textContent = product.name;
+                modalProductStock.textContent = product.quantity;
+                sellQuantityInput.value = 1;
+                sellQuantityInput.max = product.quantity;
+                confirmSellBtn.dataset.productId = id;
+
+                sellModalOverlay.classList.remove('hidden');
+                setTimeout(() => {
+                    sellModal.classList.remove('scale-95');
+                }, 10);
+            };
+
+            const closeSellModal = () => {
+                 sellModal.classList.add('scale-95');
+                setTimeout(() => {
+                    sellModalOverlay.classList.add('hidden');
+                }, 300);
+            };
+
+            const handleConfirmSale = () => {
+                const id = confirmSellBtn.dataset.productId;
+                const quantityToSell = parseInt(sellQuantityInput.value);
+                const product = products.find(p => p.id === id);
+
+                if (product && quantityToSell > 0 && quantityToSell <= product.quantity) {
+                    product.quantity -= quantityToSell;
+                    saveProducts();
+                    renderTable();
+                    closeSellModal();
+                } else {
+                    // Simple feedback for invalid quantity
+                    sellQuantityInput.classList.add('border-red-500');
+                    setTimeout(() => {
+                        sellQuantityInput.classList.remove('border-red-500');
+                    }, 1500);
+                }
+            };
+            
+            // Event Listeners para el Modal
+            confirmSellBtn.addEventListener('click', handleConfirmSale);
+            cancelSellBtn.addEventListener('click', closeSellModal);
+            closeSellModalBtn.addEventListener('click', closeSellModal);
+            sellModalOverlay.addEventListener('click', (e) => {
+                if (e.target === sellModalOverlay) {
+                    closeSellModal();
+                }
+            });
+
+            // Render inicial
+            renderTable();
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
