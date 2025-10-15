@@ -248,439 +248,775 @@
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Lógica del Dark Mode y AOS init ---
-            // ... (código existente sin cambios)
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const darkIcon = document.getElementById('theme-toggle-dark-icon');
-            const lightIcon = document.getElementById('theme-toggle-light-icon');
-            const htmlEl = document.documentElement;
-            function updateIcons() { if (htmlEl.classList.contains('dark')) { darkIcon.classList.add('hidden'); lightIcon.classList.remove('hidden'); } else { darkIcon.classList.remove('hidden'); lightIcon.classList.add('hidden'); } }
+        // --- Lógica del Dark Mode y AOS init ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const htmlEl = document.documentElement;
+
+        function updateIcons() {
+            if (htmlEl.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        }
+        updateIcons();
+        themeToggleBtn.addEventListener('click', () => {
+            htmlEl.classList.toggle('dark');
+            localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
             updateIcons();
-            themeToggleBtn.addEventListener('click', () => { htmlEl.classList.toggle('dark'); localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light'); updateIcons(); });
-            AOS.init({ duration: 600, once: true, offset: 20 });
+        });
+        AOS.init({ duration: 600, once: true, offset: 20 });
 
+        // --- LÓGICA DEL GESTOR DE TAREAS ---
+        const API_URL = 'http://localhost:8081'; // Backend API URL
 
-            // --- LÓGICA DEL GESTOR DE TAREAS ---
-            let professionals = [ { id: 1, name: 'Dr. Elara Vance', color: 'bg-blue-200', textColor: 'text-blue-800', borderColor: 'border-blue-400', visible: true }, { id: 2, name: 'Kaelen Corr', color: 'bg-green-200', textColor: 'text-green-800', borderColor: 'border-green-400', visible: true } ];
-            let tasks = [ { id: `task-1`, title: 'Consulta Inicial', professionalId: 1, duration: 30, startTime: 540, date: new Date().toISOString().split('T')[0] } ];
-            let currentDate = new Date();
-            let currentView = 'day'; // 'day', 'week', 'month'
-            let draggedTaskId = null;
-            
-            // --- DOM Elements ---
-            const taskModal = document.getElementById('task-modal');
-            const addTaskBtn = document.getElementById('add-task-btn');
-            const cancelTaskBtn = document.getElementById('cancel-task-btn');
-            const taskForm = document.getElementById('task-form');
-            const unassignedContainer = document.getElementById('unassigned-tasks');
-            const timelineContainer = document.getElementById('timeline-container');
-            const currentDateEl = document.getElementById('current-date');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
-            const professionalForm = document.getElementById('add-professional-form');
-            const professionalsListEl = document.getElementById('professionals-list');
-            const professionalSelect = document.getElementById('task-professional');
-            const notificationEl = document.getElementById('notification');
-            const notificationMessageEl = document.getElementById('notification-message');
-            const professionalFilterEl = document.getElementById('professional-filter');
-            const viewDayBtn = document.getElementById('view-day-btn');
-            const viewWeekBtn = document.getElementById('view-week-btn');
-            const viewMonthBtn = document.getElementById('view-month-btn');
+        let professionals = []; // Will be populated from backend or managed client-side if no backend endpoint
+        let tasks = []; // Will be populated from backend
+        let currentDate = new Date();
+        let currentView = 'day'; // 'day', 'week', 'month'
+        let draggedTaskId = null;
 
-            const PIXELS_PER_MINUTE = 3;
-            const START_HOUR = 8;
-            const END_HOUR = 21;
-            const MAX_VISIBLE_PROFESSIONALS = 5;
+        // --- DOM Elements ---
+        const taskModal = document.getElementById('task-modal');
+        const addTaskBtn = document.getElementById('add-task-btn');
+        const cancelTaskBtn = document.getElementById('cancel-task-btn');
+        const taskForm = document.getElementById('task-form');
+        const unassignedContainer = document.getElementById('unassigned-tasks');
+        const timelineContainer = document.getElementById('timeline-container');
+        const currentDateEl = document.getElementById('current-date');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const professionalForm = document.getElementById('add-professional-form');
+        const professionalsListEl = document.getElementById('professionals-list');
+        const professionalSelect = document.getElementById('task-professional');
+        const notificationEl = document.getElementById('notification');
+        const notificationMessageEl = document.getElementById('notification-message');
+        const professionalFilterEl = document.getElementById('professional-filter');
+        const viewDayBtn = document.getElementById('view-day-btn');
+        const viewWeekBtn = document.getElementById('view-week-btn');
+        const viewMonthBtn = document.getElementById('view-month-btn');
 
-            // --- MANEJO DE NOTIFICACIONES ---
-            function showNotification(message, isError = true) {
-                notificationMessageEl.textContent = message;
-                notificationEl.classList.toggle('bg-red-500', isError);
-                notificationEl.classList.toggle('bg-green-500', !isError);
-                notificationEl.classList.remove('transform', 'translate-x-[120%]', 'opacity-0');
-                setTimeout(() => {
-                    notificationEl.classList.add('transform', 'translate-x-[120%]', 'opacity-0');
-                }, 3000);
-            }
+        const PIXELS_PER_MINUTE = 3;
+        const START_HOUR = 8;
+        const END_HOUR = 21;
+        const MAX_VISIBLE_PROFESSIONALS = 5;
 
-            // --- MANEJO DE PROFESIONALES Y FILTROS ---
-            function renderProfessionals() {
-                // ... (código existente, sin cambios)
-                 professionalsListEl.innerHTML = '';
-                professionalSelect.innerHTML = '<option value="" disabled selected>Seleccione...</option>';
-                if (professionals.length === 0) { professionalsListEl.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400">Añada un profesional.</p>`; }
-                professionals.forEach(prof => {
-                    const profEl = document.createElement('div');
-                    profEl.className = 'professional-item flex justify-between items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md';
-                    profEl.innerHTML = `<span class="text-sm font-medium">${prof.name}</span><button class="delete-btn text-red-500 hover:text-red-700" data-id="${prof.id}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg></button>`;
-                    profEl.querySelector('.delete-btn').addEventListener('click', () => deleteProfessional(prof.id));
-                    professionalsListEl.appendChild(profEl);
-                    const optionEl = document.createElement('option');
-                    optionEl.value = prof.id; optionEl.textContent = prof.name;
-                    professionalSelect.appendChild(optionEl);
-                });
-            }
+        // --- Helper Functions ---
+        function formatTime(totalMinutes) {
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        }
 
-            function renderProfessionalFilters() {
-                professionalFilterEl.innerHTML = '';
-                professionals.forEach(prof => {
-                    const filterItem = document.createElement('div');
-                    filterItem.className = 'flex items-center';
-                    filterItem.innerHTML = `
-                        <input id="filter-${prof.id}" type="checkbox" ${prof.visible ? 'checked' : ''} class="w-4 h-4 text-brand-gold bg-gray-100 border-gray-300 rounded focus:ring-brand-gold dark:focus:ring-yellow-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="filter-${prof.id}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">${prof.name}</label>
-                    `;
-                    filterItem.querySelector('input').addEventListener('change', (e) => {
-                        const visibleCount = professionals.filter(p => p.visible).length;
-                        if (e.target.checked && visibleCount >= MAX_VISIBLE_PROFESSIONALS) {
-                            e.target.checked = false;
-                            showNotification(`Solo se pueden mostrar ${MAX_VISIBLE_PROFESSIONALS} profesionales a la vez.`);
-                            return;
-                        }
-                        prof.visible = e.target.checked;
-                        renderAll();
-                    });
-                    professionalFilterEl.appendChild(filterItem);
-                });
-            }
+        function timeToMinutes(timeStr) { // e.g., "09:30" -> 570
+            if (!timeStr) return null;
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
 
-            professionalForm.addEventListener('submit', (e) => {
-                 e.preventDefault();
-                const input = document.getElementById('professional-name');
-                const name = input.value.trim();
-                if (name && !professionals.some(p => p.name === name)) {
-                    const colors = [ { color: 'bg-purple-200', textColor: 'text-purple-800', borderColor: 'border-purple-400' }, { color: 'bg-yellow-200', textColor: 'text-yellow-800', borderColor: 'border-yellow-400' }, { color: 'bg-pink-200', textColor: 'text-pink-800', borderColor: 'border-pink-400' }, { color: 'bg-indigo-200', textColor: 'text-indigo-800', borderColor: 'border-indigo-400' } ];
-                    professionals.push({ id: Date.now(), name, ...colors[professionals.length % colors.length], visible: true });
-                    input.value = '';
-                    renderAll();
+        function minutesToTime(totalMinutes) { // e.g., 570 -> "09:30"
+            if (totalMinutes === null || totalMinutes === undefined) return null;
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        }
+
+        // --- API Interaction ---
+        async function fetchAppointments() {
+            try {
+                const response = await fetch(`${API_URL}/appointments`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-            });
-            
-            function deleteProfessional(id) {
-                professionals = professionals.filter(p => p.id !== id);
-                tasks = tasks.map(t => { if (t.professionalId === id) { t.professionalId = null; t.startTime = null; t.date = null; } return t; });
-                renderAll();
-            }
-
-            // --- MANEJO DE TAREAS Y MODAL ---
-            // ... (código existente sin cambios)
-            const openModal = () => { taskModal.classList.remove('hidden'); setTimeout(() => { taskModal.classList.remove('opacity-0'); taskModal.querySelector('.modal-content').classList.remove('scale-95'); }, 10); };
-            const closeModal = () => { taskModal.classList.add('opacity-0'); taskModal.querySelector('.modal-content').classList.add('scale-95'); setTimeout(() => { taskModal.classList.add('hidden'); taskForm.reset(); }, 300); };
-            addTaskBtn.addEventListener('click', openModal);
-            cancelTaskBtn.addEventListener('click', closeModal);
-            taskModal.addEventListener('click', (e) => e.target === taskModal && closeModal());
-
-             taskForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const title = document.getElementById('task-title').value;
-                const professionalId = parseInt(document.getElementById('task-professional').value);
-                const duration = parseInt(document.getElementById('task-duration').value);
-                const time = document.getElementById('task-time').value;
-                const date = currentDate.toISOString().split('T')[0];
-
-                let startTime = null;
-                if (time) {
-                    const [hours, minutes] = time.split(':').map(Number);
-                    startTime = hours * 60 + minutes;
-                    // Chequeo de colisión al crear
-                    if (checkCollision({ id: 'new', professionalId, duration, startTime, date })) {
-                        showNotification('Horario ocupado para este profesional.');
-                        return;
-                    }
-                }
-                tasks.push({ id: `task-${Date.now()}`, title, professionalId, duration, startTime, date: startTime ? date : null });
-                renderAll();
-                closeModal();
-            });
-
-            // --- LÓGICA DE NAVEGACIÓN Y VISTAS ---
-            function updateViewButtons() {
-                document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active-view-btn'));
-                if (currentView === 'day') viewDayBtn.classList.add('active-view-btn');
-                else if (currentView === 'week') viewWeekBtn.classList.add('active-view-btn');
-                else if (currentView === 'month') viewMonthBtn.classList.add('active-view-btn');
-            }
-
-            viewDayBtn.addEventListener('click', () => { currentView = 'day'; renderAll(); });
-            viewWeekBtn.addEventListener('click', () => { currentView = 'week'; renderAll(); });
-            viewMonthBtn.addEventListener('click', () => { currentView = 'month'; renderAll(); });
-
-            prevBtn.addEventListener('click', () => {
-                if (currentView === 'day') currentDate.setDate(currentDate.getDate() - 1);
-                else if (currentView === 'week') currentDate.setDate(currentDate.getDate() - 7);
-                else if (currentView === 'month') currentDate.setMonth(currentDate.getMonth() - 1);
-                renderAll();
-            });
-
-            nextBtn.addEventListener('click', () => {
-                if (currentView === 'day') currentDate.setDate(currentDate.getDate() + 1);
-                else if (currentView === 'week') currentDate.setDate(currentDate.getDate() + 7);
-                else if (currentView === 'month') currentDate.setMonth(currentDate.getMonth() + 1);
-                renderAll();
-            });
-
-            // --- RENDERIZADO PRINCIPAL ---
-            function renderUnassignedTasks() {
-                unassignedContainer.innerHTML = '';
-                tasks.filter(t => t.startTime === null).forEach(task => unassignedContainer.appendChild(createTaskElement(task, { isDraggable: true })));
-            }
-
-            function createTaskElement(task, options = {}) {
-                const { isDraggable = false } = options;
-                const prof = professionals.find(p => p.id === task.professionalId);
-                const taskEl = document.createElement('div');
-                taskEl.id = task.id;
-                taskEl.className = `task-card relative p-3 rounded-md border text-left ${prof ? `${prof.color} ${prof.textColor} ${prof.borderColor}` : 'bg-gray-200 text-gray-800 border-gray-400'}`;
-                taskEl.draggable = isDraggable;
-
-                let timeInfo = `<p class="text-xs mt-1 font-medium">${task.duration} min</p>`;
-                if (task.startTime !== null) {
-                    const formatTime = (totalMinutes) => `${String(Math.floor(totalMinutes / 60)).padStart(2, '0')}:${String(totalMinutes % 60).padStart(2, '0')}`;
-                    timeInfo = `<p class="text-xs mt-1 font-bold">${formatTime(task.startTime)} - ${formatTime(task.startTime + task.duration)}</p>`;
-                }
-                
-                taskEl.innerHTML = `<p class="font-semibold text-sm">${task.title}</p><p class="text-xs mt-1">${prof ? prof.name : 'Sin asignar'}</p>${timeInfo}<button class="delete-btn absolute top-1 right-1 text-red-500 hover:text-red-700" data-id="${task.id}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg></button>`;
-                taskEl.querySelector('.delete-btn').addEventListener('click', (e) => { e.stopPropagation(); deleteTask(task.id); });
-                return taskEl;
-            }
-
-            function deleteTask(id) { tasks = tasks.filter(t => t.id !== id); renderAll(); }
-
-            function renderDate() {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                if (currentView === 'day') {
-                    currentDateEl.textContent = currentDate.toLocaleDateString('es-ES', { weekday: 'long', ...options });
-                } else if (currentView === 'week') {
-                    const startOfWeek = new Date(currentDate);
-                    startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
-                    const endOfWeek = new Date(startOfWeek);
-                    endOfWeek.setDate(startOfWeek.getDate() + 6);
-                    currentDateEl.textContent = `${startOfWeek.toLocaleDateString('es-ES', {day:'numeric', month:'long'})} - ${endOfWeek.toLocaleDateString('es-ES', {day:'numeric', month:'long', year:'numeric'})}`;
-                } else if (currentView === 'month') {
-                    currentDateEl.textContent = currentDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
-                }
-            }
-            
-            // --- RENDERIZADO DE VISTAS ---
-            function renderDayView() {
-                const visibleProfessionals = professionals.filter(p => p.visible);
-                timelineContainer.innerHTML = '';
-                if(visibleProfessionals.length === 0) { timelineContainer.innerHTML = `<p class="text-center text-gray-500">Seleccione un profesional para ver la agenda.</p>`; return; }
-
-                const timelineGrid = document.createElement('div');
-                timelineGrid.className = 'grid';
-                timelineGrid.style.gridTemplateColumns = `60px repeat(${visibleProfessionals.length}, 1fr)`;
-                timelineGrid.style.minWidth = `${60 + visibleProfessionals.length * 180}px`;
-                
-                timelineGrid.innerHTML += `<div class="sticky top-0 z-20 bg-light-bg dark:bg-dark-card"></div>`;
-                visibleProfessionals.forEach(p => { timelineGrid.innerHTML += `<div class="sticky top-0 z-20 bg-light-bg dark:bg-dark-card p-2 text-center font-semibold border-b border-l border-gray-200 dark:border-gray-700">${p.name}</div>`; });
-
-                const lanesContainer = document.createElement('div');
-                lanesContainer.className = 'col-span-full grid';
-                lanesContainer.style.gridTemplateColumns = `60px repeat(${visibleProfessionals.length}, 1fr)`;
-                
-                const timeColumn = document.createElement('div');
-                const hourMarkers = document.createElement('div');
-                for (let hour = START_HOUR; hour < END_HOUR; hour++) {
-                    const marker = document.createElement('div');
-                    marker.className = 'relative text-center text-xs text-gray-500 border-t border-gray-200 dark:border-gray-700';
-                    marker.innerHTML = `<span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-light-bg dark:bg-dark-card px-1">${String(hour).padStart(2, '0')}:00</span>`;
-                    marker.style.height = `${60 * PIXELS_PER_MINUTE}px`;
-                    hourMarkers.appendChild(marker);
-                }
-                lanesContainer.appendChild(hourMarkers);
-
-                visibleProfessionals.forEach(prof => {
-                    const lane = document.createElement('div');
-                    lane.className = 'professional-lane relative border-l border-gray-200 dark:border-gray-700';
-                    lane.dataset.professionalId = prof.id;
-                    lane.style.height = `${(END_HOUR - START_HOUR) * 60 * PIXELS_PER_MINUTE}px`;
-                    // Add hour lines for each lane
-                    for (let hour = START_HOUR; hour < END_HOUR; hour++) {
-                        const line = document.createElement('div');
-                        line.className = 'border-t border-gray-200 dark:border-gray-700';
-                        line.style.height = `${60 * PIXELS_PER_MINUTE}px`;
-                        lane.appendChild(line);
-                    }
-                    lanesContainer.appendChild(lane);
-                });
-
-                timelineContainer.appendChild(timelineGrid);
-                timelineContainer.appendChild(lanesContainer);
-
-                placeScheduledTasks(visibleProfessionals);
-                addDragDropEventListeners();
-            }
-
-            function renderWeekView() {
-                timelineContainer.innerHTML = 'Vista de Semana (funcionalidad en desarrollo)';
-                // Placeholder - detailed implementation is complex
-            }
-
-            function renderMonthView() {
-                const year = currentDate.getFullYear();
-                const month = currentDate.getMonth();
-                const firstDay = new Date(year, month, 1);
-                const lastDay = new Date(year, month + 1, 0);
-                const daysInMonth = lastDay.getDate();
-                const startOfWeek = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // 0=Lunes
-
-                timelineContainer.innerHTML = '';
-                const grid = document.createElement('div');
-                grid.className = 'month-grid';
-                
-                // Day headers
-                const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-                days.forEach(day => {
-                    grid.innerHTML += `<div class="p-2 text-center font-bold text-sm bg-white dark:bg-dark-card">${day}</div>`;
-                });
-
-                // Previous month's days
-                for (let i = 0; i < startOfWeek; i++) {
-                    grid.innerHTML += `<div class="month-day other-month"></div>`;
-                }
-
-                // Current month's days
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayCell = document.createElement('div');
-                    const thisDate = new Date(year, month, day);
-                    const dateStr = thisDate.toISOString().split('T')[0];
-                    dayCell.className = 'month-day p-2 bg-white dark:bg-dark-card';
-                    dayCell.innerHTML = `<span class="font-bold text-sm">${day}</span>`;
-                    
-                    const dayTasks = tasks.filter(t => t.date === dateStr && professionals.find(p => p.id === t.professionalId && p.visible));
-                    dayTasks.sort((a,b) => a.startTime - b.startTime).forEach(task => {
-                        const prof = professionals.find(p => p.id === task.professionalId);
-                        const taskEl = document.createElement('div');
-                        taskEl.className = `month-task ${prof.color} ${prof.textColor}`;
-                        taskEl.textContent = task.title;
-                        dayCell.appendChild(taskEl);
-                    });
-
-                    grid.appendChild(dayCell);
-                }
-                timelineContainer.appendChild(grid);
-            }
-            
-            function placeScheduledTasks(visibleProfessionals) {
+                const appointments = await response.json();
+                // Map backend appointments to frontend tasks
+                tasks = appointments.map(app => ({
+                    id: `task-${app.id}`, // Prefix with 'task-' to distinguish from backend IDs
+                    title: app.title,
+                    description: app.description,
+                    professionalId: app.professionalId, // This is now available from backend
+                    startTime: app.startTime ? timeToMinutes(app.startTime.split('T')[1].substring(0, 5)) : null, // Extract HH:MM from ISO string
+                    endTime: app.endTime ? timeToMinutes(app.endTime.split('T')[1].substring(0, 5)) : null,
+                    date: app.startTime ? app.startTime.split('T')[0] : null // Extract YYYY-MM-DD
+                }));
+                // Filter tasks for the current date if in day/week view
                 const todayStr = currentDate.toISOString().split('T')[0];
-                tasks.filter(t => t.date === todayStr && visibleProfessionals.some(p => p.id === t.professionalId)).forEach(task => {
-                    const profLane = timelineContainer.querySelector(`.professional-lane[data-professional-id='${task.professionalId}']`);
-                    if(profLane && task.startTime !== null) {
-                        const taskEl = createTaskElement(task, { isDraggable: true });
-                        taskEl.style.position = 'absolute';
-                        taskEl.style.top = `${(task.startTime - START_HOUR * 60) * PIXELS_PER_MINUTE}px`;
-                        taskEl.style.height = `${task.duration * PIXELS_PER_MINUTE}px`;
-                        taskEl.style.width = 'calc(100% - 8px)';
-                        taskEl.style.left = '4px';
-                        profLane.appendChild(taskEl);
-                    }
-                });
-            }
-
-            // --- LÓGICA DE DRAG AND DROP ---
-            function checkCollision(taskToCheck) {
-                // ... (código existente sin cambios)
-                const todayStr = taskToCheck.date;
-                const otherTasks = tasks.filter(t => t.id !== taskToCheck.id && t.professionalId === taskToCheck.professionalId && t.date === todayStr);
-                for(const otherTask of otherTasks) {
-                    if(taskToCheck.startTime < otherTask.startTime + otherTask.duration && taskToCheck.startTime + taskToCheck.duration > otherTask.startTime) {
-                        return otherTask; // Return the colliding task
-                    }
+                if (currentView === 'day' || currentView === 'week') {
+                    tasks = tasks.filter(t => t.date === todayStr);
                 }
+                return true;
+            } catch (error) {
+                console.error("Failed to fetch appointments:", error);
+                showNotification("Error al cargar las citas. Por favor, intente de nuevo.");
+                return false;
+            }
+        }
+
+        async function createTask(taskData) {
+            const appointment = {
+                title: taskData.title,
+                description: taskData.description || '',
+                startTime: taskData.startTime !== null ? `${taskData.date}T${minutesToTime(taskData.startTime)}:00Z` : null,
+                endTime: taskData.endTime !== null ? `${taskData.date}T${minutesToTime(taskData.endTime)}:00Z` : null,
+                professionalId: taskData.professionalId
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/appointments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(appointment)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                }
+                const createdAppointment = await response.json();
+                // Add the new task to the frontend tasks array with a temporary ID
+                tasks.push({
+                    id: `task-${createdAppointment.id}`, // Use backend ID prefixed
+                    title: createdAppointment.title,
+                    description: createdAppointment.description,
+                    professionalId: createdAppointment.professionalId,
+                    startTime: createdAppointment.startTime ? timeToMinutes(createdAppointment.startTime.split('T')[1].substring(0, 5)) : null,
+                    endTime: createdAppointment.endTime ? timeToMinutes(createdAppointment.endTime.split('T')[1].substring(0, 5)) : null,
+                    date: createdAppointment.startTime ? createdAppointment.startTime.split('T')[0] : null
+                });
+                showNotification("Cita creada exitosamente.", false);
+                return true;
+            } catch (error) {
+                console.error("Failed to create appointment:", error);
+                showNotification(`Error al crear cita: ${error.message}`);
+                return false;
+            }
+        }
+
+        async function updateTask(taskId, taskData) {
+            const backendId = parseInt(taskId.replace('task-', ''));
+            if (isNaN(backendId)) {
+                console.error("Invalid task ID for update:", taskId);
                 return false;
             }
 
-            function addDragDropEventListeners() {
-                // ... (lógica existente movida aquí)
-                document.querySelectorAll('.task-card').forEach(card => {
-                    card.addEventListener('dragstart', e => { draggedTaskId = e.target.id; setTimeout(() => e.target.classList.add('dragging'), 0); });
-                    card.addEventListener('dragend', e => { e.target.classList.remove('dragging'); draggedTaskId = null; });
+            const appointment = {
+                id: backendId, // Include ID for PUT request if backend expects it, or use URL param
+                title: taskData.title,
+                description: taskData.description || '',
+                startTime: taskData.startTime !== null ? `${taskData.date}T${minutesToTime(taskData.startTime)}:00Z` : null,
+                endTime: taskData.endTime !== null ? `${taskData.date}T${minutesToTime(taskData.endTime)}:00Z` : null,
+                professionalId: taskData.professionalId
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/appointments/${backendId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(appointment)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                }
+                const updatedAppointment = await response.json();
+                // Update the task in the frontend tasks array
+                const taskIndex = tasks.findIndex(t => t.id === taskId);
+                if (taskIndex > -1) {
+                    tasks[taskIndex] = {
+                        id: `task-${updatedAppointment.id}`,
+                        title: updatedAppointment.title,
+                        description: updatedAppointment.description,
+                        professionalId: updatedAppointment.professionalId,
+                        startTime: updatedAppointment.startTime ? timeToMinutes(updatedAppointment.startTime.split('T')[1].substring(0, 5)) : null,
+                        endTime: updatedAppointment.endTime ? timeToMinutes(updatedAppointment.endTime.split('T')[1].substring(0, 5)) : null,
+                        date: updatedAppointment.startTime ? updatedAppointment.startTime.split('T')[0] : null
+                    };
+                }
+                showNotification("Cita actualizada exitosamente.", false);
+                return true;
+            } catch (error) {
+                console.error("Failed to update appointment:", error);
+                showNotification(`Error al actualizar cita: ${error.message}`);
+                return false;
+            }
+        }
+
+        async function deleteTaskFromBackend(taskId) {
+            const backendId = parseInt(taskId.replace('task-', ''));
+            if (isNaN(backendId)) {
+                console.error("Invalid task ID for deletion:", taskId);
+                return false;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/appointments/${backendId}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                }
+                showNotification("Cita eliminada exitosamente.", false);
+                return true;
+            } catch (error) {
+                console.error("Failed to delete appointment:", error);
+                showNotification(`Error al eliminar cita: ${error.message}`);
+                return false;
+            }
+        }
+
+        // --- MANEJO DE NOTIFICACIONES ---
+        function showNotification(message, isError = true) {
+            notificationMessageEl.textContent = message;
+            notificationEl.classList.toggle('bg-red-500', isError);
+            notificationEl.classList.toggle('bg-green-500', !isError);
+            notificationEl.classList.remove('transform', 'translate-x-[120%]', 'opacity-0');
+            setTimeout(() => {
+                notificationEl.classList.add('transform', 'translate-x-[120%]', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- MANEJO DE PROFESIONALES Y FILTROS ---
+        // Professionals are still managed client-side for now, as there's no backend endpoint for them.
+        // They are used for rendering and assigning tasks.
+        function renderProfessionals() {
+            professionalsListEl.innerHTML = '';
+            professionalSelect.innerHTML = '<option value="" disabled selected>Seleccione...</option>';
+            if (professionals.length === 0) { professionalsListEl.innerHTML = `<p class="text-sm text-gray-500 dark:text-gray-400">Añada un profesional.</p>`; }
+            professionals.forEach(prof => {
+                const profEl = document.createElement('div');
+                profEl.className = 'professional-item flex justify-between items-center bg-gray-100 dark:bg-gray-800 p-2 rounded-md';
+                profEl.innerHTML = `<span class="text-sm font-medium">${prof.name}</span><button class="delete-btn text-red-500 hover:text-red-700" data-id="${prof.id}"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg></button>`;
+                profEl.querySelector('.delete-btn').addEventListener('click', () => deleteProfessional(prof.id));
+                professionalsListEl.appendChild(profEl);
+
+                const optionEl = document.createElement('option');
+                optionEl.value = prof.id;
+                optionEl.textContent = prof.name;
+                professionalSelect.appendChild(optionEl);
+            });
+        }
+
+        function renderProfessionalFilters() {
+            professionalFilterEl.innerHTML = '';
+            professionals.forEach(prof => {
+                const filterItem = document.createElement('div');
+                filterItem.className = 'flex items-center';
+                filterItem.innerHTML = `
+                    <input id="filter-${prof.id}" type="checkbox" ${prof.visible ? 'checked' : ''} class="w-4 h-4 text-brand-gold bg-gray-100 border-gray-300 rounded focus:ring-brand-gold dark:focus:ring-yellow-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="filter-${prof.id}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">${prof.name}</label>
+                `;
+                filterItem.querySelector('input').addEventListener('change', (e) => {
+                    const visibleCount = professionals.filter(p => p.visible).length;
+                    if (e.target.checked && visibleCount >= MAX_VISIBLE_PROFESSIONALS) {
+                        e.target.checked = false;
+                        showNotification(`Solo se pueden mostrar ${MAX_VISIBLE_PROFESSIONALS} profesionales a la vez.`);
+                        return;
+                    }
+                    prof.visible = e.target.checked;
+                    renderAll();
+                });
+                professionalFilterEl.appendChild(filterItem);
+            });
+        }
+
+        professionalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('professional-name');
+            const name = input.value.trim();
+            if (name && !professionals.some(p => p.name === name)) {
+                const colors = [
+                    { color: 'bg-blue-200', textColor: 'text-blue-800', borderColor: 'border-blue-400' },
+                    { color: 'bg-green-200', textColor: 'text-green-800', borderColor: 'border-green-400' },
+                    { color: 'bg-purple-200', textColor: 'text-purple-800', borderColor: 'border-purple-400' },
+                    { color: 'bg-yellow-200', textColor: 'text-yellow-800', borderColor: 'border-yellow-400' },
+                    { color: 'bg-pink-200', textColor: 'text-pink-800', borderColor: 'border-pink-400' },
+                    { color: 'bg-indigo-200', textColor: 'text-indigo-800', borderColor: 'border-indigo-400' }
+                ];
+                professionals.push({ id: Date.now(), name, ...colors[professionals.length % colors.length], visible: true });
+                input.value = '';
+                renderAll();
+            }
+        });
+
+        function deleteProfessional(id) {
+            // When deleting a professional, we need to handle their assigned tasks.
+            // For now, we'll unassign them. A more robust solution would involve backend logic.
+            tasks = tasks.map(t => {
+                if (t.professionalId === id) {
+                    t.professionalId = null;
+                    t.startTime = null; // Unassign from timeline
+                    t.date = null;
+                }
+                return t;
+            });
+            professionals = professionals.filter(p => p.id !== id);
+            renderAll();
+        }
+
+        // --- MANEJO DE TAREAS Y MODAL ---
+        const openModal = () => {
+            taskModal.classList.remove('hidden');
+            setTimeout(() => {
+                taskModal.classList.remove('opacity-0');
+                taskModal.querySelector('.modal-content').classList.remove('scale-95');
+            }, 10);
+        };
+        const closeModal = () => {
+            taskModal.classList.add('opacity-0');
+            taskModal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => {
+                taskModal.classList.add('hidden');
+                taskForm.reset();
+                // Clear any previously selected professional if modal is closed and reopened
+                professionalSelect.value = '';
+            }, 300);
+        };
+        addTaskBtn.addEventListener('click', openModal);
+        cancelTaskBtn.addEventListener('click', closeModal);
+        taskModal.addEventListener('click', (e) => e.target === taskModal && closeModal());
+
+        taskForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            const titleInput = document.getElementById('task-title');
+            const professionalIdInput = document.getElementById('task-professional');
+            const durationInput = document.getElementById('task-duration');
+            const timeInput = document.getElementById('task-time');
+
+            const title = titleInput.value.trim();
+            const professionalId = parseInt(professionalIdInput.value);
+            const duration = parseInt(durationInput.value);
+            const timeStr = timeInput.value;
+            const dateStr = currentDate.toISOString().split('T')[0];
+
+            let startTimeMinutes = null;
+            let endTimeMinutes = null;
+
+            if (timeStr) {
+                startTimeMinutes = timeToMinutes(timeStr);
+                endTimeMinutes = startTimeMinutes + duration;
+                // Check for collision before creating
+                const collision = checkCollision({ id: 'new', professionalId, startTime: startTimeMinutes, endTime: endTimeMinutes, date: dateStr });
+                if (collision) {
+                    showNotification(`Horario ocupado con "${collision.title}".`);
+                    return;
+                }
+            }
+
+            const newTaskData = {
+                title: title,
+                professionalId: professionalId,
+                duration: duration,
+                startTime: startTimeMinutes,
+                endTime: endTimeMinutes,
+                date: dateStr
+            };
+
+            const success = await createTask(newTaskData);
+            if (success) {
+                closeModal();
+                renderAll(); // Re-render to show the new task
+            }
+        });
+
+        // --- LÓGICA DE NAVEGACIÓN Y VISTAS ---
+        function updateViewButtons() {
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active-view-btn'));
+            if (currentView === 'day') viewDayBtn.classList.add('active-view-btn');
+            else if (currentView === 'week') viewWeekBtn.classList.add('active-view-btn');
+            else if (currentView === 'month') viewMonthBtn.classList.add('active-view-btn');
+        }
+
+        viewDayBtn.addEventListener('click', () => { currentView = 'day'; renderAll(); });
+        viewWeekBtn.addEventListener('click', () => { currentView = 'week'; renderAll(); });
+        viewMonthBtn.addEventListener('click', () => { currentView = 'month'; renderAll(); });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentView === 'day') currentDate.setDate(currentDate.getDate() - 1);
+            else if (currentView === 'week') currentDate.setDate(currentDate.getDate() - 7);
+            else if (currentView === 'month') currentDate.setMonth(currentDate.getMonth() - 1);
+            renderAll();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentView === 'day') currentDate.setDate(currentDate.getDate() + 1);
+            else if (currentView === 'week') currentDate.setDate(currentDate.getDate() + 7);
+            else if (currentView === 'month') currentDate.setMonth(currentDate.getMonth() + 1);
+            renderAll();
+        });
+
+        // --- RENDERIZADO PRINCIPAL ---
+        function renderUnassignedTasks() {
+            unassignedContainer.innerHTML = '';
+            // Filter tasks that are not scheduled (startTime is null) and are visible based on professional filter
+            const visibleProfIds = professionals.filter(p => p.visible).map(p => p.id);
+            tasks.filter(t => t.startTime === null && (t.professionalId === null || visibleProfIds.includes(t.professionalId)))
+                 .forEach(task => unassignedContainer.appendChild(createTaskElement(task, { isDraggable: true })));
+        }
+
+        function createTaskElement(task, options = {}) {
+            const { isDraggable = false } = options;
+            const prof = professionals.find(p => p.id === task.professionalId);
+            const taskEl = document.createElement('div');
+            taskEl.id = task.id;
+            // Use task's own color if assigned, otherwise a default grey
+            taskEl.className = `task-card relative p-3 rounded-md border text-left ${prof ? `${prof.color} ${prof.textColor} ${prof.borderColor}` : 'bg-gray-200 text-gray-800 border-gray-400'}`;
+            taskEl.draggable = isDraggable;
+
+            let timeInfo = '';
+            if (task.startTime !== null && task.endTime !== null) {
+                timeInfo = `<p class="text-xs mt-1 font-bold">${minutesToTime(task.startTime)} - ${minutesToTime(task.endTime)}</p>`;
+            } else {
+                timeInfo = `<p class="text-xs mt-1 font-medium">${task.duration} min</p>`;
+            }
+
+            taskEl.innerHTML = `
+                <p class="font-semibold text-sm">${task.title}</p>
+                <p class="text-xs mt-1">${prof ? prof.name : 'Sin asignar'}</p>
+                ${timeInfo}
+                <button class="delete-btn absolute top-1 right-1 text-red-500 hover:text-red-700" data-id="${task.id}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            `;
+            taskEl.querySelector('.delete-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                deleteTask(task.id);
+            });
+            return taskEl;
+        }
+
+        async function deleteTask(id) {
+            const success = await deleteTaskFromBackend(id);
+            if (success) {
+                tasks = tasks.filter(t => t.id !== id);
+                renderAll();
+            }
+        }
+
+        function renderDate() {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            if (currentView === 'day') {
+                currentDateEl.textContent = currentDate.toLocaleDateString('es-ES', { weekday: 'long', ...options });
+            } else if (currentView === 'week') {
+                const startOfWeek = new Date(currentDate);
+                // Adjust to start on Monday
+                startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+                const endOfWeek = new Date(startOfWeek);
+                endOfWeek.setDate(startOfWeek.getDate() + 6);
+                currentDateEl.textContent = `${startOfWeek.toLocaleDateString('es-ES', {day:'numeric', month:'long'})} - ${endOfWeek.toLocaleDateString('es-ES', {day:'numeric', month:'long', year:'numeric'})}`;
+            } else if (currentView === 'month') {
+                currentDateEl.textContent = currentDate.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+            }
+        }
+
+        // --- RENDERIZADO DE VISTAS ---
+        function renderDayView() {
+            const visibleProfessionals = professionals.filter(p => p.visible);
+            timelineContainer.innerHTML = '';
+            if (visibleProfessionals.length === 0) { timelineContainer.innerHTML = `<p class="text-center text-gray-500">Seleccione un profesional para ver la agenda.</p>`; return; }
+
+            const timelineGrid = document.createElement('div');
+            timelineGrid.className = 'grid';
+            timelineGrid.style.gridTemplateColumns = `60px repeat(${visibleProfessionals.length}, 1fr)`;
+            timelineGrid.style.minWidth = `${60 + visibleProfessionals.length * 180}px`;
+            
+            timelineGrid.innerHTML += `<div class="sticky top-0 z-20 bg-light-bg dark:bg-dark-card"></div>`;
+            visibleProfessionals.forEach(p => { timelineGrid.innerHTML += `<div class="sticky top-0 z-20 bg-light-bg dark:bg-dark-card p-2 text-center font-semibold border-b border-l border-gray-200 dark:border-gray-700">${p.name}</div>`; });
+
+            const lanesContainer = document.createElement('div');
+            lanesContainer.className = 'col-span-full grid';
+            lanesContainer.style.gridTemplateColumns = `60px repeat(${visibleProfessionals.length}, 1fr)`;
+            
+            const timeColumn = document.createElement('div');
+            const hourMarkers = document.createElement('div');
+            for (let hour = START_HOUR; hour < END_HOUR; hour++) {
+                const marker = document.createElement('div');
+                marker.className = 'relative text-center text-xs text-gray-500 border-t border-gray-200 dark:border-gray-700';
+                marker.innerHTML = `<span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-light-bg dark:bg-dark-card px-1">${String(hour).padStart(2, '0')}:00</span>`;
+                marker.style.height = `${60 * PIXELS_PER_MINUTE}px`;
+                hourMarkers.appendChild(marker);
+            }
+            lanesContainer.appendChild(hourMarkers);
+
+            visibleProfessionals.forEach(prof => {
+                const lane = document.createElement('div');
+                lane.className = 'professional-lane relative border-l border-gray-200 dark:border-gray-700';
+                lane.dataset.professionalId = prof.id;
+                lane.style.height = `${(END_HOUR - START_HOUR) * 60 * PIXELS_PER_MINUTE}px`;
+                // Add hour lines for each lane
+                for (let hour = START_HOUR; hour < END_HOUR; hour++) {
+                    const line = document.createElement('div');
+                    line.className = 'border-t border-gray-200 dark:border-gray-700';
+                    line.style.height = `${60 * PIXELS_PER_MINUTE}px`;
+                    lane.appendChild(line);
+                }
+                lanesContainer.appendChild(lane);
+            });
+
+            timelineContainer.appendChild(timelineGrid);
+            timelineContainer.appendChild(lanesContainer);
+
+            placeScheduledTasks(visibleProfessionals);
+            addDragDropEventListeners();
+        }
+
+        function renderWeekView() {
+            timelineContainer.innerHTML = 'Vista de Semana (funcionalidad en desarrollo)';
+            // Placeholder - detailed implementation is complex
+        }
+
+        function renderMonthView() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            // Get the day of the week for the first day of the month (0=Sunday, 1=Monday, ..., 6=Saturday)
+            // We want to align with Monday as the start of the week (0=Monday, ..., 6=Sunday)
+            const firstDayOfWeek = firstDay.getDay(); // 0 for Sunday, 1 for Monday, etc.
+            const startOfWeekOffset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // 0 for Monday, 6 for Sunday
+
+            timelineContainer.innerHTML = '';
+            const grid = document.createElement('div');
+            grid.className = 'month-grid';
+            
+            // Day headers
+            const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+            days.forEach(day => {
+                grid.innerHTML += `<div class="p-2 text-center font-bold text-sm bg-white dark:bg-dark-card">${day}</div>`;
+            });
+
+            // Previous month's days
+            for (let i = 0; i < startOfWeekOffset; i++) {
+                grid.innerHTML += `<div class="month-day other-month"></div>`;
+            }
+
+            // Current month's days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                const thisDate = new Date(year, month, day);
+                const dateStr = thisDate.toISOString().split('T')[0];
+                dayCell.className = 'month-day p-2 bg-white dark:bg-dark-card';
+                dayCell.innerHTML = `<span class="font-bold text-sm">${day}</span>`;
+                
+                // Filter tasks for this specific day and visible professionals
+                const dayTasks = tasks.filter(t => t.date === dateStr && t.professionalId !== null && professionals.find(p => p.id === t.professionalId && p.visible));
+                dayTasks.sort((a,b) => (a.startTime || 0) - (b.startTime || 0)); // Sort by start time
+
+                dayTasks.forEach(task => {
+                    const prof = professionals.find(p => p.id === task.professionalId);
+                    if (prof) { // Ensure professional exists and is visible
+                        const taskEl = document.createElement('div');
+                        taskEl.className = `month-task ${prof.color} ${prof.textColor}`;
+                        taskEl.textContent = task.title;
+                        taskEl.title = `${task.title} - ${prof.name}`; // Tooltip for more info
+                        dayCell.appendChild(taskEl);
+                    }
                 });
 
-                document.querySelectorAll('.professional-lane, #unassigned-tasks').forEach(container => {
-                    container.addEventListener('dragover', e => {
-                        e.preventDefault();
-                        if (!draggedTaskId || container.id === 'unassigned-tasks') return;
-                        
-                        container.classList.add('drag-over');
-                        const draggedTask = tasks.find(t => t.id === draggedTaskId);
-                        if (!draggedTask) return;
+                grid.appendChild(dayCell);
+            }
+            timelineContainer.appendChild(grid);
+        }
+        
+        function placeScheduledTasks(visibleProfessionals) {
+            const todayStr = currentDate.toISOString().split('T')[0];
+            // Filter tasks for the current date and visible professionals
+            const tasksForView = tasks.filter(t =>
+                t.date === todayStr &&
+                t.startTime !== null &&
+                t.professionalId !== null &&
+                visibleProfessionals.some(p => p.id === t.professionalId)
+            );
 
-                        document.querySelectorAll('.task-ghost').forEach(g => g.remove());
-                        const ghost = document.createElement('div');
-                        ghost.className = 'task-ghost';
-                        ghost.style.height = `${draggedTask.duration * PIXELS_PER_MINUTE}px`;
-                        container.appendChild(ghost);
-                        
+            tasksForView.forEach(task => {
+                const profLane = timelineContainer.querySelector(`.professional-lane[data-professional-id='${task.professionalId}']`);
+                if (profLane) {
+                    const taskEl = createTaskElement(task, { isDraggable: true });
+                    taskEl.style.position = 'absolute';
+                    // Calculate top position based on start time relative to START_HOUR
+                    const startMinutesFromMidnight = (task.startTime); // startTime is already in minutes from midnight
+                    const topPosition = (startMinutesFromMidnight - START_HOUR * 60) * PIXELS_PER_MINUTE;
+                    taskEl.style.top = `${topPosition}px`;
+                    taskEl.style.height = `${task.duration * PIXELS_PER_MINUTE}px`;
+                    taskEl.style.width = 'calc(100% - 8px)'; // Account for the 4px left/right padding
+                    taskEl.style.left = '4px';
+                    profLane.appendChild(taskEl);
+                }
+            });
+        }
+
+        // --- LÓGICA DE DRAG AND DROP ---
+        function checkCollision(taskToCheck) {
+            const todayStr = taskToCheck.date;
+            // Filter tasks for the same professional and date, excluding the task being checked itself
+            const otherTasks = tasks.filter(t =>
+                t.id !== taskToCheck.id &&
+                t.professionalId === taskToCheck.professionalId &&
+                t.date === todayStr &&
+                t.startTime !== null // Only consider scheduled tasks for collision
+            );
+
+            for (const otherTask of otherTasks) {
+                // Check for overlap: 
+                // Task A starts before Task B ends AND Task A ends after Task B starts
+                if (taskToCheck.startTime < otherTask.endTime && taskToCheck.endTime > otherTask.startTime) {
+                    return otherTask; // Return the colliding task
+                }
+            }
+            return false; // No collision
+        }
+
+        function addDragDropEventListeners() {
+            document.querySelectorAll('.task-card').forEach(card => {
+                card.addEventListener('dragstart', e => {
+                    draggedTaskId = e.target.id;
+                    setTimeout(() => e.target.classList.add('dragging'), 0);
+                });
+                card.addEventListener('dragend', e => {
+                    e.target.classList.remove('dragging');
+                    draggedTaskId = null;
+                });
+            });
+
+            document.querySelectorAll('.professional-lane, #unassigned-tasks').forEach(container => {
+                container.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    if (!draggedTaskId) return;
+
+                    const draggedTask = tasks.find(t => t.id === draggedTaskId);
+                    if (!draggedTask) return;
+
+                    // Prevent dropping onto unassigned container if it's not the target
+                    if (container.id === 'unassigned-tasks' && draggedTask.startTime !== null) return;
+                    // Prevent dropping onto a professional lane if it's already unassigned
+                    if (container.classList.contains('professional-lane') && draggedTask.startTime === null) return;
+
+                    container.classList.add('drag-over');
+
+                    // Visual feedback for drop position
+                    document.querySelectorAll('.task-ghost').forEach(g => g.remove());
+                    const ghost = document.createElement('div');
+                    ghost.className = 'task-ghost';
+                    ghost.style.height = `${draggedTask.duration * PIXELS_PER_MINUTE}px`;
+                    container.appendChild(ghost);
+                    
+                    const rect = container.getBoundingClientRect();
+                    const dropY = e.clientY - rect.top;
+                    const minuteInLane = Math.round(dropY / PIXELS_PER_MINUTE);
+                    const snappedMinute = Math.round(minuteInLane / 5) * 5; // Snap to nearest 5 minutes
+                    ghost.style.top = `${snappedMinute * PIXELS_PER_MINUTE}px`;
+                });
+
+                container.addEventListener('dragleave', e => {
+                    if (!container.contains(e.relatedTarget)) {
+                        container.classList.remove('drag-over');
+                        container.querySelector('.task-ghost')?.remove();
+                    }
+                });
+
+                container.addEventListener('drop', async e => {
+                    e.preventDefault();
+                    container.classList.remove('drag-over');
+                    container.querySelector('.task-ghost')?.remove();
+                    if (!draggedTaskId) return;
+
+                    const task = tasks.find(t => t.id === draggedTaskId);
+                    if (!task) return;
+
+                    const targetProfId = container.classList.contains('professional-lane') ? parseInt(container.dataset.professionalId) : null;
+                    const isUnassignedDrop = container.id === 'unassigned-tasks';
+
+                    let updatedTaskData = { ...task }; // Create a copy to modify
+
+                    if (isUnassignedDrop) {
+                        updatedTaskData.startTime = null;
+                        updatedTaskData.endTime = null;
+                        updatedTaskData.date = null;
+                        updatedTaskData.professionalId = null; // Unassign from professional
+                    } else if (targetProfId !== null) {
+                        // Dropping onto a professional lane
                         const rect = container.getBoundingClientRect();
                         const dropY = e.clientY - rect.top;
                         const minuteInLane = Math.round(dropY / PIXELS_PER_MINUTE);
                         const snappedMinute = Math.round(minuteInLane / 5) * 5;
-                        ghost.style.top = `${snappedMinute * PIXELS_PER_MINUTE}px`;
-                    });
-                    container.addEventListener('dragleave', e => {
-                        if (!container.contains(e.relatedTarget)) {
-                            container.classList.remove('drag-over');
-                            container.querySelector('.task-ghost')?.remove();
+                        const newStartTime = (START_HOUR * 60) + snappedMinute;
+                        const newEndTime = newStartTime + task.duration;
+                        const currentDateStr = currentDate.toISOString().split('T')[0];
+
+                        // Check for collision before updating
+                        const collision = checkCollision({ ...task, startTime: newStartTime, endTime: newEndTime, date: currentDateStr, professionalId: targetProfId });
+                        if (collision) {
+                            showNotification(`Conflicto de horario con la tarea: "${collision.title}".`);
+                            return;
                         }
-                    });
-                    container.addEventListener('drop', e => {
-                        e.preventDefault();
-                        container.classList.remove('drag-over');
-                        container.querySelector('.task-ghost')?.remove();
-                        if (!draggedTaskId) return;
 
-                        const task = tasks.find(t => t.id === draggedTaskId);
-                        if (!task) return;
+                        updatedTaskData.startTime = newStartTime;
+                        updatedTaskData.endTime = newEndTime;
+                        updatedTaskData.date = currentDateStr;
+                        updatedTaskData.professionalId = targetProfId;
+                    } else {
+                        // Should not happen if logic is correct
+                        return;
+                    }
 
-                        if (container.id === 'unassigned-tasks') {
-                            task.startTime = null;
-                            task.date = null;
-                        } else {
-                            const targetProfId = parseInt(container.dataset.professionalId);
-                            if (task.professionalId !== targetProfId) {
-                                showNotification("No se puede cambiar el profesional arrastrando. Cree una nueva tarea.");
-                                return;
-                            }
-                            
-                            const rect = container.getBoundingClientRect();
-                            const dropY = e.clientY - rect.top;
-                            const minuteInLane = Math.round(dropY / PIXELS_PER_MINUTE);
-                            const snappedMinute = Math.round(minuteInLane / 5) * 5;
-                            const newStartTime = (START_HOUR * 60) + snappedMinute;
-
-                            const collision = checkCollision({ ...task, startTime: newStartTime, date: currentDate.toISOString().split('T')[0] });
-                            if (collision) {
-                                showNotification(`Conflicto de horario con la tarea: "${collision.title}".`);
-                                return;
-                            }
-                            
-                            task.startTime = newStartTime;
-                            task.date = currentDate.toISOString().split('T')[0];
-                        }
-                        renderAll();
-                    });
+                    // If the task was already assigned and is being moved to a new slot for the same professional
+                    // or if it's being unassigned, we need to update it.
+                    const success = await updateTask(draggedTaskId, updatedTaskData);
+                    if (success) {
+                        renderAll(); // Re-render to reflect changes
+                    }
+                    draggedTaskId = null; // Reset dragged task ID
                 });
+            });
+        }
+
+        async function renderAll() {
+            updateViewButtons();
+            renderDate();
+            renderProfessionals(); // Render client-side professionals
+            renderProfessionalFilters();
+
+            // Fetch appointments from backend
+            const appointmentsLoaded = await fetchAppointments();
+            if (!appointmentsLoaded) {
+                // If fetching failed, use existing tasks (if any) or show empty state
+                tasks = []; // Clear tasks if fetch failed to avoid stale data
             }
 
-            function renderAll() {
-                updateViewButtons();
-                renderDate();
-                renderProfessionals();
-                renderProfessionalFilters();
-                
-                if (currentView === 'day') {
-                    renderDayView();
-                } else if (currentView === 'week') {
-                    renderWeekView(); // Aún no implementada
+            // Filter tasks for the current view's date
+            const relevantTasks = tasks.filter(t => {
+                if (currentView === 'day' || currentView === 'week') {
+                    return t.date === currentDate.toISOString().split('T')[0];
                 } else if (currentView === 'month') {
-                    renderMonthView();
+                    const taskDate = t.date ? new Date(t.date) : null;
+                    return taskDate && taskDate.getMonth() === currentDate.getMonth() && taskDate.getFullYear() === currentDate.getFullYear();
                 }
-                
-                renderUnassignedTasks();
+                return true; // Should not happen
+            });
+
+            // Update the global tasks array with filtered tasks for the current view
+            // This is important for rendering and drag/drop logic to work correctly with the current date context
+            tasks = relevantTasks;
+
+            if (currentView === 'day') {
+                renderDayView();
+            } else if (currentView === 'week') {
+                renderWeekView(); // Aún no implementada
+            } else if (currentView === 'month') {
+                renderMonthView();
             }
+            
+            renderUnassignedTasks();
+        }
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
             renderAll();
         });
     </script>
