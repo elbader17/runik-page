@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-088S66GDB5"></script>
-
+    <script async src="https://www.googlagmanager.com/gtag/js?id=G-088S66GDB5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -12,8 +11,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RUNIK: Consultoría IT de alta gama. Desarrollamos soluciones a medida en ingeniería digital, inteligencia de datos y automatización de procesos para escalar su negocio.">
-    <title>RUNIK | Consultoría IT de Alta Gama</title>
+    <meta name="description" content="Descubra cómo el desarrollo de software a medida y las plataformas escalables pueden transformar su PYME y darle una ventaja competitiva.">
+    <title>RUNIK | Desarrollo de Software a Medida para PYMES</title>
     <!-- Tailwind CSS -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -74,15 +73,24 @@
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
         }
-        .rune-icon {
-            height: 48px; width: 48px; margin: auto;
-            stroke: currentColor;
-            stroke-width: 1.5; /* Trazo más refinado */
-            fill: none;
-            transition: stroke 0.3s;
+        /* Estilos para el contenido del artículo */
+        .article-content h3 {
+            @apply text-2xl font-semibold mt-8 mb-4 text-gray-800 dark:text-gray-200;
         }
-        .service-card:hover .rune-icon {
-            stroke: #D4AF37; /* Color acento al hacer hover */
+        .article-content p {
+            @apply text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-6;
+        }
+        .article-content ul {
+            @apply list-disc list-inside text-lg text-gray-700 dark:text-gray-300 mb-6 pl-4;
+        }
+         .article-content li {
+            @apply mb-2;
+        }
+        .article-content a {
+            @apply text-brand-gold hover:underline font-semibold;
+        }
+        .article-content blockquote {
+            @apply border-l-4 border-brand-gold pl-6 py-2 my-8 text-xl italic text-gray-600 dark:text-gray-400;
         }
     </style>
 </head>
@@ -91,14 +99,13 @@
     <!-- Encabezado -->
     <header class="bg-dark-bg/80 dark:bg-dark-bg/80 backdrop-blur-sm text-white sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto flex justify-between items-center p-5 px-6">
-            <h1 class="text-4xl tracking-widest logo-font">Runik</h1>
+            <a href="../index.html" class="text-4xl tracking-widest logo-font">Runik</a>
             <div class="flex items-center space-x-6 md:space-x-10">
                 <nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
-                    <a href="#soluciones" class="hover:text-brand-gold transition-colors duration-300">Soluciones</a>
-                    <a href="#proceso" class="hover:text-brand-gold transition-colors duration-300">Proceso</a>
-                    <a href="#nosotros" class="hover:text-brand-gold transition-colors duration-300">Nosotros</a>
-                    <a href="./blog.html" class="hover:text-brand-gold transition-colors duration-300">Blog</a>
-                    <a href="#contacto" class="hover:text-brand-gold transition-colors duration-300">Contacto</a>
+                    <a href="../index.html#soluciones" class="hover:text-brand-gold transition-colors duration-300">Soluciones</a>
+                    <a href="../blog.html" class="text-brand-gold transition-colors duration-300">Blog</a>
+                    <a href="../index.html#proceso" class="hover:text-brand-gold transition-colors duration-300">Proceso</a>
+                    <a href="../index.html#contacto" class="hover:text-brand-gold transition-colors duration-300">Contacto</a>
                 </nav>
                 <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
                     <span class="sr-only">Toggle dark mode</span>
@@ -110,54 +117,72 @@
     </header>
 
     <main>
-        <!-- Sección Principal (Hero) -->
-        <section class="bg-dark-bg text-white text-center py-28 md:py-48 relative overflow-hidden">
+        <!-- Encabezado del Artículo -->
+        <section class="bg-dark-bg text-white text-center py-20 md:py-32 relative overflow-hidden">
             <div class="hero-runic-bg"></div>
-            <div class="container mx-auto px-6 relative z-10">
-                <h2 class="text-4xl md:text-6xl font-light brand-heading uppercase mb-6" data-aos="fade-down">Ingeniería Digital a Medida</h2>
-                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="200">Desarrollamos soluciones tecnológicas que no solo funcionan, sino que escalan su negocio y definen su liderazgo en el mercado.</p>
-                <a href="#soluciones" class="bg-brand-gold text-dark-bg font-semibold py-3 px-10 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider" data-aos="fade-up" data-aos-delay="400">Nuestras Soluciones</a>
+            <div class="container mx-auto px-6 relative z-10 max-w-4xl">
+                <p class="text-brand-gold text-sm font-semibold uppercase mb-4" data-aos="fade-down">Ingeniería Digital</p>
+                <h1 class="text-4xl md:text-5xl font-light brand-heading uppercase mb-6" data-aos="fade-down" data-aos-delay="100">El Poder del Desarrollo de Software a Medida para PYMES</h1>
+                <p class="text-lg text-gray-400 mx-auto" data-aos="fade-up" data-aos-delay="200">Publicado el 16 de Octubre, 2025 | Por El Equipo RUNIK</p>
             </div>
         </section>
 
-        <!-- Sección de Soluciones -->
-        <section id="soluciones" class="py-24 md:py-32 bg-gray-100 dark:bg-dark-bg/50">
+        <!-- Contenido del Artículo -->
+        <div class="bg-light-bg dark:bg-dark-bg py-24 md:py-32">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <article class="article-content" data-aos="fade-up">
+                    <p>En un mercado donde la agilidad y la diferenciación son clave, las Pequeñas y Medianas Empresas (PYMES) a menudo se encuentran en una encrucijada tecnológica. El software "listo para usar" ofrece una solución rápida, pero rara vez se adapta perfectamente a los flujos de trabajo únicos que hacen especial a un negocio. Aquí es donde el <strong>desarrollo de software a medida para pymes</strong> deja de ser un lujo para convertirse en una poderosa palanca de crecimiento y eficiencia.</p>
+
+                    <h3>Soluciones a Medida vs. Software Genérico</h3>
+                    <p>El software genérico obliga a las empresas a adaptar sus procesos a la herramienta. En contraste, las <strong>soluciones de software empresarial personalizadas</strong> se construyen alrededor de los procesos existentes, optimizándolos en lugar de forzarlos. Esto se traduce en una mayor adopción por parte de los empleados, una reducción de la fricción operativa y, en última instancia, una ventaja competitiva que el software de talla única no puede ofrecer.</p>
+                    
+                    <blockquote>"Invertir en software a medida es invertir en un activo digital único, diseñado para potenciar lo que hace a su empresa diferente, no para estandarizarla."</blockquote>
+
+                    <h3>La Importancia de la Escalabilidad en la Ingeniería de Software</h3>
+                    <p>Una de las mayores preocupaciones para una PYME en crecimiento es que la tecnología de hoy se convierta en el cuello de botella de mañana. Por eso, la <strong>ingeniería de software para plataformas escalables</strong> es un pilar fundamental de nuestro enfoque. No se trata solo de resolver el problema actual, sino de diseñar una arquitectura robusta que pueda crecer en usuarios, datos y funcionalidades sin necesidad de una costosa reingeniería en el futuro. Esto garantiza que la inversión tecnológica acompañe y potencie el crecimiento del negocio a largo plazo.</p>
+                    <ul>
+                        <li><strong>Arquitectura Modular:</strong> Permite añadir nuevas funcionalidades de forma independiente sin afectar el núcleo del sistema.</li>
+                        <li><strong>Tecnologías Cloud-Native:</strong> Aprovechan la flexibilidad y el poder de la nube para escalar recursos bajo demanda.</li>
+                        <li><strong>Bases de Datos Eficientes:</strong> Diseñadas para manejar un volumen creciente de información sin degradar el rendimiento.</li>
+                    </ul>
+
+                    <h3>El Impacto del Desarrollo de Aplicaciones Web a Medida</h3>
+                    <p>Hoy en día, gran parte de la operación de un negocio ocurre a través de un navegador. El <strong>desarrollo de aplicaciones web a medida para negocios</strong> permite crear herramientas increíblemente potentes y accesibles. Desde un CRM que refleje exactamente su proceso de ventas hasta un panel de control que centralice sus operaciones, las posibilidades son infinitas. Estas aplicaciones mejoran la productividad interna y pueden convertirse en la base para la <strong>creación de plataformas digitales de alto impacto</strong> que redefinan la interacción con sus clientes y abran nuevas líneas de ingreso.</p>
+                    
+                    <p>En resumen, optar por el desarrollo de software a medida es una decisión estratégica que empodera a las PYMES para competir en igualdad de condiciones. Se trata de construir herramientas que trabajen para usted, y no al revés, creando una base tecnológica sólida para un futuro de crecimiento sostenido y liderazgo en el mercado.</p>
+                </article>
+            </div>
+        </div>
+
+        <!-- Sección de Servicios Relacionados -->
+        <section id="servicios-relacionados" class="py-24 md:py-32 bg-gray-100 dark:bg-dark-bg/50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-20" data-aos="fade-up">
                     <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestras Soluciones</h3>
                     <div class="w-24 h-px bg-gray-800 dark:bg-gray-200 mx-auto"></div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                    <!-- Solución 1: Landing Pages -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+                    <!-- Solución 1: Presencia Digital -->
                     <div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center flex flex-col" data-aos="fade-up" data-aos-delay="100">
-                        <div class="mb-5">
-                            <svg class="rune-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16M12 4v16" /></svg>
-                        </div>
                         <h4 class="text-2xl font-medium mb-3 brand-heading">PRESENCIA DIGITAL</h4>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Diseñamos y construimos plataformas digitales de alto impacto, optimizadas para convertir prospectos de alto valor. Integramos IA y analítica avanzada para maximizar cada interacción.</p>
-                        <a href="./pages.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Diseñamos plataformas digitales de alto impacto, optimizadas para convertir prospectos de alto valor.</p>
+                        <a href="pages.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
                             Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
                         </a>
                     </div>
-                    <!-- Solución 2: Análisis de Mercado -->
+                    <!-- Solución 2: Inteligencia de Datos -->
                     <div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center flex flex-col" data-aos="fade-up" data-aos-delay="200">
-                        <div class="mb-5">
-                            <svg class="rune-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9-9 9-9-9zM12 21V3" /></svg>
-                        </div>
                         <h4 class="text-2xl font-medium mb-3 brand-heading">INTELIGENCIA DE DATOS</h4>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Transformamos datos crudos en inteligencia accionable. Mediante web scraping avanzado y análisis predictivo, revelamos patrones de mercado y oportunidades ocultas para darle una ventaja competitiva decisiva.</p>
-                        <a href="./data.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Transformamos datos crudos en inteligencia accionable para darle una ventaja competitiva decisiva.</p>
+                        <a href="data.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
                             Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
                         </a>
                     </div>
-                    <!-- Solución 3: Automatizaciones -->
+                    <!-- Solución 3: Automatización -->
                     <div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center flex flex-col" data-aos="fade-up" data-aos-delay="300">
-                        <div class="mb-5">
-                            <svg class="rune-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v10l-6 6M12 2v10l6 6" /></svg>
-                        </div>
-                        <h4 class="text-2xl font-medium mb-3 brand-heading">PROCESOS AUTOMATIZADOS</h4>
-                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Diseñamos e implementamos sistemas de automatización a medida que optimizan sus flujos de trabajo. Desde scripts de gestión hasta IA, liberamos el potencial de su equipo para que se enfoque en el crecimiento.</p>
-                        <a href="./auto.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
+                         <h4 class="text-2xl font-medium mb-3 brand-heading">PROCESOS AUTOMATIZADOS</h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6 flex-grow">Implementamos sistemas de automatización a medida que optimizan sus flujos de trabajo.</p>
+                        <a href="auto.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
                             Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
                         </a>
                     </div>
@@ -165,49 +190,6 @@
             </div>
         </section>
 
-        <!-- Sección "Nuestro Proceso" -->
-        <section id="proceso" class="py-24 md:py-32 bg-light-bg dark:bg-dark-bg">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-20" data-aos="fade-up">
-                    <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestro Proceso</h3>
-                    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Un enfoque metódico para garantizar resultados excepcionales.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
-                    <!-- Paso 1 -->
-                    <div class="p-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="text-4xl font-bold text-brand-gold mb-4">01</div>
-                        <h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Descubrimiento</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Analizamos a fondo sus objetivos y desafíos para definir una estrategia clara y precisa.</p>
-                    </div>
-                    <!-- Paso 2 -->
-                    <div class="p-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="text-4xl font-bold text-brand-gold mb-4">02</div>
-                        <h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Diseño</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Creamos prototipos y arquitecturas de sistemas centrados en la experiencia de usuario y la escalabilidad.</p>
-                    </div>
-                    <!-- Paso 3 -->
-                    <div class="p-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="text-4xl font-bold text-brand-gold mb-4">03</div>
-                        <h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Desarrollo</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Nuestro equipo de ingeniería construye la solución con código limpio, eficiente y robusto.</p>
-                    </div>
-                    <!-- Paso 4 -->
-                    <div class="p-6" data-aos="fade-up" data-aos-delay="400">
-                        <div class="text-4xl font-bold text-brand-gold mb-4">04</div>
-                        <h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Despliegue</h4>
-                        <p class="text-gray-600 dark:text-gray-400">Lanzamos la solución y ofrecemos soporte continuo para garantizar su rendimiento y evolución.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección "Sobre Nosotros" -->
-        <section id="nosotros" class="py-24 md:py-32 bg-gray-100 dark:bg-dark-bg/50">
-            <div class="container mx-auto px-6 text-center max-w-4xl" data-aos="fade-up">
-                <h3 class="text-3xl md:text-4xl font-light brand-heading uppercase mb-6">La Fusión de Estrategia y Código</h3>
-                <p class="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">En RUNIK, fusionamos la maestría técnica con una visión estratégica. No solo construimos software; diseñamos los pilares digitales que sostienen el crecimiento de nuestros socios. Trabajamos con un número selecto de clientes para garantizar la máxima dedicación y resultados extraordinarios.</p>
-            </div>
-        </section>
     </main>
 
     <!-- Pie de Página -->

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
+<head>
+    <script async src="https://www.googlagmanager.com/gtag/js?id=G-088S66GDB5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-088S66GDB5');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore nuestros análisis sobre ingeniería digital, inteligencia de datos y consultoría estratégica para escalar su negocio.">
+    <title>RUNIK | Blog de Consultoría IT</title>
+    <!-- Tailwind CSS -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Configuración de Tailwind para habilitar dark mode por clase -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-gold': '#D4AF37', // Color de acento premium
+                        'dark-bg': '#121212', // Gris oscuro en lugar de negro puro
+                        'light-bg': '#F9F9F9', // Blanco roto en lugar de blanco puro
+                        'dark-card': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <!-- Script para evitar el "flash" del tema incorrecto al cargar -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Jost', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .brand-heading {
+            letter-spacing: 0.15em;
+        }
+        .logo-font {
+            font-family: 'Major Mono Display', monospace;
+        }
+        .service-card { /* Reutilizamos esta clase para las tarjetas del blog */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .service-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+        .hero-runic-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="0.5"/></svg>');
+            background-size: 150px;
+            background-repeat: repeat;
+            opacity: 0.03;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 antialiased transition-colors duration-500">
+
+    <!-- Encabezado -->
+    <header class="bg-dark-bg/80 dark:bg-dark-bg/80 backdrop-blur-sm text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center p-5 px-6">
+            <a href="index.html" class="text-4xl tracking-widest logo-font">Runik</a>
+            <div class="flex items-center space-x-6 md:space-x-10">
+                <nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
+                    <a href="./index.html#soluciones" class="hover:text-brand-gold transition-colors duration-300">Soluciones</a>
+                    <a href="blog.html" class="text-brand-gold transition-colors duration-300">Blog</a>
+                    <a href="./index.html#proceso" class="hover:text-brand-gold transition-colors duration-300">Proceso</a>
+                    <a href="./index.html#contacto" class="hover:text-brand-gold transition-colors duration-300">Contacto</a>
+                </nav>
+                <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
+                    <span class="sr-only">Toggle dark mode</span>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Encabezado del Blog -->
+        <section class="bg-dark-bg text-white text-center py-20 md:py-32 relative overflow-hidden">
+            <div class="hero-runic-bg"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <h1 class="text-4xl md:text-6xl font-light brand-heading uppercase mb-6" data-aos="fade-down">Nuestro Blog</h1>
+                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">Insights sobre Ingeniería Digital, Inteligencia de Datos y Estrategia Empresarial para líderes del mañana.</p>
+            </div>
+        </section>
+
+        <!-- Listado de Artículos -->
+        <section class="py-24 md:py-32 bg-light-bg dark:bg-dark-bg">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    
+                    <!-- Artículo 1 -->
+                    <div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                        <p class="text-sm text-brand-gold font-semibold uppercase mb-3">Transformación Digital</p>
+                        <h2 class="text-2xl font-medium mb-4 flex-grow">Claves de la Consultoría Estratégica de Transformación Digital</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Un análisis profundo de cómo la estrategia adecuada es el pilar de una transformación digital exitosa y sostenible.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">17 de Octubre, 2025</p>
+                        <a href="./blogs/consultoria-estrategica.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
+                            Leer más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Artículo 2 -->
+                    <div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                        <p class="text-sm text-brand-gold font-semibold uppercase mb-3">Ingeniería Digital</p>
+                        <h2 class="text-2xl font-medium mb-4 flex-grow">El Poder del Desarrollo de Software a Medida para PYMES</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Descubra cómo las soluciones personalizadas y escalables pueden optimizar procesos y ofrecer una ventaja competitiva.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">16 de Octubre, 2025</p>
+                        <a href="./blogs/software-a-medida.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
+                            Leer más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
+                        </a>
+                    </div>
+
+                    <!-- Artículo 3 -->
+                    <div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                        <p class="text-sm text-brand-gold font-semibold uppercase mb-3">Inteligencia de Datos</p>
+                        <h2 class="text-2xl font-medium mb-4 flex-grow">De Datos a Decisiones: Cómo Transformar su Negocio</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Aprenda a utilizar web scraping y análisis predictivo para convertir la información en inteligencia de mercado accionable.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">15 de Octubre, 2025</p>
+                        <a href="./blogs/de-datos-a-decisiones.html" class="font-semibold text-gray-800 dark:text-white hover:text-brand-gold dark:hover:text-brand-gold group mt-auto">
+                            Leer más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer id="contacto" class="bg-dark-bg text-white py-20">
+        <div class="container mx-auto px-6 text-center relative">
+            <h1 class="text-3xl tracking-widest mb-4 logo-font" data-aos="fade-down">Runik</h1>
+            <p class="text-gray-400 mb-8" data-aos="fade-up">¿Listo para construir el futuro de su negocio?</p>
+            <a href="mailto:contact.runik.studio@gmail.com" class="bg-brand-gold text-dark-bg font-semibold py-3 px-10 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider" data-aos="fade-up" data-aos-delay="100">Iniciemos una Conversación</a>
+            <div class="mt-16 border-t border-gray-800 pt-8">
+                <p class="text-gray-400 text-sm">&copy; 2025 RUNIK. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+    </script>
+    
+    <!-- Lógica para el botón de cambio de tema -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const htmlEl = document.documentElement;
+
+        function updateIcons() {
+            if (htmlEl.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+            }
+        }
+        updateIcons();
+        themeToggleBtn.addEventListener('click', () => {
+            htmlEl.classList.toggle('dark');
+            const isDarkMode = htmlEl.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            updateIcons();
+        });
+    </script>
+</body>
+</html>
+
