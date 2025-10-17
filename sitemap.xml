@@ -9,27 +9,47 @@
 
 <url>
   <loc>https://www.runik.studio/</loc>
-  <lastmod>2025-10-15T14:09:23+00:00</lastmod>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
+  <loc>https://www.runik.studio/blog.html</loc>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
   <loc>https://www.runik.studio/pages.html</loc>
-  <lastmod>2025-10-15T14:09:23+00:00</lastmod>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.runik.studio/data.html</loc>
-  <lastmod>2025-10-15T14:09:23+00:00</lastmod>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.runik.studio/auto.html</loc>
-  <lastmod>2025-10-15T14:09:23+00:00</lastmod>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.runik.studio/index.html</loc>
-  <lastmod>2025-10-15T14:09:23+00:00</lastmod>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.runik.studio/blogs/consultoria-estrategica.html</loc>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.runik.studio/blogs/software-a-medida.html</loc>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.runik.studio/blogs/de-datos-a-decisiones.html</loc>
+  <lastmod>2025-10-17T20:09:35+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
