@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
+
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-088S66GDB5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-088S66GDB5');
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RUNIK: Explora nuestra colección de plantillas web de alta gama, diseñadas para un rendimiento y estética excepcionales.">
+    <meta name="description"
+        content="RUNIK: Explora nuestra colección de plantillas web de alta gama, diseñadas para un rendimiento y estética excepcionales.">
     <title>RUNIK | Plantillas Web</title>
     <!-- Tailwind CSS -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -37,7 +39,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap"
+        rel="stylesheet">
     <!-- Script para evitar el "flash" del tema incorrecto al cargar -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
@@ -51,15 +55,19 @@
             font-family: 'Jost', sans-serif;
             scroll-behavior: smooth;
         }
+
         .brand-heading {
             letter-spacing: 0.15em;
         }
+
         .logo-font {
             font-family: 'Major Mono Display', monospace;
         }
+
         .template-card {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
+
         .template-card:hover {
             transform: translateY(-12px);
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
@@ -72,10 +80,11 @@
         .preview-container {
             height: 250px;
             border-radius: 0.5rem;
-            overflow: hidden; /* Oculta las partes del iframe que se salen */
+            overflow: hidden;
+            /* Oculta las partes del iframe que se salen */
             transition: transform 0.3s ease-in-out;
         }
-        
+
         /* 2. El iframe con resolución de escritorio */
         /* Forzamos una resolución grande y luego lo escalamos hacia abajo. */
         .template-preview {
@@ -83,16 +92,18 @@
             height: 800px;
             border: 0;
             transform: scale(0.26);
-            transform-origin: top left; /* Asegura que la escala se origine en la esquina superior izquierda */
-            pointer-events: none; /* Evita que se pueda interactuar con el iframe */
+            transform-origin: top left;
+            /* Asegura que la escala se origine en la esquina superior izquierda */
+            pointer-events: none;
+            /* Evita que se pueda interactuar con el iframe */
         }
-        
+
         /* 3. Efecto hover aplicado al contenedor */
         /* El efecto de zoom ahora se aplica al contenedor, no directamente al iframe. */
         .template-card:hover .preview-container {
             transform: scale(1.03);
         }
-        
+
         /* --- Fin de los estilos modificados --- */
 
         .filter-btn {
@@ -104,29 +115,40 @@
             transition: all 0.2s ease-in-out;
             border: 1px solid transparent;
         }
+
         .filter-btn.active {
             background-color: #D4AF37;
             color: #121212;
             border-color: #D4AF37;
         }
+
         .dark .filter-btn.active {
             color: #121212;
         }
+
         .filter-btn:not(.active) {
             background-color: transparent;
-            border-color: #d1d5db; /* gray-300 */
+            border-color: #d1d5db;
+            /* gray-300 */
         }
+
         .dark .filter-btn:not(.active) {
-            border-color: #4b5563; /* gray-600 */
+            border-color: #4b5563;
+            /* gray-600 */
         }
+
         .filter-btn:not(.active):hover {
-             background-color: #f3f4f6; /* gray-100 */
+            background-color: #f3f4f6;
+            /* gray-100 */
         }
+
         .dark .filter-btn:not(.active):hover {
-             background-color: #1f2937; /* gray-800 */
+            background-color: #1f2937;
+            /* gray-800 */
         }
     </style>
 </head>
+
 <body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 antialiased transition-colors duration-500">
 
     <!-- Encabezado -->
@@ -135,15 +157,24 @@
             <a href="./index.html" class="text-4xl tracking-widest logo-font">Runik</a>
             <div class="flex items-center space-x-6 md:space-x-10">
                 <nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
-                    <a href="./index.html#soluciones" class="hover:text-brand-gold transition-colors duration-300">Soluciones</a>
+                    <a href="./index.html#soluciones"
+                        class="hover:text-brand-gold transition-colors duration-300">Soluciones</a>
                     <a href="./templates.html" class="text-brand-gold transition-colors duration-300">Templates</a>
                     <a href="./blog.html" class="hover:text-brand-gold transition-colors duration-300">Blog</a>
-                    <a href="./index.html#contacto" class="hover:text-brand-gold transition-colors duration-300">Contacto</a>
+                    <a href="./index.html#contacto"
+                        class="hover:text-brand-gold transition-colors duration-300">Contacto</a>
                 </nav>
-                <button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
+                <button id="theme-toggle" type="button"
+                    class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
                     <span class="sr-only">Toggle dark mode</span>
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z"
+                            fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -154,15 +185,18 @@
         <section id="templates" class="py-24 md:py-32">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestras Plantillas Web</h3>
-                    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Soluciones prediseñadas de alta calidad, listas para adaptarse a su marca.</p>
+                    <h3 class="text-2xl sm:text-3xl md:text-4xl font-light brand-heading uppercase mb-3">Nuestras
+                        Plantillas Web</h3>
+                    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Soluciones prediseñadas de
+                        alta calidad, listas para adaptarse a su marca.</p>
                 </div>
 
                 <!-- Filtros de Tags -->
-                <div id="tag-filters" class="flex flex-wrap justify-center gap-3 mb-16" data-aos="fade-up" data-aos-delay="100">
+                <div id="tag-filters" class="flex flex-wrap justify-center gap-3 mb-16" data-aos="fade-up"
+                    data-aos-delay="100">
                     <!-- Los botones de filtro se insertarán aquí -->
                 </div>
-                
+
                 <!-- Contenedor para las plantillas -->
                 <div id="templates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                     <!-- Las plantillas se insertarán aquí dinámicamente con JavaScript -->
@@ -176,7 +210,9 @@
         <div class="container mx-auto px-6 text-center relative">
             <h1 class="text-3xl tracking-widest mb-4 logo-font" data-aos="fade-down">Runik</h1>
             <p class="text-gray-400 mb-8" data-aos="fade-up">¿Listo para construir el futuro de su negocio?</p>
-            <a href="mailto:contact.runik.studio@gmail.com" class="bg-brand-gold text-dark-bg font-semibold py-3 px-6 md:px-10 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider" data-aos="fade-up" data-aos-delay="100">
+            <a href="mailto:contact.runik.studio@gmail.com"
+                class="bg-brand-gold text-dark-bg font-semibold py-3 px-6 md:px-10 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider"
+                data-aos="fade-up" data-aos-delay="100">
                 <span class="sm:hidden">Conversemos</span>
                 <span class="hidden sm:inline">Iniciemos una Conversación</span>
             </a>
@@ -185,7 +221,7 @@
             </div>
         </div>
     </footer>
-    
+
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -195,7 +231,7 @@
             offset: 50,
         });
     </script>
-    
+
     <!-- Lógica para el botón de cambio de tema -->
     <script>
         const themeToggleBtn = document.getElementById('theme-toggle');
@@ -245,12 +281,17 @@
                     file: 'test3.html',
                     title: 'Portfolio Creativo Minimalista',
                     description: 'Ideal para fotógrafos, diseñadores y artistas que desean mostrar su trabajo de una manera elegante y directa.',
-                    tags: ['test','Portfolio', 'Creativo', 'Minimalista']
+                    tags: ['test', 'Portfolio', 'Creativo', 'Minimalista']
+                }, {
+                    file: 'law_firm.html',
+                    title: 'Estudio de abogados profecional',
+                    description: 'Template para eestudio de abogados profecional.',
+                    tags: ['Estudio', 'Portfolio', 'Profecional', 'Minimalista','Abogados']
                 },
             ];
 
             const allTags = ['Todos', ...new Set(templates.flatMap(t => t.tags))];
-            
+
             allTags.forEach(tag => {
                 const button = document.createElement('button');
                 button.className = 'filter-btn';
@@ -268,7 +309,7 @@
                 const filteredTemplates = (filterTag === 'Todos')
                     ? templates
                     : templates.filter(t => t.tags.includes(filterTag));
-                
+
                 if (filteredTemplates.length === 0) {
                     templatesGrid.innerHTML = '<p class="col-span-full text-center text-gray-500 dark:text-gray-400">No hay plantillas que coincidan con el filtro seleccionado.</p>';
                     return;
@@ -280,10 +321,10 @@
                     card.setAttribute('data-aos', 'fade-up');
                     card.setAttribute('data-aos-delay', (index % 3) * 100);
 
-                    const tagsHtml = template.tags.map(tag => 
+                    const tagsHtml = template.tags.map(tag =>
                         `<span class="bg-gray-200 dark:bg-gray-700 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">${tag}</span>`
                     ).join('');
-                    
+
                     // --- HTML DE LA TARJETA MODIFICADO ---
                     // Se ha envuelto el iframe en un 'preview-container' y el resto del contenido en otro div
                     // para mantener la estructura flexbox y aplicar los nuevos estilos de CSS.
@@ -302,7 +343,7 @@
                     `;
                     templatesGrid.appendChild(card);
                 });
-                
+
                 // Re-inicializar AOS para las nuevas tarjetas
                 setTimeout(() => AOS.refresh(), 100);
             }
@@ -313,7 +354,7 @@
                     // Actualizar botón activo
                     filtersContainer.querySelector('.active').classList.remove('active');
                     e.target.classList.add('active');
-                    
+
                     const selectedTag = e.target.dataset.tag;
                     displayTemplates(selectedTag);
                 }
@@ -324,4 +365,5 @@
         });
     </script>
 </body>
+
 </html>
