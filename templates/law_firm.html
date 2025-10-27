@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEX CUMBRE | Estrategia Jurídica de Alto Rendimiento</title>
+    <meta name="description" content="LEX CUMBRE es una firma de abogados de élite especializada en la resolución de problemas complejos, protección patrimonial y estrategia jurídica de alto rendimiento.">
+    <link rel="canonical" href="https://www.lexcumbre.com/">
+    <meta property="og:title" content="LEX CUMBRE | Estrategia Jurídica de Alto Rendimiento">
+    <meta property="og:description" content="Firma de abogados de élite especializada en la resolución de problemas complejos, protección patrimonial y estrategia jurídica de alto rendimiento.">
+    <meta property="og:image" content="https://www.lexcumbre.com/assets/PHOTO-reception.jpg">
+    <meta property="og:url" content="https://www.lexcumbre.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Configuración personalizada de Tailwind CSS para la nueva paleta de color -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Paleta de LEX CUMBRE
+                        'midnight-blue': '#000000', // Primario
+                        'classic-gold': '#C0A040',    // Acento 1
+                        'charcoal-gray': '#36454F',  // Acento 2
+                        'off-white': '#F8F8FF',      // Fondo
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Configuración para usar la fuente Inter y estilos del Hero/WhatsApp -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            background-color: #F8F8FF; /* Fondo Blanco Crudo */
+        }
+        /* Estilo para los títulos para simular el peso de una tipografía Serif clásica */
+        .title-weight {
+            font-weight: 800; /* Extra bold para impacto */
+        }
+
+        /* Estilo para el Hero con video de fondo */
+        #hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Capa de superposición para mejorar la legibilidad del texto */
+        #hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75); /* Negro con 75% de opacidad */
+            z-index: 1;
+        }
+
+        #hero-section .content-wrapper {
+            position: relative;
+            z-index: 2; /* Asegura que el contenido esté por encima de la superposición */
+        }
+
+        #whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #25D366;
+            width: 64px;
+            height: 64px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        #whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- JSON DE ASSETS (Punto Centralizado de Enlaces) -->
+    <script>
+        /**
+         * Objeto centralizado para gestionar todos los enlaces de activos externos (imágenes).
+         */
+        const ASSETS = {
+            heroBackgroundImage: {
+                src: "assets/PHOTO-reception.jpg",
+                alt: "Fondo de oficina moderna o skyline para LEX CUMBRE"
+            }
+            // Los íconos (SVG) están en línea y no se gestionan aquí.
+        };
+        
+        // Número de teléfono de WhatsApp (incluyendo código de país) y mensaje predefinido
+        const WHATSAPP_CONFIG = {
+            phoneNumber: '525512345678', // Ejemplo: México (+52) 55 1234 5678
+            message: 'Hola LEX CUMBRE, necesito una consulta estratégica urgente sobre un asunto crítico.'
+        };
+    </script>
+
+    <!-- CABECERA y NAVEGACIÓN (Azul Medianoche) -->
+    <header class="bg-midnight-blue shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo: LEX CUMBRE -->
+                <a href="#" class="flex items-center">
+                    <span class="text-2xl font-extrabold text-off-white tracking-tight">LEX</span>
+                    <span class="text-2xl font-light text-classic-gold">CUMBRE</span>
+                </a>
+                
+                <!-- Menú de Navegación (Desktop) -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-off-white hover:text-classic-gold transition duration-150 py-1 border-b-2 border-transparent hover:border-classic-gold">Inicio</a>
+                    <a href="#reseñas" class="text-off-white hover:text-classic-gold transition duration-150 py-1 border-b-2 border-transparent hover:border-classic-gold">Reseñas</a>
+                    <a href="#servicios" class="text-off-white hover:text-classic-gold transition duration-150 py-1 border-b-2 border-transparent hover:border-classic-gold">Servicios</a>
+                    <a href="#faq" class="text-off-white hover:text-classic-gold transition duration-150 py-1 border-b-2 border-transparent hover:border-classic-gold">FAQ</a>
+                    <a href="#nosotros" class="text-off-white hover:text-classic-gold transition duration-150 py-1 border-b-2 border-transparent hover:border-classic-gold">Sobre nosotros</a>
+                    <a href="#contacto" class="text-midnight-blue hover:bg-[#A08030] transition duration-150 py-1 px-4 rounded-full bg-classic-gold font-semibold">Consulta Estratégica</a>
+                </nav>
+
+                <!-- Botón de Menú Móvil (Oculto en Desktop) -->
+                <button id="mobile-menu-button" class="md:hidden text-off-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobile-menu" class="md:hidden hidden bg-charcoal-gray">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#inicio" class="block px-3 py-2 rounded-md text-base font-medium text-off-white hover:bg-[#36454F]">Inicio</a>
+                <a href="#reseñas" class="block px-3 py-2 rounded-md text-base font-medium text-off-white hover:bg-[#36454F]">Reseñas</a>
+                <a href="#servicios" class="block px-3 py-2 rounded-md text-base font-medium text-off-white hover:bg-[#36454F]">Servicios</a>
+                <a href="#faq" class="block px-3 py-2 rounded-md text-base font-medium text-off-white hover:bg-[#36454F]">FAQ</a>
+                <a href="#nosotros" class="block px-3 py-2 rounded-md text-base font-medium text-off-white hover:bg-[#36454F]">Sobre nosotros</a>
+                <a href="#contacto" class="block px-3 py-2 rounded-md text-base font-medium text-midnight-blue bg-classic-gold hover:bg-[#A08030] mt-2">Consulta Estratégica</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+    <!-- SECCIÓN HERO (Destacado Principal - Video de Fondo) -->
+    <section id="hero-section" class="relative overflow-hidden w-full min-h-screen flex items-center justify-center">
+    <video autoplay loop muted class="absolute z-0 w-full h-full object-cover">
+        <source src="assets/video reception.mp4" type="video/mp4">
+    </video>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 **py-16 md:py-32**"> 
+        <div class="content-wrapper flex flex-col items-center text-center">
+            
+            <h1 class="text-5xl md:text-7xl title-weight mb-4 leading-tight text-off-white">
+                Estrategia Jurídica<span class="block text-classic-gold">de Alto Rendimiento.</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl">
+                Somos una Firma especializada en la resolución de problemas complejos y la protección patrimonial, justificados por nuestra experiencia de élite.
+            </p>
+            <a href="#contacto" class="inline-block px-10 py-4 text-lg font-semibold text-midnight-blue bg-classic-gold rounded-lg shadow-xl hover:bg-[#A08030] transition duration-300 transform hover:scale-105">
+                Solicitar Consulta Confidencial
+            </a>
+        </div>
+    </div>
+    </section>
+
+    <!-- SECCIÓN DE RESEÑAS (Social Proof) -->
+    <section id="reseñas" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-midnight-blue mb-12">Lo Que Dicen Nuestros Clientes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Reseña 1 -->
+                <div class="bg-off-white p-8 rounded-xl shadow-lg">
+                    <p class="text-charcoal-gray mb-4">"La estrategia y ejecución de LEX CUMBRE fue impecable. Resolvieron un problema que otros consideraban imposible."</p>
+                    <p class="text-classic-gold font-semibold">- CEO, Startup Tecnológica</p>
+                </div>
+                <!-- Reseña 2 -->
+                <div class="bg-off-white p-8 rounded-xl shadow-lg">
+                    <p class="text-charcoal-gray mb-4">"Su asesoría en nuestra fusión fue clave para el éxito de la operación. Un equipo de verdaderos expertos."</p>
+                    <p class="text-classic-gold font-semibold">- Director Financiero, Corporativo Global</p>
+                </div>
+                <!-- Reseña 3 -->
+                <div class="bg-off-white p-8 rounded-xl shadow-lg">
+                    <p class="text-charcoal-gray mb-4">"La protección patrimonial que diseñaron para mi familia nos ha dado una tranquilidad incalculable."</p>
+                    <p class="text-classic-gold font-semibold">- Cliente Privado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE SERVICIOS (El Valor Detrás del Precio) -->
+    <section id="servicios" class="bg-off-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-midnight-blue mb-4">El Valor Detrás del Precio Premium</h2>
+            <p class="text-lg text-charcoal-gray mb-12 max-w-3xl mx-auto">
+                No vendemos horas, vendemos soluciones críticas. Nuestro modelo de tarifa refleja la intervención directa de socios senior y la mitigación de riesgos financieros.
+            </p>
+
+            <!-- Grid de Servicios de Alto Perfil -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Tarjeta 1: Derecho Corporativo M&A -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-classic-gold">
+                    <div class="text-classic-gold mb-4 mx-auto w-12 h-12">
+                        <!-- Icono de Maletín (Negocios/Empresa) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-midnight-blue mb-3">M&A y Transaccional</h3>
+                    <p class="text-charcoal-gray text-base">Asesoría en fusiones, adquisiciones y reestructuraciones societarias de alto valor y complejidad.</p>
+                </div>
+
+                <!-- Tarjeta 2: Litigios de Alto Perfil -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-classic-gold">
+                    <div class="text-classic-gold mb-4 mx-auto w-12 h-12">
+                         <!-- Icono de Martillo (Gavel) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gavel"><path d="M12 21c-2.76-2.76-3-6-3-6H5v-4h4s0-3 3-6l2.12 2.12c1.76-1.76 4-2.12 6.5-1.5 2.15.5 3.38 2.37 3.38 4.38 0 2.5-1.5 4.73-3.76 5.88l-2.12 2.12z"/><path d="M15 13l-3 3"/><path d="M16 11l-3 3"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-midnight-blue mb-3">Arbitraje Internacional</h3>
+                    <p class="text-charcoal-gray text-base">Representación en disputas comerciales y arbitrajes donde el riesgo económico es elevado.</p>
+                </div>
+
+                <!-- Tarjeta 3: Estructuración Patrimonial -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-classic-gold">
+                    <div class="text-classic-gold mb-4 mx-auto w-12 h-12">
+                        <!-- Icono de Balanza (Escalas de Justicia) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-midnight-blue mb-3">Protección Patrimonial</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE LOGROS Y CIFRAS DE IMPACTO -->
+    <section id="logros" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-midnight-blue mb-4">Logros y Cifras de Impacto</h2>
+            <p class="text-lg text-charcoal-gray mb-12 max-w-3xl mx-auto">
+                Nuestros resultados hablan por sí mismos. Estas cifras reflejan nuestro compromiso con la excelencia y el éxito de nuestros clientes.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Cifra 1 -->
+                <div class="bg-off-white p-8 rounded-xl shadow-lg">
+                    <p class="text-5xl font-extrabold text-classic-gold mb-2">+ $500M</p>
+                    <p class="text-charcoal-gray font-semibold">En Transacciones Manejadas</p>
+                </div>
+                <!-- Cifra 2 -->
+                <div class="bg-off-white p-8 rounded-xl shadow-lg">
+                    <p class="text-5xl font-extrabold text-classic-gold mb-2">98%</p>
+                    <p class="text-charcoal-gray font-semibold">Tasa de Éxito en Casos Críticos</p>
+                </div>
+                <!-- Cifra 3 -->
+                <div class="bg-off-white p-8 rounded-xl shadow-lg">
+                    <p class="text-5xl font-extrabold text-classic-gold mb-2">20+</p>
+                    <p class="text-charcoal-gray font-semibold">Años de Experiencia Combinada</p>
+                </div>
+            </div>
+            <h3 class="text-2xl font-semibold text-midnight-blue mb-8">Reconocidos por los Líderes de la Industria</h3>
+            <div class="flex justify-center items-center space-x-8">
+                <img src="https://placehold.co/150x50?text=Forbes" alt="Logo de Forbes" class="h-12 grayscale" loading="lazy">
+                <img src="https://placehold.co/150x50?text=The+Wall+Street+Journal" alt="Logo de The Wall Street Journal" class="h-12 grayscale" loading="lazy">
+                <img src="https://placehold.co/150x50?text=Bloomberg" alt="Logo de Bloomberg" class="h-12 grayscale" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE ÁREAS DE ESPECIALIDAD -->
+    <section id="especialidad" class="bg-midnight-blue text-off-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-classic-gold mb-4">Áreas de Especialidad</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-3xl mx-auto">
+                Ofrecemos soluciones legales de alto calibre en las áreas más críticas para el éxito y la protección de su patrimonio.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Especialidad 1 -->
+                <div class="bg-charcoal-gray p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-classic-gold mb-3">Fusiones y Adquisiciones (M&A)</h3>
+                    <p class="text-gray-300">Navegamos transacciones complejas para maximizar el valor y minimizar el riesgo, asegurando una integración exitosa y sin fricciones.</p>
+                </div>
+                <!-- Especialidad 2 -->
+                <div class="bg-charcoal-gray p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-classic-gold mb-3">Litigios de Alto Impacto</h3>
+                    <p class="text-gray-300">Defendemos sus intereses en disputas críticas con estrategias procesales innovadoras y una ejecución implacable en el tribunal.</p>
+                </div>
+                <!-- Especialidad 3 -->
+                <div class="bg-charcoal-gray p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-classic-gold mb-3">Protección Patrimonial Élite</h3>
+                    <p class="text-gray-300">Diseñamos estructuras legales y fiscales a medida para proteger su legado y asegurar su crecimiento a largo plazo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="bg-off-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl title-weight text-midnight-blue text-center mb-12">Preguntas Frecuentes</h2>
+            <div class="max-w-3xl mx-auto" x-data="{ open: null }">
+                <!-- Pregunta 1 -->
+                <div class="border-b border-gray-200 py-6">
+                    <button @click="open = open === 1 ? null : 1" class="w-full text-left" :aria-expanded="open === 1" aria-controls="faq-answer-1">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-midnight-blue" id="faq-question-1">¿Por qué sus tarifas son más altas que las de otras firmas?</h3>
+                            <svg class="w-6 h-6 text-classic-gold transform transition-transform" :class="{ 'rotate-180': open === 1 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div id="faq-answer-1" role="region" aria-labelledby="faq-question-1" x-show="open === 1" x-collapse class="mt-2">
+                        <p class="text-charcoal-gray">Nuestras tarifas reflejan la intervención directa de socios senior en cada caso, la complejidad de los asuntos que manejamos y el valor económico que generamos y protegemos para nuestros clientes. No vendemos horas, vendemos resultados y tranquilidad.</p>
+                    </div>
+                </div>
+                <!-- Pregunta 2 -->
+                <div class="border-b border-gray-200 py-6">
+                    <button @click="open = open === 2 ? null : 2" class="w-full text-left" :aria-expanded="open === 2" aria-controls="faq-answer-2">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-midnight-blue" id="faq-question-2">¿Qué tipo de clientes representan?</h3>
+                            <svg class="w-6 h-6 text-classic-gold transform transition-transform" :class="{ 'rotate-180': open === 2 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div id="faq-answer-2" role="region" aria-labelledby="faq-question-2" x-show="open === 2" x-collapse class="mt-2">
+                        <p class="text-charcoal-gray">Representamos a corporaciones, startups de alto crecimiento, fondos de inversión y clientes privados con patrimonios significativos. Nuestro enfoque está en asuntos críticos y de alto riesgo donde la experiencia es primordial.</p>
+                    </div>
+                </div>
+                <!-- Pregunta 3 -->
+                <div class="border-b border-gray-200 py-6">
+                    <button @click="open = open === 3 ? null : 3" class="w-full text-left" :aria-expanded="open === 3" aria-controls="faq-answer-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-midnight-blue" id="faq-question-3">¿Cómo es el proceso para una consulta estratégica?</h3>
+                            <svg class="w-6 h-6 text-classic-gold transform transition-transform" :class="{ 'rotate-180': open === 3 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div id="faq-answer-3" role="region" aria-labelledby="faq-question-3" x-show="open === 3" x-collapse class="mt-2">
+                        <p class="text-charcoal-gray">El primer paso es completar nuestro formulario de contacto confidencial. Uno de nuestros socios se pondrá en contacto para una evaluación preliminar. Si determinamos que podemos ayudar, agendaremos una reunión estratégica para discutir el caso en detalle.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN NOSOTROS (Nuestro Equipo) -->
+    <section id="nosotros" class="bg-midnight-blue text-off-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-classic-gold mb-4">Conozca a Nuestros Expertos</h2>
+            <p class="text-lg text-gray-300 mb-12 max-w-3xl mx-auto">
+                Nuestro equipo está formado por abogados de élite, reconocidos por su agudeza estratégica y su historial de victorias. La siguiente galería presenta a los profesionales que estarán a la vanguardia de su caso, garantizando un servicio de la más alta calidad.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Profesional 1 -->
+                <div class="relative group">
+                    <img src="assets/Marco antonio.png" alt="Retrato de Marco Antonio" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">Marco Antonio</h3>
+                            <p class="text-classic-gold">CEO</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profesional 2 -->
+                <div class="relative group">
+                    <img src="assets/cesar agusto.png" alt="Retrato de César Augusto" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">César Augusto</h3>
+                            <p class="text-classic-gold">Co-fundador</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profesional 3 -->
+                <div class="relative group">
+                    <img src="assets/jersy jackman.png" alt="Retrato de Jersy Jackman" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">Jersy Jackman</h3>
+                            <p class="text-classic-gold">Abogado Penalista</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profesional 4 -->
+                <div class="relative group">
+                    <img src="assets/londra demeter.png" alt="Retrato de Londra Demeter" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">Londra Demeter</h3>
+                            <p class="text-classic-gold">Abogada de Familia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CONTACTO Y FORMULARIO -->
+    <section id="contacto" class="bg-off-white py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl title-weight text-midnight-blue text-center mb-10">Agende una Consulta Estratégica</h2>
+            
+            <div class="bg-white p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-classic-gold">
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-charcoal-gray">Nombre Completo</label>
+                        <input type="text" id="name" name="name" required
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-classic-gold focus:border-classic-gold transition duration-150">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-charcoal-gray">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-classic-gold focus:border-classic-gold transition duration-150">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-charcoal-gray">Teléfono (Opcional)</label>
+                        <input type="tel" id="phone" name="phone"
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-classic-gold focus:border-classic-gold transition duration-150">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-charcoal-gray">Asunto Crítico</label>
+                        <textarea id="message" name="message" rows="4" required
+                                  class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-classic-gold focus:border-classic-gold transition duration-150"
+                                  placeholder="Describa brevemente el problema de alto perfil o el objetivo transaccional."></textarea>
+                    </div>
+                    <button type="submit"
+                            class="w-full py-3 px-4 border border-transparent rounded-lg shadow-lg text-lg font-medium text-midnight-blue bg-classic-gold hover:bg-[#A08030] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-classic-gold transition duration-150">
+                        Enviar Solicitud Confidencial
+                    </button>
+                    <div id="form-status" class="mt-4 text-center hidden p-3 rounded-lg"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (Azul Medianoche) -->
+    <footer class="bg-midnight-blue text-off-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+            
+            <!-- Columna 1: Contacto -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-classic-gold">Contáctenos</h4>
+                <p class="text-gray-400 mb-2">📞 +52 55 1234 5678</p>
+                <p class="text-gray-400 mb-2">📧 contacto@lexcumbre.com</p>
+                <p class="text-gray-400">📍 Ubicación Prime (Ver Entorno)</p>
+            </div>
+
+            <!-- Columna 2: Navegación -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-classic-gold">Servicios Estratégicos</h4>
+                <ul class="space-y-2">
+                    <li><a href="#inicio" class="text-gray-400 hover:text-classic-gold transition duration-150">Inicio</a></li>
+                    <li><a href="#servicios" class="text-gray-400 hover:text-classic-gold transition duration-150">Nuestras Soluciones</a></li>
+                    <li><a href="#nosotros" class="text-gray-400 hover:text-classic-gold transition duration-150">Sobre nosotros</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Información Legal -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-classic-gold">Información Legal</h4>
+                <p class="text-gray-400">Aviso de Privacidad</p>
+                <p class="text-gray-400">Términos y Condiciones</p>
+            </div>
+
+            <!-- Columna 4: Redes Sociales -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-classic-gold">Redes Sociales</h4>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="#" aria-label="LinkedIn de LEX CUMBRE" class="text-gray-400 hover:text-classic-gold transition duration-150">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram de LEX CUMBRE" class="text-gray-400 hover:text-classic-gold transition duration-150">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.07 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-charcoal-gray text-center text-sm text-gray-400">
+            &copy; 2025 LEX CUMBRE. Estrategia Jurídica de Alto Rendimiento.
+        </div>
+    </footer>
+
+    <a id="whatsapp-button" href="" target="_blank" aria-label="Contactar por WhatsApp">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.89-9.889-9.89-5.452 0-9.887 4.434-9.889 9.891-.001 2.235.666 4.363 1.842 6.045l-1.217 4.429 4.52-1.182z"/></svg>
+    </a>
+
+    <script>
+        // Lógica para el botón de WhatsApp
+        const whatsappButton = document.getElementById('whatsapp-button');
+        if (whatsappButton) {
+            const whatsappLink = `https://wa.me/${WHATSAPP_CONFIG.phoneNumber}?text=${encodeURIComponent(WHATSAPP_CONFIG.message)}`;
+            whatsappButton.href = whatsappLink;
+        }
+    </script>
+
+</body>
+</html>
