@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
-
-<head>
+<html lang="es" class=""> <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-088S66GDB5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -15,12 +13,9 @@
     <meta name="description"
         content="RUNIK: Explora nuestra colección de plantillas web de alta gama, diseñadas para un rendimiento y estética excepcionales.">
     <title>RUNIK | Plantillas Web</title>
-    <!-- Tailwind CSS -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- AOS (Animate On Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Configuración de Tailwind para habilitar dark mode por clase -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -36,13 +31,11 @@
             }
         }
     </script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap"
         rel="stylesheet">
-    <!-- Script para evitar el "flash" del tema incorrecto al cargar -->
     <script>
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
@@ -75,31 +68,40 @@
 
         /* --- ESTILOS MODIFICADOS PARA LA VISTA PREVIA --- */
 
-        /* 1. Contenedor de la vista previa */
-        /* Este div envuelve el iframe y establece el tamaño visible del recuadro. */
+        /* 1. Contenedor (Ancla de posicionamiento) */
         .preview-container {
             height: 250px;
+            width: 95%;
+            margin: 10px;
             border-radius: 0.5rem;
             overflow: hidden;
-            /* Oculta las partes del iframe que se salen */
             transition: transform 0.3s ease-in-out;
+            
+            position: relative;
         }
 
-        /* 2. El iframe con resolución de escritorio */
-        /* Forzamos una resolución grande y luego lo escalamos hacia abajo. */
+        .preview-wrapper {
+            /* Dimensiones del iframe original */
+            width: 1280px; 
+            height: 800px;
+            
+            position: absolute;
+            top: 0; /* Lo alinea arriba */
+            left: 50%; /* Lo centra horizontalmente */
+
+            /* Escala (250px / 800px) y corrige el centrado */
+            transform: translateX(-50%) scale(0.3125);
+            transform-origin: top; /* Escala desde el borde superior */
+        }
+        
         .template-preview {
             width: 1280px;
             height: 800px;
             border: 0;
-            transform: scale(0.26);
-            transform-origin: top left;
-            /* Asegura que la escala se origine en la esquina superior izquierda */
             pointer-events: none;
-            /* Evita que se pueda interactuar con el iframe */
+            /* ¡SIN ZOOM, SIN SCALE, SIN POSITION! */
         }
 
-        /* 3. Efecto hover aplicado al contenedor */
-        /* El efecto de zoom ahora se aplica al contenedor, no directamente al iframe. */
         .template-card:hover .preview-container {
             transform: scale(1.03);
         }
@@ -129,29 +131,24 @@
         .filter-btn:not(.active) {
             background-color: transparent;
             border-color: #d1d5db;
-            /* gray-300 */
         }
 
         .dark .filter-btn:not(.active) {
             border-color: #4b5563;
-            /* gray-600 */
         }
 
         .filter-btn:not(.active):hover {
             background-color: #f3f4f6;
-            /* gray-100 */
         }
 
         .dark .filter-btn:not(.active):hover {
             background-color: #1f2937;
-            /* gray-800 */
         }
     </style>
 </head>
 
 <body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 antialiased transition-colors duration-500">
 
-    <!-- Encabezado -->
     <header class="bg-dark-bg/80 dark:bg-dark-bg/80 backdrop-blur-sm text-white sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto flex justify-between items-center p-5 px-6">
             <a href="./index.html" class="text-4xl tracking-widest logo-font">Runik</a>
@@ -181,7 +178,6 @@
     </header>
 
     <main>
-        <!-- Sección de Plantillas -->
         <section id="templates" class="py-24 md:py-32">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
@@ -191,21 +187,16 @@
                         alta calidad, listas para adaptarse a su marca.</p>
                 </div>
 
-                <!-- Filtros de Tags -->
                 <div id="tag-filters" class="flex flex-wrap justify-center gap-3 mb-16" data-aos="fade-up"
                     data-aos-delay="100">
-                    <!-- Los botones de filtro se insertarán aquí -->
-                </div>
+                    </div>
 
-                <!-- Contenedor para las plantillas -->
                 <div id="templates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                    <!-- Las plantillas se insertarán aquí dinámicamente con JavaScript -->
-                </div>
+                    </div>
             </div>
         </section>
     </main>
 
-    <!-- Pie de Página -->
     <footer id="contacto" class="bg-dark-bg text-white py-20">
         <div class="container mx-auto px-6 text-center relative">
             <h1 class="text-3xl tracking-widest mb-4 logo-font" data-aos="fade-down">Runik</h1>
@@ -222,7 +213,6 @@
         </div>
     </footer>
 
-    <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -232,7 +222,6 @@
         });
     </script>
 
-    <!-- Lógica para el botón de cambio de tema -->
     <script>
         const themeToggleBtn = document.getElementById('theme-toggle');
         const darkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -257,7 +246,6 @@
         });
     </script>
 
-    <!-- Lógica para cargar y filtrar las plantillas -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const templatesGrid = document.getElementById('templates-grid');
@@ -278,11 +266,6 @@
                     tags: ['Servicios', 'Profesional', 'Hotel', 'Alquiler', 'Reserva']
                 },
                 {
-                    file: 'test3.html',
-                    title: 'Portfolio Creativo Minimalista',
-                    description: 'Ideal para fotógrafos, diseñadores y artistas que desean mostrar su trabajo de una manera elegante y directa.',
-                    tags: ['test', 'Portfolio', 'Creativo', 'Minimalista']
-                }, {
                     file: 'law_firm.html',
                     title: 'Estudio de abogados profecional',
                     description: 'Template para eestudio de abogados profecional.',
@@ -325,12 +308,13 @@
                         `<span class="bg-gray-200 dark:bg-gray-700 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded-full">${tag}</span>`
                     ).join('');
 
-                    // --- HTML DE LA TARJETA MODIFICADO ---
-                    // Se ha envuelto el iframe en un 'preview-container' y el resto del contenido en otro div
-                    // para mantener la estructura flexbox y aplicar los nuevos estilos de CSS.
                     card.innerHTML = `
                         <div class="preview-container mb-5 border border-gray-200 dark:border-gray-700">
-                             <iframe src="${template.file}" class="template-preview" scrolling="no" title="Vista previa de ${template.title}"></iframe>
+                            <div class="preview-wrapper">
+                            <a href="${template.file}">
+                                <iframe src="${template.file}" class="template-preview" scrolling="no" title="Vista previa de ${template.title}"></iframe>
+                            </a>
+                            </div>
                         </div>
                         <div class="flex flex-col flex-grow">
                             <h4 class="text-xl font-medium mb-2 brand-heading">${template.title}</h4>
