@@ -1,46 +1,39 @@
 <!DOCTYPE html>
-<html lang="es" class=""> <!-- La clase 'dark' se añadirá aquí con JS -->
+<html lang="es" class="">
 <head>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-088S66GDB5"></script>
-
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 		gtag('config', 'G-088S66GDB5');
 	</script>
-
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="RUNIK: Consultoría IT de alta gama. Desarrollamos soluciones a medida en ingeniería digital, inteligencia de datos y automatización de procesos para escalar su negocio.">
 	<title>RUNIK | Consultoría IT de Alta Gama</title>
-  <link rel="canonical" href="https://www.runik.studio/">
-	<!-- Tailwind CSS -->
+	<link rel="canonical" href="https://www.runik.studio/">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<script src="https://cdn.tailwindcss.com"></script>
-	<!-- AOS (Animate On Scroll) Library -->
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-	<!-- Configuración de Tailwind para habilitar dark mode por clase -->
 	<script>
 		tailwind.config = {
 			darkMode: 'class',
 			theme: {
 				extend: {
 					colors: {
-						'brand-gold': '#D4AF37', // Color de acento premium
-						'dark-bg': '#121212', // Gris oscuro en lugar de negro puro
-						'light-bg': '#F9F9F9', // Blanco roto en lugar de blanco puro
+						'brand-gold': '#D4AF37',
+						'dark-bg': '#121212',
+						'light-bg': '#F9F9F9',
 						'dark-card': '#1a1a1a',
 					}
 				}
 			}
 		}
 	</script>
-	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
-	<!-- Script para evitar el "flash" del tema incorrecto al cargar -->
 	<script>
 		if (localStorage.getItem('theme') === 'dark') {
 			document.documentElement.classList.add('dark');
@@ -78,22 +71,23 @@
 		.rune-icon {
 			height: 48px; width: 48px; margin: auto;
 			stroke: currentColor;
-			stroke-width: 1.5; /* Trazo más refinado */
+			stroke-width: 1.5;
 			fill: none;
 			transition: stroke 0.3s;
 		}
 		.service-card:hover .rune-icon {
-			stroke: #D4AF37; /* Color acento al hacer hover */
+			stroke: #D4AF37;
 		}
 	</style>
 </head>
 <body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-200 antialiased transition-colors duration-500">
 
-	<!-- Encabezado -->
 	<header class="bg-dark-bg/80 dark:bg-dark-bg/80 backdrop-blur-sm text-white sticky top-0 z-50 shadow-lg">
 		<div class="container mx-auto flex justify-between items-center p-5 px-6">
 			<h1 class="text-4xl tracking-widest logo-font">Runik</h1>
-			<div class="flex items-center space-x-6 md:space-x-10">
+			
+			<div class="flex items-center space-x-4 md:space-x-10">
+				
 				<nav class="hidden md:flex space-x-10 text-sm uppercase tracking-wider">
 					<a href="#soluciones" class="hover:text-brand-gold transition-colors duration-300">Soluciones</a>
 					<a href="#proceso" class="hover:text-brand-gold transition-colors duration-300">Proceso</a>
@@ -101,17 +95,34 @@
 					<a href="./blog.html" class="hover:text-brand-gold transition-colors duration-300">Blog</a>
 					<a href="#contacto" class="hover:text-brand-gold transition-colors duration-300">Contacto</a>
 				</nav>
+
 				<button id="theme-toggle" type="button" class="text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
 					<span class="sr-only">Toggle dark mode</span>
 					<svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
 					<svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 10.607a1 1 0 011.414 0l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
 				</button>
+				
+				<button id="mobile-menu-button" type="button" class="md:hidden text-gray-400 hover:text-white focus:outline-none p-2 rounded-lg">
+					<span class="sr-only">Abrir menú principal</span>
+					<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-8 6h8"></path>
+					</svg>
+				</button>
+			</div>
+		</div>
+
+		<div id="mobile-menu" class="hidden md:hidden">
+			<div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center border-t border-gray-700">
+				<a href="#soluciones" class="text-gray-300 hover:text-brand-gold block px-3 py-2 rounded-md text-base font-medium">Soluciones</a>
+				<a href="#proceso" class="text-gray-300 hover:text-brand-gold block px-3 py-2 rounded-md text-base font-medium">Proceso</a>
+				<a href="#nosotros" class="text-gray-300 hover:text-brand-gold block px-3 py-2 rounded-md text-base font-medium">Nosotros</a>
+				<a href="./blog.html" class="text-gray-300 hover:text-brand-gold block px-3 py-2 rounded-md text-base font-medium">Blog</a>
+				<a href="#contacto" class="text-gray-300 hover:text-brand-gold block px-3 py-2 rounded-md text-base font-medium">Contacto</a>
 			</div>
 		</div>
 	</header>
 
 	<main>
-		<!-- Sección Principal (Hero) -->
 		<section class="bg-dark-bg text-white text-center py-28 md:py-48 relative overflow-hidden">
 			<div class="hero-runic-bg"></div>
 			<div class="container mx-auto px-6 relative z-10">
@@ -121,7 +132,6 @@
 			</div>
 		</section>
 
-		<!-- Sección de Soluciones -->
 		<section id="soluciones" class="py-24 md:py-32 bg-gray-100 dark:bg-dark-bg/50">
 			<div class="container mx-auto px-6">
 				<div class="text-center mb-20" data-aos="fade-up">
@@ -129,7 +139,6 @@
 					<div class="w-24 h-px bg-gray-800 dark:bg-gray-200 mx-auto"></div>
 				</div>
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-					<!-- Solución 1: Landing Pages -->
 					<div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center flex flex-col" data-aos="fade-up" data-aos-delay="100">
 						<div class="mb-5">
 							<svg class="rune-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16M12 4v16" /></svg>
@@ -140,7 +149,6 @@
 							Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
 						</a>
 					</div>
-					<!-- Solución 2: Análisis de Mercado -->
 					<div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center flex flex-col" data-aos="fade-up" data-aos-delay="200">
 						<div class="mb-5">
 							<svg class="rune-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9-9 9-9-9zM12 21V3" /></svg>
@@ -151,7 +159,6 @@
 							Saber más <span class="group-hover:ml-2 transition-all duration-300">&rarr;</span>
 						</a>
 					</div>
-					<!-- Solución 3: Automatizaciones -->
 					<div class="service-card bg-light-bg dark:bg-dark-card p-8 rounded-lg border border-gray-200 dark:border-gray-800 text-center flex flex-col" data-aos="fade-up" data-aos-delay="300">
 						<div class="mb-5">
 							<svg class="rune-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v10l-6 6M12 2v10l6 6" /></svg>
@@ -166,7 +173,6 @@
 			</div>
 		</section>
 
-		<!-- Sección "Nuestro Proceso" -->
 		<section id="proceso" class="py-24 md:py-32 bg-light-bg dark:bg-dark-bg">
 			<div class="container mx-auto px-6">
 				<div class="text-center mb-20" data-aos="fade-up">
@@ -174,25 +180,21 @@
 					<p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Un enfoque metódico para garantizar resultados excepcionales.</p>
 				</div>
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
-					<!-- Paso 1 -->
 					<div class="p-6" data-aos="fade-up" data-aos-delay="100">
 						<div class="text-4xl font-bold text-brand-gold mb-4">01</div>
 						<h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Descubrimiento</h4>
 						<p class="text-gray-600 dark:text-gray-400">Analizamos a fondo sus objetivos y desafíos para definir una estrategia clara y precisa.</p>
 					</div>
-					<!-- Paso 2 -->
 					<div class="p-6" data-aos="fade-up" data-aos-delay="200">
 						<div class="text-4xl font-bold text-brand-gold mb-4">02</div>
 						<h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Diseño</h4>
 						<p class="text-gray-600 dark:text-gray-400">Creamos prototipos y arquitecturas de sistemas centrados en la experiencia de usuario y la escalabilidad.</p>
 					</div>
-					<!-- Paso 3 -->
 					<div class="p-6" data-aos="fade-up" data-aos-delay="300">
 						<div class="text-4xl font-bold text-brand-gold mb-4">03</div>
 						<h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Desarrollo</h4>
 						<p class="text-gray-600 dark:text-gray-400">Nuestro equipo de ingeniería construye la solución con código limpio, eficiente y robusto.</p>
 					</div>
-					<!-- Paso 4 -->
 					<div class="p-6" data-aos="fade-up" data-aos-delay="400">
 						<div class="text-4xl font-bold text-brand-gold mb-4">04</div>
 						<h4 class="text-xl font-semibold mb-2 uppercase tracking-widest">Despliegue</h4>
@@ -202,7 +204,6 @@
 			</div>
 		</section>
 
-		<!-- Sección "Sobre Nosotros" -->
 		<section id="nosotros" class="py-24 md:py-32 bg-gray-100 dark:bg-dark-bg/50">
 			<div class="container mx-auto px-6 text-center max-w-4xl" data-aos="fade-up">
 				<h3 class="text-2xl sm:text-3xl md:text-4xl font-light brand-heading uppercase mb-6">La Fusión de Estrategia y Código</h3>
@@ -211,7 +212,6 @@
 		</section>
 	</main>
 
-	<!-- Pie de Página -->
 	<footer id="contacto" class="bg-dark-bg text-white py-20">
 		<div class="container mx-auto px-6 text-center relative">
 			<h1 class="text-3xl tracking-widest mb-4 logo-font" data-aos="fade-down">Runik</h1>
@@ -226,7 +226,6 @@
 		</div>
 	</footer>
 
-	<!-- Botón de WhatsApp -->
 	<a href="https://wa.me/+5493584321473" 
 		target="_blank" 
 		rel="noopener noreferrer"
@@ -237,7 +236,6 @@
 		</svg>
 	</a>
 	
-	<!-- AOS Script -->
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 	<script>
 		AOS.init({
@@ -247,7 +245,6 @@
 		});
 	</script>
 	
-	<!-- Lógica para el botón de cambio de tema -->
 	<script>
 		const themeToggleBtn = document.getElementById('theme-toggle');
 		const darkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -270,7 +267,20 @@
 			localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
 			updateIcons();
 		});
+
+		const mobileMenuButton = document.getElementById('mobile-menu-button');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const mobileMenuLinks = mobileMenu.querySelectorAll('a'); 
+
+		mobileMenuButton.addEventListener('click', () => {
+			mobileMenu.classList.toggle('hidden');
+		});
+
+		mobileMenuLinks.forEach(link => {
+			link.addEventListener('click', () => {
+				mobileMenu.classList.add('hidden');
+			});
+		});
 	</script>
 </body>
 </html>
-
