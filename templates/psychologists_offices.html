@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClaraMente Psicología | Terapia Accesible y Confiable</title>
+    <meta name="description" content="ClaraMente Psicología es un espacio de terapia presencial y online que acompaña a personas que buscan claridad y herramientas prácticas para manejar ansiedad, estrés y cambios de vida.">
+    <link rel="canonical" href="https://www.claramentepsicologia.com/">
+    <meta property="og:title" content="ClaraMente Psicología | Terapia Accesible y Confiable">
+    <meta property="og:description" content="ClaraMente Psicología es un espacio de terapia presencial y online que acompaña a personas que buscan claridad y herramientas prácticas para manejar ansiedad, estrés y cambios de vida.">
+    <meta property="og:image" content="https://www.claramentepsicologia.com/assets/IMAGEN DE PSICOLOGO (1).jpg">
+    <meta property="og:url" content="https://www.claramentepsicologia.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- ScrollReveal.js CDN -->
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    
+    <!-- Configuración personalizada de Tailwind CSS para la nueva paleta de color -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Paleta de ClaraMente Psicología
+                        'azul-sereno': '#2B6CB0',      // Primario
+                        'verde-suave': '#69A67A',      // Secundario
+                        'gris-carbon': '#2D2D2D',      // Neutro oscuro
+                        'blanco-humo': '#F6F7F9',      // Neutro claro
+                        'coral-calido': '#FF7660',     // Acento (call-to-action)
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Configuración para usar la fuente Poppins e Inter y estilos del Hero/WhatsApp -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2D2D2D; /* gris-carbon */
+            background-color: #F6F7F9; /* blanco-humo */
+        }
+        .title-weight {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700; /* Bold */
+        }
+
+        /* Estilo para el Hero con video de fondo */
+        #hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Capa de superposición para mejorar la legibilidad del texto */
+        #hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6); /* Sombra más sutil */
+            z-index: 1;
+        }
+
+        #hero-section .content-wrapper {
+            position: relative;
+            z-index: 2; /* Asegura que el contenido esté por encima de la superposición */
+        }
+
+        #whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #25D366;
+            width: 64px;
+            height: 64px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        #whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Estilos para el slider del Hero */
+        .slider-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slider-image.active {
+            opacity: 1;
+        }
+
+        /* Estilos para los puntos de navegación del slider */
+        .slider-dots {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- JSON DE ASSETS (Punto Centralizado de Enlaces) -->
+    <script>
+        /**
+         * Objeto centralizado para gestionar todos los enlaces de activos externos (imágenes).
+         */
+        const ASSETS = {
+            heroBackgroundImage: {
+                src: "assets/imagen de consultorios (1).png",
+                alt: "Fondo de un consultorio de psicología moderno y acogedor"
+            }
+            // Los íconos (SVG) están en línea y no se gestionan aquí.
+        };
+        
+        // Número de teléfono de WhatsApp (incluyendo código de país) y mensaje predefinido
+        const WHATSAPP_CONFIG = {
+            phoneNumber: '5491112345678', // Ejemplo: Argentina (+54) 9 11 1234 5678
+            message: 'Hola ClaraMente, quisiera pedir una primera consulta informativa.'
+        };
+    </script>
+
+    <!-- CABECERA y NAVEGACIÓN (Azul Sereno) -->
+    <header class="bg-azul-sereno shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo: ClaraMente Psicología -->
+                <a href="#" class="flex items-center">
+                    <span class="text-2xl font-bold text-white tracking-tight">ClaraMente</span>
+                    <span class="text-2xl font-light text-white">Psicología</span>
+                </a>
+                
+                <!-- Menú de Navegación (Desktop) -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#hero-section" class="text-white hover:text-coral-calido transition duration-150 py-1 border-b-2 border-transparent hover:border-coral-calido">Inicio</a>
+                    <a href="#testimonios" class="text-white hover:text-coral-calido transition duration-150 py-1 border-b-2 border-transparent hover:border-coral-calido">Testimonios</a>
+                    <a href="#servicios" class="text-white hover:text-coral-calido transition duration-150 py-1 border-b-2 border-transparent hover:border-coral-calido">Servicios</a>
+                    <a href="#faq" class="text-white hover:text-coral-calido transition duration-150 py-1 border-b-2 border-transparent hover:border-coral-calido">FAQ</a>
+                    <a href="#equipo" class="text-white hover:text-coral-calido transition duration-150 py-1 border-b-2 border-transparent hover:border-coral-calido">Equipo</a>
+                    <a href="#contacto" class="text-azul-sereno hover:bg-coral-calido transition duration-150 py-1 px-4 rounded-full bg-white font-semibold">Pedir Cita</a>
+                </nav>
+
+                <!-- Botón de Menú Móvil (Oculto en Desktop) -->
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobile-menu" class="md:hidden hidden bg-gris-carbon">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#hero-section" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-azul-sereno">Inicio</a>
+                <a href="#testimonios" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-azul-sereno">Testimonios</a>
+                <a href="#servicios" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-azul-sereno">Servicios</a>
+                <a href="#faq" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-azul-sereno">FAQ</a>
+                <a href="#equipo" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-azul-sereno">Equipo</a>
+                <a href="#contacto" class="block px-3 py-2 rounded-md text-base font-medium text-azul-sereno bg-white hover:bg-coral-calido mt-2">Pedir Cita</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+    <!-- SECCIÓN HERO (Destacado Principal - Slider de Imágenes) -->
+    <section id="hero-section" class="relative overflow-hidden w-full min-h-screen flex items-center justify-center">
+        <!-- Contenedor del Slider -->
+        <div id="hero-slider" class="absolute z-0 w-full h-full">
+            <img src="assets/consultorio_psicologico-1.png" alt="Consultorio psicológico 1" class="slider-image active">
+            <img src="assets/consultorio_psicologico-2.png" alt="Consultorio psicológico 2" class="slider-image">
+            <img src="assets/consultorio_psicologico-3.png" alt="Consultorio psicológico 3" class="slider-image">
+            <img src="assets/consultorio_psicologico-4.png" alt="Consultorio psicológico 4" class="slider-image">
+            <img src="assets/consultorio_psicologico-5.png" alt="Consultorio psicológico 5" class="slider-image">
+            <img src="assets/consultorio_psicologico-6.png" alt="Consultorio psicológico 6" class="slider-image">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 py-16 md:py-32">
+            <div class="content-wrapper flex flex-col items-center text-center">
+                <h1 class="text-4xl md:text-7xl title-weight mb-4 leading-tight text-white">
+                    ¿Abrumado/a? <span class="block text-coral-calido">Empezá a encontrar claridad hoy.</span>
+                </h1>
+                <p class="text-xl text-gray-200 mb-8 max-w-3xl">
+                    Deja atrás el peso del estrés y la ansiedad. Acompañamiento profesional diseñado para tu paz mental.
+                </p>
+                <a href="#contacto" class="inline-block px-10 py-4 text-lg font-semibold text-white bg-coral-calido rounded-lg shadow-xl hover:bg-opacity-80 transition duration-300 transform hover:scale-105">
+                    Pedir Cita
+                </a>
+            </div>
+        </div>
+
+        <!-- Puntos de Navegación del Slider -->
+        <div class="slider-dots"></div>
+    </section>
+
+    <!-- SECCIÓN DE TESTIMONIOS (Social Proof) -->
+    <section id="testimonios" class="bg-blanco-humo py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-gris-carbon mb-12">Testimonios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg sr-fade-up">
+                    <p class="text-gris-carbon mb-4">"ClaraMente es un espacio que acompaña a personas que buscan claridad y herramientas prácticas para manejar ansiedad, estrés y cambios de vida. Ofrecen un equipo multidisciplinario y sesiones adaptadas."</p>
+                    <p class="text-azul-sereno font-semibold">- Paciente Anónimo</p>
+                </div>
+                <!-- Testimonio 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg sr-fade-up">
+                    <p class="text-gris-carbon mb-4">"Respirar no siempre alcanza — si querés, caminamos este proceso con vos. Y lo cumplen. Me sentí realmente acompañado."</p>
+                    <p class="text-azul-sereno font-semibold">- Paciente Anónimo</p>
+                </div>
+                <!-- Testimonio 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg sr-fade-up">
+                    <p class="text-gris-carbon mb-4">"Un espacio seguro y confidencial donde me sentí escuchado sin juicios. Totalmente recomendados."</p>
+                    <p class="text-azul-sereno font-semibold">- Paciente Anónimo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE VALORES -->
+    <section id="servicios" class="bg-blanco-humo py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-gris-carbon mb-4">Nuestros Valores</h2>
+            <p class="text-lg text-gris-carbon mb-12 max-w-3xl mx-auto">
+                Nuestra práctica se basa en estos principios fundamentales.
+            </p>
+
+            <!-- Grid de Valores -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Valor 1: Empatía -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-azul-sereno sr-fade-up">
+                    <div class="text-azul-sereno mb-4 mx-auto w-12 h-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-handshake"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.82 2.94 0l.06.06L12 11l2.96-2.96c.82-.82 2.12-.82 2.94 0v0a2.17 2.17 0 0 0 0-3.08L12 5Z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gris-carbon mb-3">Empatía</h3>
+                    <p class="text-gris-carbon text-base">Escuchamos sin juicio, creando un espacio seguro y de confianza para todos nuestros pacientes.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-azul-sereno sr-fade-up">
+                    <div class="text-azul-sereno mb-4 mx-auto w-12 h-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-glasses"><path d="M12 5C3 5 2 12 2 12s1 7 10 7 10-7 10-7-1-7-10-7z"/><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gris-carbon mb-3">Claridad</h3>
+                    <p class="text-gris-carbon text-base">Explicamos los procesos y objetivos terapéuticos con total transparencia, para que siempre sepas qué esperar.</p>
+                </div>
+
+                <!-- Valor 3: Profesionalidad -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-azul-sereno sr-fade-up">
+                    <div class="text-azul-sereno mb-4 mx-auto w-12 h-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award"><path d="M12 8V2l3 3 3-3v6"/><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M12 12v8l-3-3-3 3v-8"/><path d="M12 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gris-carbon mb-3">Profesionalidad</h3>
+                    <p class="text-gris-carbon text-base">Nuestro equipo está en formación continua y aplica prácticas basadas en la evidencia científica más reciente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- SECCIÓN DE ESPECIALIDADES -->
+    <section id="especialidad" class="bg-azul-sereno text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-white mb-4">Especialidades</h2>
+            <p class="text-lg text-gray-200 mb-12 max-w-3xl mx-auto">
+                Ofrecemos un abanico de servicios pensados para acompañarte en cada etapa de tu proceso.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white text-gris-carbon p-8 rounded-xl shadow-lg sr-fade-up">
+                    <h3 class="text-xl font-semibold text-azul-sereno mb-3">Terapia Presencial y Online</h3>
+                    <p>Para que puedas acceder a nuestros servicios desde donde te sientas más cómodo.</p>
+                </div>
+                <!-- Especialidad 2 -->
+                <div class="bg-white text-gris-carbon p-8 rounded-xl shadow-lg sr-fade-up">
+                    <h3 class="text-xl font-semibold text-azul-sereno mb-3">Ansiedad, Estrés y Duelo</h3>
+                    <p>Te acompañamos a transitar momentos difíciles y a desarrollar herramientas para gestionarlos.</p>
+                </div>
+                <!-- Especialidad 3 -->
+                <div class="bg-white text-gris-carbon p-8 rounded-xl shadow-lg sr-fade-up">
+                    <h3 class="text-xl font-semibold text-azul-sereno mb-3">Turnos Flexibles</h3>
+                    <p>Nos adaptamos a tu rutina con horarios flexibles para que no dejes de lado tu bienestar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" class="bg-blanco-humo py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl title-weight text-gris-carbon text-center mb-12">Preguntas Frecuentes</h2>
+            <div class="max-w-3xl mx-auto" x-data="{ open: null }">
+                <!-- Pregunta 1 -->
+                <div class="border-b border-gray-200 py-6">
+                    <button @click="open = open === 1 ? null : 1" class="w-full text-left" :aria-expanded="open === 1" aria-controls="faq-answer-1">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-gris-carbon" id="faq-question-1">¿Qué tipo de terapia ofrecen?</h3>
+                            <svg class="w-6 h-6 text-azul-sereno transform transition-transform" :class="{ 'rotate-180': open === 1 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div id="faq-answer-1" role="region" aria-labelledby="faq-question-1" x-show="open === 1" x-collapse class="mt-2">
+                        <p class="text-gris-carbon">Ofrecemos terapias basadas en evidencia con un enfoque humano y personalizado. Nuestro equipo multidisciplinario se especializa en el tratamiento de la ansiedad, el estrés, el duelo y otros desafíos de la vida.</p>
+                    </div>
+                </div>
+                <!-- Pregunta 2 -->
+                <div class="border-b border-gray-200 py-6">
+                    <button @click="open = open === 2 ? null : 2" class="w-full text-left" :aria-expanded="open === 2" aria-controls="faq-answer-2">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-gris-carbon" id="faq-question-2">¿Cómo es la primera consulta?</h3>
+                            <svg class="w-6 h-6 text-azul-sereno transform transition-transform" :class="{ 'rotate-180': open === 2 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div id="faq-answer-2" role="region" aria-labelledby="faq-question-2" x-show="open === 2" x-collapse class="mt-2">
+                        <p class="text-gris-carbon">La primera consulta es informativa y gratuita. Es un espacio para que nos conozcas, nos cuentes qué te trae a terapia y podamos resolver tus dudas. Juntos, definiremos si somos el lugar adecuado para vos.</p>
+                    </div>
+                </div>
+                <!-- Pregunta 3 -->
+                <div class="border-b border-gray-200 py-6">
+                    <button @click="open = open === 3 ? null : 3" class="w-full text-left" :aria-expanded="open === 3" aria-controls="faq-answer-3">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-gris-carbon" id="faq-question-3">¿Ofrecen terapia online?</h3>
+                            <svg class="w-6 h-6 text-azul-sereno transform transition-transform" :class="{ 'rotate-180': open === 3 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </button>
+                    <div id="faq-answer-3" role="region" aria-labelledby="faq-question-3" x-show="open === 3" x-collapse class="mt-2">
+                        <p class="text-gris-carbon">Sí. Ofrecemos tanto terapia presencial como online, con horarios flexibles para adaptarnos a tus necesidades y que puedas realizar las sesiones desde donde te sientas más cómodo/a.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN EQUIPO -->
+    <section id="equipo" class="bg-azul-sereno text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl title-weight text-white mb-4">Conocé a Nuestro Equipo</h2>
+            <p class="text-lg text-gray-200 mb-12 max-w-3xl mx-auto">
+                Nuestro equipo está formado por profesionales con un profundo compromiso con el bienestar de nuestros pacientes.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Profesional 1 -->
+                <div class="relative group">
+                    <img src="assets/imagen_perfil_profecional_psicologo-1.png" alt="Retrato de Dra. Ana Gómez" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">Dra. Ana Gómez</h3>
+                            <p class="text-coral-calido">Psicóloga Clínica</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profesional 2 -->
+                <div class="relative group">
+                    <img src="assets/imagen_perfil_profecional_psicologo-2.png" alt="Retrato de Lic. Javier Rodríguez" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">Lic. Javier Rodríguez</h3>
+                            <p class="text-coral-calido">Terapeuta Cognitivo-Conductual</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profesional 3 -->
+                <div class="relative group">
+                    <img src="assets/imagen_perfil_profecional_psicologo-3.png" alt="Retrato de Lic. Sofía Torres" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">Lic. Sofía Torres</h3>
+                            <p class="text-coral-calido">Psicóloga Infantil</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profesional 4 -->
+                <div class="relative group">
+                    <img src="assets/imagen_perfil_profecional_psicologo-1.jpg" alt="Retrato de Dr. Martín Castro" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
+                        <div>
+                            <h3 class="text-white text-lg font-bold">Dr. Martín Castro</h3>
+                            <p class="text-coral-calido">Psicoanalista</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CONTACTO Y FORMULARIO -->
+    <section id="contacto" class="bg-blanco-humo py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl title-weight text-gris-carbon text-center mb-10">Agendá tu Primera Consulta</h2>
+            
+            <div class="bg-white p-8 md:p-12 rounded-xl shadow-2xl border-t-4 border-azul-sereno">
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gris-carbon">Nombre Completo</label>
+                        <input type="text" id="name" name="name" required
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-azul-sereno focus:border-azul-sereno transition duration-150">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gris-carbon">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-azul-sereno focus:border-azul-sereno transition duration-150">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gris-carbon">Teléfono (Opcional)</label>
+                        <input type="tel" id="phone" name="phone"
+                               class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-azul-sereno focus:border-azul-sereno transition duration-150">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gris-carbon">Motivo de la consulta</label>
+                        <textarea id="message" name="message" rows="4" required
+                                  class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-azul-sereno focus:border-azul-sereno transition duration-150"
+                                  placeholder="Contanos brevemente qué te trae a consulta. No es necesario que entres en detalles."></textarea>
+                    </div>
+                    <button type="submit"
+                            class="w-full py-3 px-4 border border-transparent rounded-lg shadow-lg text-lg font-medium text-white bg-coral-calido hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-coral-calido transition duration-150">
+                        Enviar Solicitud
+                    </button>
+                    <div id="form-status" class="mt-4 text-center hidden p-3 rounded-lg"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (Gris Carbón) -->
+    <footer class="bg-gris-carbon text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+            
+            <!-- Columna 1: Contacto -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-azul-sereno">Contáctanos</h4>
+                <p class="text-gray-400 mb-2">📞 +54 9 11 1234-5678</p>
+                <p class="text-gray-400 mb-2">📧 hola@claramentepsicologia.com</p>
+                <p class="text-gray-400">📍 Palermo, Buenos Aires</p>
+            </div>
+
+            <!-- Columna 2: Navegación -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-azul-sereno">Navegación</h4>
+                <ul class="space-y-2">
+                    <li><a href="#inicio" class="text-gray-400 hover:text-azul-sereno transition duration-150">Inicio</a></li>
+                    <li><a href="#servicios" class="text-gray-400 hover:text-azul-sereno transition duration-150">Servicios</a></li>
+                    <li><a href="#equipo" class="text-gray-400 hover:text-azul-sereno transition duration-150">Equipo</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Información Legal -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-azul-sereno">Información Legal</h4>
+                <p class="text-gray-400">Aviso de Privacidad</p>
+                <p class="text-gray-400">Términos y Condiciones</p>
+            </div>
+
+            <!-- Columna 4: Redes Sociales -->
+            <div>
+                <h4 class="text-xl title-weight mb-3 text-azul-sereno">Redes Sociales</h4>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-azul-sereno transition duration-150">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-azul-sereno transition duration-150">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.07 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm text-gray-400">
+            &copy; 2025 ClaraMente Psicología. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <a id="whatsapp-button" href="" target="_blank" aria-label="Contactar por WhatsApp">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.433-9.89-9.889-9.89-5.452 0-9.887 4.434-9.889 9.891-.001 2.235.666 4.363 1.842 6.045l-1.217 4.429 4.52-1.182z"/></svg>
+    </a>
+
+    <script>
+        // Lógica para el slider del Hero
+        document.addEventListener('DOMContentLoaded', function () {
+            const sliderImages = document.querySelectorAll('.slider-image');
+            const dotsContainer = document.querySelector('.slider-dots');
+            let currentImageIndex = 0;
+            let sliderInterval;
+
+            // Crear los puntos
+            sliderImages.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                dot.addEventListener('click', () => {
+                    setCurrentImage(index);
+                    resetInterval();
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.dot');
+
+            function setCurrentImage(index) {
+                sliderImages[currentImageIndex].classList.remove('active');
+                dots[currentImageIndex].classList.remove('active');
+                currentImageIndex = index;
+                sliderImages[currentImageIndex].classList.add('active');
+                dots[currentImageIndex].classList.add('active');
+            }
+
+            function nextImage() {
+                const nextIndex = (currentImageIndex + 1) % sliderImages.length;
+                setCurrentImage(nextIndex);
+            }
+
+            function resetInterval() {
+                clearInterval(sliderInterval);
+                sliderInterval = setInterval(nextImage, 4500);
+            }
+
+            // Iniciar el slider
+            dots[0].classList.add('active'); // Activar el primer punto
+            sliderInterval = setInterval(nextImage, 4500);
+        });
+
+        // Lógica para el botón de WhatsApp
+        const whatsappButton = document.getElementById('whatsapp-button');
+        if (whatsappButton) {
+            const whatsappLink = `https://wa.me/${WHATSAPP_CONFIG.phoneNumber}?text=${encodeURIComponent(WHATSAPP_CONFIG.message)}`;
+            whatsappButton.href = whatsappLink;
+        }
+    </script>
+
+    <script>
+        // Inicialización de ScrollReveal para animaciones sutiles
+        ScrollReveal().reveal('.sr-fade-up', {
+            distance: '20px',
+            origin: 'bottom',
+            opacity: 0,
+            duration: 1000,
+            easing: 'ease-in-out',
+            interval: 100, // Pequeño retraso entre elementos si hay varios
+            mobile: false // Desactivar en móviles si se prefiere
+        });
+    </script>
+
+</body>
+</html>
