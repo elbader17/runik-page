@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lofts Urbanos - Tu Espacio en la Ciudad</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Iconos (Lucide Icons) -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/dist/lucide.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Un gris muy claro */
+            color: #1f2937; /* Gris oscuro para el texto */
+        }
+        /* Animación para elementos que aparecen al hacer scroll */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- =========== NAVEGACIÓN =========== -->
+    <nav class="bg-gray-900/80 backdrop-blur-lg shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-extrabold text-2xl text-white" id="nav-brand"></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#apartamentos" class="text-gray-300 hover:text-orange-400 transition duration-300">Apartamentos</a>
+                <a href="#amenidades" class="text-gray-300 hover:text-orange-400 transition duration-300">Amenidades</a>
+                <a href="#galeria" class="text-gray-300 hover:text-orange-400 transition duration-300">Galería</a>
+                <a href="#contacto" class="text-gray-300 hover:text-orange-400 transition duration-300">Contacto</a>
+            </div>
+            <a href="#contacto" id="nav-cta-button" class="hidden md:block bg-orange-500 text-white py-2 px-5 rounded-md font-bold hover:bg-orange-600 transition duration-300 shadow-md"></a>
+        </div>
+    </nav>
+
+    <!-- =========== HERO SECTION (Disposición Dividida) =========== -->
+    <header id="hero" class="bg-white">
+        <div class="container mx-auto px-6 py-16 md:py-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4"></h1>
+                    <p id="hero-subtitle" class="text-lg md:text-xl text-gray-600 mb-8"></p>
+                    <a href="#apartamentos" id="hero-cta-button" class="bg-gray-900 text-white py-3 px-8 rounded-md font-bold text-lg hover:bg-gray-800 transition duration-300 inline-block shadow-lg"></a>
+                </div>
+                <div id="hero-image-container" class="rounded-lg overflow-hidden shadow-2xl">
+                    <!-- La imagen se insertará aquí -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========== SECCIÓN DE APARTAMENTOS =========== -->
+    <section id="apartamentos" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 id="apartamentos-title" class="text-3xl md:text-4xl font-bold mb-2 reveal-on-scroll"></h2>
+            <p id="apartamentos-description" class="text-gray-600 max-w-2xl mx-auto mb-12 reveal-on-scroll"></p>
+            <div id="apartamentos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Los apartamentos se insertarán aquí -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- =========== SECCIÓN DE AMENIDADES (Características) =========== -->
+    <section id="amenidades" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="reveal-on-scroll">
+                    <h2 id="amenidades-title" class="text-3xl md:text-4xl font-bold mb-4"></h2>
+                    <p id="amenidades-description" class="text-gray-600 mb-8"></p>
+                    <div id="amenidades-list" class="space-y-6">
+                        <!-- Las amenidades se insertarán aquí -->
+                    </div>
+                </div>
+                <div id="amenidades-image-container" class="rounded-lg overflow-hidden shadow-xl reveal-on-scroll">
+                    <!-- Imagen de amenidades -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== SECCIÓN DE GALERÍA =========== -->
+    <section id="galeria" class="py-16 md:py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 id="galeria-title" class="text-3xl md:text-4xl font-bold text-center mb-12 reveal-on-scroll"></h2>
+            <div id="galeria-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Las imágenes se insertarán aquí -->
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== SECCIÓN DE CONTACTO (Disposición Centrada) =========== -->
+    <section id="contacto" class="py-16 md:py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 id="contacto-title" class="text-3xl md:text-4xl font-bold mb-4 reveal-on-scroll"></h2>
+            <p id="contacto-description" class="max-w-xl mx-auto text-gray-300 mb-10 reveal-on-scroll"></p>
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-lg text-left text-gray-800 reveal-on-scroll">
+                <form>
+                    <h3 id="form-title" class="text-2xl font-bold mb-6 text-center"></h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-1 font-medium">Nombre</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-1 font-medium">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-700 mb-1 font-medium">Mensaje</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+                    </div>
+                    <button type="submit" id="form-submit-button" class="w-full bg-orange-500 text-white py-3 rounded-md font-bold hover:bg-orange-600 transition duration-300 shadow-md"></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========== FOOTER =========== -->
+    <footer class="bg-gray-800 text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p id="footer-text"></p>
+            <div id="social-links" class="flex justify-center space-x-6 mt-4">
+                <!-- Enlaces a redes sociales -->
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // ######################################################################
+    // #####  ZONA DE CONFIGURACIÓN: Edita aquí todo el contenido      #####
+    // #####  Simplemente cambia los textos y las URLs de las imágenes. #####
+    // ######################################################################
+    const siteData = {
+        // --- Contenido General ---
+        nombreDelLugar: "Lofts Urbanos",
+        
+        // --- Navegación ---
+        nav: {
+            brand: "Lofts Urbanos",
+            ctaButton: "Consultar",
+        },
+
+        // --- Sección Principal (Hero) ---
+        hero: {
+            title: "Diseño y Confort en el Corazón de la Ciudad",
+            subtitle: "Experimenta un estilo de vida único en nuestros exclusivos lofts. Modernidad, comodidad y la mejor ubicación.",
+            ctaButton: "Ver Lofts Disponibles",
+            // URL de la imagen principal. Busca en Unsplash.com "modern apartment" o "loft interior".
+            imageUrl: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop", 
+        },
+
+        // --- Sección de Apartamentos ---
+        apartamentos: {
+            title: "Nuestros Espacios",
+            description: "Cada loft está pensado para ofrecer una experiencia superior, con acabados de primera calidad y diseño de vanguardia.",
+            list: [
+                {
+                    nombre: "Loft 'Skyline'",
+                    detalles: "1 Habitación / 75m²",
+                    descripcion: "Vistas panorámicas de la ciudad y un diseño de concepto abierto que maximiza el espacio y la luz.",
+                    imagenUrl: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop",
+                },
+                {
+                    nombre: "Loft 'Soho'",
+                    detalles: "2 Habitaciones / 95m²",
+                    descripcion: "Perfecto para quienes buscan más espacio. Estilo industrial-chic con detalles en ladrillo visto y madera.",
+                    imagenUrl: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=2070&auto=format=fit&crop",
+                },
+                {
+                    nombre: "Penthouse 'The Summit'",
+                    detalles: "3 Habitaciones / 150m²",
+                    descripcion: "Lujo en su máxima expresión. Terraza privada, jacuzzi y las mejores vistas de la ciudad.",
+                    imagenUrl: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2070&auto=format&fit=crop",
+                }
+            ]
+        },
+
+        // --- Sección de Amenidades ---
+        amenidades: {
+            title: "Servicios Exclusivos",
+            description: "Más que un lugar para vivir, un estilo de vida. Disfruta de nuestras instalaciones de primer nivel.",
+            imageUrl: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1949&auto=format&fit=crop", // Busca "rooftop pool" o "luxury gym"
+            list: [
+                { nombre: "Piscina en la Terraza", icono: "waves", descripcion: "Relájate con vistas increíbles." },
+                { nombre: "Gimnasio Equipado", icono: "dumbbell", descripcion: "Mantente en forma sin salir de casa." },
+                { nombre: "Seguridad 24/7", icono: "shield-check", descripcion: "Tu tranquilidad es nuestra prioridad." },
+                { nombre: "Coworking Space", icono: "laptop", descripcion: "Un espacio inspirador para tu trabajo." },
+            ]
+        },
+
+        // --- Sección de Galería ---
+        galeria: {
+            title: "Explora Nuestros Espacios",
+            imagenes: [
+                // Agrega aquí las URLs de tus mejores fotos
+                "https://images.unsplash.com/photo-1617104679233-a4b5c93c4c3b?q=80&w=1974&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1596900778106-0b3d5b09b5a8?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2158&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1615875605825-5eb9bb5fea38?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=2057&auto=format&fit=crop",
+                "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop",
+            ]
+        },
+
+        // --- Sección de Contacto y Formulario ---
+        contacto: {
+            title: "¿Interesado?",
+            description: "Déjanos tu mensaje y un asesor se pondrá en contacto contigo a la brevedad para coordinar una visita.",
+            formTitle: "Formulario de Contacto",
+            formSubmitButton: "Enviar Consulta",
+        },
+
+        // --- Footer y Redes Sociales ---
+        footer: {
+            // Este texto es fijo según tu requerimiento
+            copyright: `© ${new Date().getFullYear()} Runik Studio. Todos los derechos reservados.`,
+            copyrightLink: "https://www.runik.studio",
+            social: [
+                { red: "Instagram", url: "https://instagram.com", icono: "instagram" },
+                { red: "Linkedin", url: "https://linkedin.com", icono: "linkedin" },
+                { red: "Twitter", url: "https://twitter.com", icono: "twitter" },
+            ]
+        }
+    };
+    // ######################################################################
+    // ##### FIN DE LA ZONA DE CONFIGURACIÓN                             #####
+    // ######################################################################
+
+
+    // --- Lógica para poblar la página con los datos de "siteData" ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Navegación
+        document.getElementById('nav-brand').textContent = siteData.nav.brand;
+        document.getElementById('nav-cta-button').textContent = siteData.nav.ctaButton;
+
+        // Hero
+        document.getElementById('hero-title').textContent = siteData.hero.title;
+        document.getElementById('hero-subtitle').textContent = siteData.hero.subtitle;
+        document.getElementById('hero-cta-button').textContent = siteData.hero.ctaButton;
+        const heroImageContainer = document.getElementById('hero-image-container');
+        heroImageContainer.innerHTML = `<img src="${siteData.hero.imageUrl}" alt="Imagen principal de ${siteData.nombreDelLugar}" class="w-full h-full object-cover">`;
+
+        // Apartamentos
+        document.getElementById('apartamentos-title').textContent = siteData.apartamentos.title;
+        document.getElementById('apartamentos-description').textContent = siteData.apartamentos.description;
+        const apartamentosGrid = document.getElementById('apartamentos-grid');
+        siteData.apartamentos.list.forEach(apto => {
+            const aptoCard = document.createElement('div');
+            aptoCard.className = 'bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 reveal-on-scroll';
+            aptoCard.innerHTML = `
+                <img src="${apto.imagenUrl}" alt="Imagen de ${apto.nombre}" class="w-full h-64 object-cover">
+                <div class="p-6 text-left">
+                    <h3 class="text-2xl font-bold mb-1">${apto.nombre}</h3>
+                    <p class="text-orange-500 font-semibold mb-3">${apto.detalles}</p>
+                    <p class="text-gray-600">${apto.descripcion}</p>
+                </div>
+            `;
+            apartamentosGrid.appendChild(aptoCard);
+        });
+
+        // Amenidades
+        document.getElementById('amenidades-title').textContent = siteData.amenidades.title;
+        document.getElementById('amenidades-description').textContent = siteData.amenidades.description;
+        const amenidadesList = document.getElementById('amenidades-list');
+        siteData.amenidades.list.forEach(item => {
+            const amenidadItem = document.createElement('div');
+            amenidadItem.className = 'flex items-start';
+            amenidadItem.innerHTML = `
+                <div class="bg-orange-100 p-3 rounded-full mr-4 flex-shrink-0">
+                    <i data-lucide="${item.icono}" class="w-6 h-6 text-orange-600"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg">${item.nombre}</h3>
+                    <p class="text-gray-600">${item.descripcion}</p>
+                </div>
+            `;
+            amenidadesList.appendChild(amenidadItem);
+        });
+        const amenidadesImageContainer = document.getElementById('amenidades-image-container');
+        amenidadesImageContainer.innerHTML = `<img src="${siteData.amenidades.imageUrl}" alt="Imagen de las amenidades" class="w-full h-full object-cover">`;
+        
+        // Galería
+        document.getElementById('galeria-title').textContent = siteData.galeria.title;
+        const galeriaGrid = document.getElementById('galeria-grid');
+        siteData.galeria.imagenes.forEach((url, index) => {
+            const imgWrapper = document.createElement('div');
+            imgWrapper.className = `overflow-hidden rounded-lg shadow-md reveal-on-scroll ${index === 0 || index === 5 ? 'md:col-span-2 md:row-span-2' : ''}`;
+            imgWrapper.innerHTML = `<img src="${url}" alt="Foto de la galería ${index + 1}" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500 cursor-pointer">`;
+            galeriaGrid.appendChild(imgWrapper);
+        });
+
+        // Contacto
+        document.getElementById('contacto-title').textContent = siteData.contacto.title;
+        document.getElementById('contacto-description').textContent = siteData.contacto.description;
+        document.getElementById('form-title').textContent = siteData.contacto.formTitle;
+        document.getElementById('form-submit-button').textContent = siteData.contacto.formSubmitButton;
+        
+        // Footer
+        const footerText = document.getElementById('footer-text');
+        footerText.innerHTML = `<a href="${siteData.footer.copyrightLink}" target="_blank" rel="noopener noreferrer" class="hover:text-white">${siteData.footer.copyright}</a>`;
+
+        const socialLinksContainer = document.getElementById('social-links');
+        siteData.footer.social.forEach(red => {
+             const link = document.createElement('a');
+             link.href = red.url;
+             link.target = '_blank';
+             link.rel = 'noopener noreferrer';
+             link.className = 'hover:text-orange-400 transition duration-300';
+             link.innerHTML = `<i data-lucide="${red.icono}" class="w-6 h-6"></i>`;
+             socialLinksContainer.appendChild(link);
+        });
+
+        // Renderizar iconos
+        lucide.createIcons();
+    });
+
+    // --- Lógica para la animación de scroll ---
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+        scrollObserver.observe(el);
+    });
+    </script>
+
+</body>
+</html>
