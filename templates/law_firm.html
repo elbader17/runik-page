@@ -86,6 +86,14 @@
         #whatsapp-button:hover {
             transform: scale(1.1);
         }
+
+        @media (max-width: 430px) {
+            #whatsapp-button {
+                left: 100%;
+                transform: translateX(-110%);
+                bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -97,7 +105,7 @@
          */
         const ASSETS = {
             heroBackgroundImage: {
-                src: "assets/PHOTO-reception.jpg",
+                src: "assets/PHOTO-reception.webp",
                 alt: "Fondo de oficina moderna o skyline para LEX CUMBRE"
             }
             // Los íconos (SVG) están en línea y no se gestionan aquí.
@@ -355,7 +363,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 <!-- Profesional 1 -->
                 <div class="relative group">
-                    <img src="assets/Marco antonio.png" alt="Retrato de Marco Antonio" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/Marco antonio.webp" alt="Retrato de Marco Antonio" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">Marco Antonio</h3>
@@ -365,7 +373,7 @@
                 </div>
                 <!-- Profesional 2 -->
                 <div class="relative group">
-                    <img src="assets/cesar agusto.png" alt="Retrato de César Augusto" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/cesar agusto.webp" alt="Retrato de César Augusto" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">César Augusto</h3>
@@ -375,7 +383,7 @@
                 </div>
                 <!-- Profesional 3 -->
                 <div class="relative group">
-                    <img src="assets/jersy jackman.png" alt="Retrato de Jersy Jackman" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/jersy jackman.webp" alt="Retrato de Jersy Jackman" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">Jersy Jackman</h3>
@@ -385,7 +393,7 @@
                 </div>
                 <!-- Profesional 4 -->
                 <div class="relative group">
-                    <img src="assets/londra demeter.png" alt="Retrato de Londra Demeter" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/londra demeter.webp" alt="Retrato de Londra Demeter" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">Londra Demeter</h3>
@@ -496,6 +504,16 @@
             const whatsappLink = `https://wa.me/${WHATSAPP_CONFIG.phoneNumber}?text=${encodeURIComponent(WHATSAPP_CONFIG.message)}`;
             whatsappButton.href = whatsappLink;
         }
+    </script>
+
+    <script>
+        // Lógica para el menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
     </script>
 
 </body>

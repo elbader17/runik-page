@@ -200,12 +200,12 @@
     <section id="hero-section" class="relative overflow-hidden w-full min-h-screen flex items-center justify-center">
         <!-- Contenedor del Slider -->
         <div id="hero-slider" class="absolute z-0 w-full h-full">
-            <img src="assets/consultorio_psicologico-1.png" alt="Consultorio psicológico 1" class="slider-image active">
-            <img src="assets/consultorio_psicologico-2.png" alt="Consultorio psicológico 2" class="slider-image">
-            <img src="assets/consultorio_psicologico-3.png" alt="Consultorio psicológico 3" class="slider-image">
-            <img src="assets/consultorio_psicologico-4.png" alt="Consultorio psicológico 4" class="slider-image">
-            <img src="assets/consultorio_psicologico-5.png" alt="Consultorio psicológico 5" class="slider-image">
-            <img src="assets/consultorio_psicologico-6.png" alt="Consultorio psicológico 6" class="slider-image">
+            <img src="assets/consultorio_psicologico-1.webp" alt="Consultorio psicológico 1" class="slider-image active">
+            <img src="assets/consultorio_psicologico-2.webp" alt="Consultorio psicológico 2" class="slider-image">
+            <img src="assets/consultorio_psicologico-3.webp" alt="Consultorio psicológico 3" class="slider-image">
+            <img src="assets/consultorio_psicologico-4.webp" alt="Consultorio psicológico 4" class="slider-image">
+            <img src="assets/consultorio_psicologico-5.webp" alt="Consultorio psicológico 5" class="slider-image">
+            <img src="assets/consultorio_psicologico-6.webp" alt="Consultorio psicológico 6" class="slider-image">
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 py-16 md:py-32">
@@ -372,7 +372,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 <!-- Profesional 1 -->
                 <div class="relative group">
-                    <img src="assets/imagen_perfil_profecional_psicologo-1.png" alt="Retrato de Dra. Ana Gómez" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/imagen_perfil_profecional_psicologo-1.webp" alt="Retrato de Dra. Ana Gómez" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">Dra. Ana Gómez</h3>
@@ -382,7 +382,7 @@
                 </div>
                 <!-- Profesional 2 -->
                 <div class="relative group">
-                    <img src="assets/imagen_perfil_profecional_psicologo-2.png" alt="Retrato de Lic. Javier Rodríguez" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/imagen_perfil_profecional_psicologo-2.webp" alt="Retrato de Lic. Javier Rodríguez" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">Lic. Javier Rodríguez</h3>
@@ -392,7 +392,7 @@
                 </div>
                 <!-- Profesional 3 -->
                 <div class="relative group">
-                    <img src="assets/imagen_perfil_profecional_psicologo-1.jpg" alt="Retrato de Lic. Sofía Torres" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/imagen_perfil_profecional_psicologo-1-1.webp" alt="Retrato de Lic. Sofía Torres" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">Lic. Sofía Torres</h3>
@@ -402,7 +402,7 @@
                 </div>
                 <!-- Profesional 4 -->
                 <div class="relative group">
-                    <img src="assets/imagen_perfil_profecional_psicologo-3.png" alt="Retrato de Dr. Martín Castro" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
+                    <img src="assets/imagen_perfil_profecional_psicologo-3.webp" alt="Retrato de Dr. Martín Castro" class="w-full h-auto object-cover rounded-lg grayscale group-hover:grayscale-0 transition duration-300" loading="lazy">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-end p-4 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300">
                         <div>
                             <h3 class="text-white text-lg font-bold">Dr. Martín Castro</h3>
@@ -568,6 +568,16 @@
             easing: 'ease-in-out',
             interval: 100, // Pequeño retraso entre elementos si hay varios
             mobile: false // Desactivar en móviles si se prefiere
+        });
+    </script>
+
+    <script>
+        // Lógica para el menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 

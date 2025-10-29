@@ -33,14 +33,14 @@
     <!-- =========== Barra de Navegación =========== -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" id="nav-brand" class="text-2xl font-bold text-green-800">Nombre del Complejo</a>
+            <a href="#" id="nav-brand" class="text-2xl font-bold text-green-700">Nombre del Complejo</a>
             <div class="hidden md:flex space-x-6">
                 <a href="#inicio" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
                 <a href="#cabanas" class="text-gray-600 hover:text-green-700 transition">Nuestras Cabañas</a>
                 <a href="#ubicacion" class="text-gray-600 hover:text-green-700 transition">Ubicación</a>
                 <a href="#contacto" class="text-gray-600 hover:text-green-700 transition">Contacto</a>
             </div>
-            <a href="#contacto" id="nav-cta-button" class="hidden md:block bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition font-medium">
+            <a href="#contacto" id="nav-cta-button" class="hidden md:block bg-green-800 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition font-medium">
                 <span class="hidden lg:inline">Reservar Ahora</span>
                 <span class="lg:hidden">Reservar</span>
             </a>
@@ -60,9 +60,11 @@
 
     <main>
         <!-- =========== Sección Principal (Hero) =========== -->
-        <section id="inicio" class="relative h-[60vh] md:h-[80vh] bg-gray-400 bg-cover bg-center">
-            <!-- La imagen de fondo se carga desde el script de configuración -->
-            <div id="hero-image" class="absolute inset-0 bg-cover bg-center"></div>
+        <section id="inicio" class="relative h-[60vh] md:h-[80vh] overflow-hidden">
+            <video autoplay loop muted class="absolute z-0 w-auto min-w-full min-h-full max-w-none">
+                <source src="assets/video_de_cabañas.mp4" type="video/mp4">
+                Tu navegador no soporta videos HTML5.
+            </video>
             <div class="absolute inset-0 bg-black bg-opacity-40"></div>
             <div class="relative container mx-auto px-6 h-full flex flex-col justify-center items-center text-center text-white">
                 <h1 id="hero-title" class="text-4xl md:text-6xl font-bold leading-tight mb-4">Título Principal Atractivo</h1>
@@ -93,17 +95,7 @@
                     <p id="location-description" class="text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Descripción de la ubicación, el pueblo, y los atractivos cercanos.</p>
                 </div>
                 <div class="w-full h-96 bg-gray-300 rounded-lg shadow-lg overflow-hidden">
-                    <!-- 
-                        INSTRUCCIONES PARA EL MAPA:
-                        1. Ve a Google Maps.
-                        2. Busca la dirección de tus cabañas.
-                        3. Haz clic en "Compartir" y luego en "Incorporar un mapa".
-                        4. Copia el código HTML que te proporciona (empieza con "<iframe src=...").
-                        5. Reemplaza este comentario y el div de abajo con el código que copiaste.
-                    -->
-                    <div id="map-placeholder" class="w-full h-full flex items-center justify-center text-gray-500">
-                        <p>Aquí va el mapa de Google Maps</p>
-                    </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.4699250537337!2d-64.55059552436694!3d-32.056536373973024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d2bb3d04001ab3%3A0xe71e2c5cf090219!2sRuphay%20Caba%C3%B1as!5e0!3m2!1ses!2sar!4v1761755107965!5m2!1ses!2sar" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </section>
@@ -128,11 +120,23 @@
                             <span id="contact-email-text"></span>
                         </a>
                         <div class="flex space-x-4 pt-4">
-                            <a id="contact-instagram" href="#" target="_blank" class="text-gray-500 hover:text-pink-600 transition">
-                                <i class="ph-fill ph-instagram-logo text-4xl"></i>
+                            <a 
+                                id="contact-instagram" 
+                                href="#" 
+                                target="_blank" 
+                                class="text-gray-500 hover:text-pink-600 transition"
+                                aria-label="Ir a nuestro perfil de Instagram" 
+                            >
+                                <i class="ph-fill ph-instagram-logo text-4xl" aria-hidden="true"></i>
                             </a>
-                            <a id="contact-facebook" href="#" target="_blank" class="text-gray-500 hover:text-blue-700 transition">
-                                <i class="ph-fill ph-facebook-logo text-4xl"></i>
+                            <a 
+                                id="contact-facebook" 
+                                href="#" 
+                                target="_blank" 
+                                class="text-gray-500 hover:text-blue-700 transition"
+                                aria-label="Ir a nuestro perfil de Facebook"
+                            >
+                                <i class="ph-fill ph-facebook-logo text-4xl" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
@@ -152,7 +156,7 @@
                                 <label for="message" class="block text-sm font-medium text-gray-700">Mensaje</label>
                                 <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500" placeholder="Contanos qué fechas te interesan y cuántas personas son." required></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition">Enviar Consulta</button>
+                            <button type="submit" class="w-full bg-green-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition">Enviar Consulta</button>
                         </form>
                     </div>
                 </div>
@@ -194,21 +198,21 @@
                 cabanas: [
                     {
                         nombre: "Cabaña El Mirador",
-                        imagenUrl: "https://placehold.co/600x400/a2bba3/ffffff?text=Cabaña+El+Mirador",
+                        imagenUrl: "assets/imagen_de_cabaña_1.webp",
                         descripcion: "Ideal para parejas, con una vista panorámica inigualable del valle.",
                         capacidad: "2 personas",
                         servicios: ["Cocina completa", "Wi-Fi", "Aire Acondicionado", "Balcón privado"]
                     },
                     {
                         nombre: "Cabaña del Arroyo",
-                        imagenUrl: "https://placehold.co/600x400/8fa890/ffffff?text=Cabaña+del+Arroyo",
+                        imagenUrl: "assets/imagen_de_cabaña_2.webp",
                         descripcion: "Rodeada de vegetación y con el sonido del arroyo de fondo. Perfecta para familias.",
                         capacidad: "4-5 personas",
                         servicios: ["2 Habitaciones", "Asador/Parrilla", "Hogar a leña", "Piscina compartida"]
                     },
                     {
                         nombre: "Cabaña Los Pinos",
-                        imagenUrl: "https://placehold.co/600x400/7ca982/ffffff?text=Cabaña+Los+Pinos",
+                        imagenUrl: "assets/imagen_de_cabaña_3.webp",
                         descripcion: "La más espaciosa y privada, ubicada en el corazón de un pequeño bosque de pinos.",
                         capacidad: "6 personas",
                         servicios: ["3 Habitaciones", "Galería con asador", "Piscina privada", "Smart TV"]
@@ -216,7 +220,7 @@
                 ],
 
                 // --- Ubicación ---
-                descripcionUbicacion: "Estamos ubicados en el corazón del Valle de Calamuchita, a solo 5 minutos del centro de Villa General Belgrano y con fácil acceso a los principales ríos y senderos de la región.",
+                descripcionUbicacion: "Las sierras de Córdoba, particularmente el Valle de Calamuchita, se ha convertido en un polo turístico de gran relevancia. La capacitación en la atención al cliente, el mejoramiento y ampliación de la infraestructura y la promoción de diversas actividades recreativas contribuyeron en gran medida al atractivo de la región.",
                 // ¡IMPORTANTE! El mapa se agrega manualmente en el HTML (ver instrucciones arriba).
                 
                 // --- Contacto y Redes Sociales ---
@@ -241,10 +245,7 @@
             document.getElementById('footer-text').innerText = `© 2025 Runik Studio, todos los derechos reservados.`;
 
             // --- Hero Section ---
-            const heroImage = document.getElementById('hero-image');
-            if (config.imagenPrincipalUrl) {
-                heroImage.style.backgroundImage = `url('${config.imagenPrincipalUrl}')`;
-            }
+            
             document.getElementById('hero-title').innerText = config.tituloPrincipal;
             document.getElementById('hero-subtitle').innerText = config.subtituloPrincipal;
             
