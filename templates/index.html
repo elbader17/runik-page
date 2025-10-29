@@ -67,43 +67,22 @@
         }
 
         /* --- ESTILOS MODIFICADOS PARA LA VISTA PREVIA --- */
-
-        /* 1. Contenedor (Ancla de posicionamiento) */
         .preview-container {
-            height: 250px;
-            width: 95%;
-            margin: 10px;
-            border-radius: 0.5rem;
+            height: 250px; /* Altura fija para la vista previa */
             overflow: hidden;
-            transition: transform 0.3s ease-in-out;
-            
             position: relative;
+            background-color: #e5e7eb; /* Un color de fondo por si la imagen tarda */
         }
 
-        .preview-wrapper {
-            /* Dimensiones del iframe original */
-            width: 1280px; 
-            height: 800px;
-            
-            position: absolute;
-            top: 0; /* Lo alinea arriba */
-            left: 50%; /* Lo centra horizontalmente */
-
-            /* Escala (250px / 800px) y corrige el centrado */
-            transform: translateX(-50%) scale(0.3125);
-            transform-origin: top; /* Escala desde el borde superior */
+        .template-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cubre el contenedor sin distorsionar */
+            object-position: top; /* Muestra la parte superior de la imagen */
+            transition: transform 0.4s ease-in-out;
         }
-        
-        .template-preview {
-            width: 1280px;
-            height: 800px;
-            border: 0;
-            pointer-events: none;
-            /* ¡SIN ZOOM, SIN SCALE, SIN POSITION! */
-        }
-
-        .template-card:hover .preview-container {
-            transform: scale(1.03);
+        .template-card:hover .template-preview-img {
+            transform: scale(1.05);
         }
 
         /* --- Fin de los estilos modificados --- */
@@ -257,25 +236,29 @@
                     file: 'cabañas1.html',
                     title: 'Cabañas estandar',
                     description: 'Pagina enfocada en el alquiler de cabañas',
-                    tags: ['Cabañas', 'Alquiler', 'Principal', 'Reserva']
+                    tags: ['Cabañas', 'Alquiler', 'Principal', 'Reserva'],
+                    previewImage: 'assets/Portada_Pagina_Web_Cabañas_estandar.webp'
                 },
                 {
                     file: 'loft.html',
                     title: 'Loft Urbano',
                     description: 'Un diseño limpio y profesional para hoteles y reservaciones',
-                    tags: ['Servicios', 'Profesional', 'Hotel', 'Alquiler', 'Reserva']
+                    tags: ['Servicios', 'Profesional', 'Hotel', 'Alquiler', 'Reserva'],
+                    previewImage: 'assets/Portada_Pagina_Web_LoftUrbano-convertido.webp'
                 },
                 {
                     file: 'law_firm.html',
                     title: 'Estudio de abogados profecional',
                     description: 'Template para eestudio de abogados profecional.',
-                    tags: ['Estudio', 'Portfolio', 'Profecional', 'Minimalista','Abogados']
+                    tags: ['Estudio', 'Portfolio', 'Profecional', 'Minimalista','Abogados'],
+                    previewImage: 'assets/Portada_Pagina_Web_Estudio_de_abogados_profecional.webp'
                 },
                 {
                     file: 'psychologists_offices.html',
                     title: 'Consultorios de Psicólogos',
                     description: 'Un diseño perfecto para mostrar a tu espacio y el esquipo de profecionales',
-                    tags: ['Servicios', 'Profesional', 'Psicólogos', 'Reserva']
+                    tags: ['Servicios', 'Profesional', 'Psicólogos', 'Reserva'],
+                    previewImage: 'assets/Portada_Pagina_Web_Consultorios_de_Psicólogos.webp'
                 },
             ];
 
@@ -306,7 +289,7 @@
 
                 filteredTemplates.forEach((template, index) => {
                     const card = document.createElement('div');
-                    card.className = 'template-card bg-light-bg dark:bg-dark-card p-6 rounded-lg border border-gray-200 dark:border-gray-800 flex flex-col';
+                    card.className = 'template-card bg-light-bg dark:bg-dark-card rounded-lg border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden';
                     card.setAttribute('data-aos', 'fade-up');
                     card.setAttribute('data-aos-delay', (index % 3) * 100);
 
@@ -315,14 +298,12 @@
                     ).join('');
 
                     card.innerHTML = `
-                        <div class="preview-container mb-5 border border-gray-200 dark:border-gray-700">
-                            <div class="preview-wrapper">
-                            <a href="${template.file}">
-                                <iframe src="${template.file}" class="template-preview" scrolling="no" title="Vista previa de ${template.title}"></iframe>
-                            </a>
+                        <a href="${template.file}" target="_blank" class="block">
+                            <div class="preview-container">
+                                <img src="${template.previewImage}" alt="Vista previa de ${template.title}" class="template-preview-img">
                             </div>
-                        </div>
-                        <div class="flex flex-col flex-grow">
+                        </a>
+                        <div class="flex flex-col flex-grow p-6">
                             <h4 class="text-xl font-medium mb-2 brand-heading">${template.title}</h4>
                             <p class="text-gray-600 dark:text-gray-400 mb-4 flex-grow text-sm">${template.description}</p>
                             <div class="flex flex-wrap mb-4">${tagsHtml}</div>
