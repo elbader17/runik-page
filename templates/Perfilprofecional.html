@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Profesional - Gerardo Nuñez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .accent-color {
+            color: #10B981;
+        }
+        .bg-accent-color {
+            background-color: #10B981;
+        }
+        .border-accent-color {
+            border-color: #10B981;
+        }
+        .bg-accent-pale {
+            background-color: #1A362F; /* Darker shade of green for pale accent */
+        }
+        .tag-actual {
+            background-color: #065F46; /* Darker green background */
+            color: #D1FAE5; /* Lighter text color */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .animate-slideUp {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes pulseProgress {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .animate-pulseProgress {
+            animation: pulseProgress 1.5s infinite cubic-bezier(0.6, 0.0, 0.4, 1.0);
+        }
+    </style>
+
+    <script type="application/json" id="profile-data">
+{
+  "profile": {
+    "name": "Gerardo Nuñez",
+    "title": "Analista de Datos y Estudiante de Ing. Agronómica",
+    "description": "Analista de datos con experiencia en el sector agrícola, actualmente cursando Ingeniería Agronómica. Buscando oportunidades en roles relacionados con la agronomía y el análisis de datos.",
+    "image": {
+      "src": "./assets/Marco antonio.webp",
+      "alt": "Foto de Gerardo Nuñez"
+    },
+    "social_links": [
+      {
+        "type": "whatsapp",
+        "href": "#",
+        "text": "WhatsApp"
+      },
+      {
+        "type": "linkedin",
+        "href": "#",
+        "text": "LinkedIn"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "name": "Análisis de Datos",
+      "icon_class": "bx bx-analyse",
+      "percentage": 90
+    },
+    {
+      "name": "Agronomía",
+      "icon_class": "bx bxs-leaf",
+      "percentage": 95
+    },
+    {
+      "name": "Business Intelligence",
+      "icon_class": "bx bx-line-chart",
+      "percentage": 85
+    },
+    {
+      "name": "Power BI",
+      "icon_class": "bx bxs-dashboard",
+      "percentage": 80
+    },
+    {
+      "name": "Google Analytics",
+      "icon_class": "bx bxl-google",
+      "percentage": 75
+    }
+  ],
+  "experience": [
+    {
+      "title": "Asesor Técnico",
+      "company": "Tracestory",
+      "dates": "Fecha Inicio - Presente",
+      "description": "Asesoramiento técnico en soluciones de trazabilidad y gestión de datos para el sector agrícola."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Ingeniería Agronómica",
+      "institution": "Universidad Nacional de Río Cuarto",
+      "dates": "En curso"
+    },
+    {
+      "degree": "Certificación Power BI – Análisis de Datos y Business Intelligence",
+      "institution": "Udemy",
+      "dates": "Año de Certificación"
+    },
+    {
+      "degree": "Certificación Google Analytics for Beginners",
+      "institution": "Google Digital Academy (Skillshop)",
+      "dates": "Año de Certificación"
+    }
+  ],
+  "faq": [
+    {
+      "question": "¿Qué te motiva en el sector agropecuario?",
+      "answer": "Mi motivación radica en la oportunidad de combinar mi pasión por la agricultura con el poder del análisis de datos para optimizar la producción, mejorar la sostenibilidad y enfrentar los desafíos alimentarios globales."
+    },
+    {
+      "question": "¿En qué zonas geográficas tienes mayor experiencia?",
+      "answer": "Principalmente en la región pampeana de Argentina, con un enfoque en cultivos extensivos como soja, maíz y trigo, y la aplicación de tecnologías de agricultura de precisión."
+    },
+    {
+      "question": "¿Cómo aplicas el análisis de datos en la agronomía?",
+      "answer": "Utilizo datos de sensores, imágenes satelitales, drones y registros históricos para identificar patrones, predecir rendimientos, optimizar el uso de insumos (agua, fertilizantes) y diagnosticar problemas de salud de los cultivos."
+    },
+    {
+      "question": "¿Qué herramientas de BI utilizas con mayor frecuencia?",
+      "answer": "Principalmente Power BI para la creación de dashboards interactivos y Google Analytics para el seguimiento y análisis de datos web relacionados con proyectos agrícolas digitales."
+    }
+  ],
+  "contact": {
+    "location": "Mendoza, Argentina",
+    "email": "gerardo.nunez@email.com",
+    "phone": "+54 9 261 XXX XXXX",
+    "website": "www.gerardonunez.dev"
+  }
+}
+    </script>
+</head>
+<body class="bg-black text-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-900 p-4 fixed w-full z-10 top-0 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#inicio" id="nav-profile-name" class="text-white text-2xl font-bold hover:text-accent-color transition-colors duration-300">Gerardo Nuñez</a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#habilidades" class="text-gray-300 hover:text-accent-color transition-colors duration-300">Habilidades</a>
+                <a href="#experiencia" class="text-gray-300 hover:text-accent-color transition-colors duration-300">Experiencia</a>
+                <a href="#educacion" class="text-gray-300 hover:text-accent-color transition-colors duration-300">Educación</a>
+                <a href="#faq" class="text-gray-300 hover:text-accent-color transition-colors duration-300">FAQ</a>
+                <a href="#contacto" class="text-gray-300 hover:text-accent-color transition-colors duration-300">Contacto</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-accent-color focus:outline-none">
+                    <i class='bx bx-menu text-3xl'></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 mt-4 rounded-md shadow-lg">
+            <a href="#habilidades" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-accent-color transition-colors duration-300">Habilidades</a>
+            <a href="#experiencia" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-accent-color transition-colors duration-300">Experiencia</a>
+            <a href="#educacion" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-accent-color transition-colors duration-300">Educación</a>
+            <a href="#faq" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-accent-color transition-colors duration-300">FAQ</a>
+            <a href="#contacto" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-accent-color transition-colors duration-300">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Offset for fixed navbar -->
+    <div class="pt-16"></div>
+
+    <div class="container mx-auto max-w-4xl p-4 sm:p-6 lg:p-8">
+        
+        <!-- SECCIÓN HEADER/PERFIL -->
+        <header id="inicio" class="flex flex-col md:flex-row items-center bg-gray-900 p-8 rounded-xl shadow-sm animate-fadeIn animate-slideUp">
+            <div class="flex-shrink-0 mb-6 md:mb-0 md:mr-8">
+                <img id="profile-image" class="w-48 h-48 rounded-full border-4 border-accent-color shadow-md hover:scale-105 transition-transform duration-300 object-cover" src="./assets/Marco antonio.webp" alt="Foto de Gerardo Nuñez">
+            </div>
+            <div class="text-center md:text-left">
+                <h1 id="profile-name" class="text-3xl md:text-4xl font-extrabold text-white">Gerardo Nuñez</h1>
+                <h2 id="profile-title" class="text-xl accent-color font-semibold mt-1">Analista de Datos y Estudiante de Ing. Agronómica</h2>
+                <p id="profile-description" class="text-gray-300 mt-3 max-w-lg">Analista de datos con experiencia en el sector agrícola, actualmente cursando Ingeniería Agronómica. Buscando oportunidades en roles relacionados con la agronomía y el análisis de datos.</p>
+                <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                    <a id="whatsapp-link" href="#" class="px-6 py-2.5 bg-accent-color text-white font-bold rounded-lg shadow-md hover:bg-green-700 hover:scale-105 transition-all duration-300 flex items-center">
+                        <i class='bx bxl-whatsapp text-xl mr-2'></i> WhatsApp
+                    </a>
+                    <a id="linkedin-link" href="#" class="px-6 py-2.5 text-gray-300 font-semibold hover:text-white hover:scale-105 transition-all duration-300 flex items-center">
+                        <i class='bx bxl-linkedin-square text-xl mr-2'></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Habilidades y Competencias -->
+        <section id="habilidades" class="mt-8 bg-gray-900 p-8 rounded-xl shadow-sm">
+            <div class="flex items-center mb-4">
+                <span class="w-1 h-8 bg-accent-color mr-3"></span>
+                <h3 class="text-2xl font-semibold text-white">Habilidades y Competencias</h3>
+            </div>
+            <div id="skills-container" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            </div>
+        </section>
+
+        <!-- Preguntas Frecuentes -->
+        <section id="faq" class="mt-8 bg-gray-900 p-8 rounded-xl shadow-sm animate-fadeIn animate-slideUp" style="animation-delay: 1.0s;">
+            <div class="flex items-center mb-4">
+                <span class="w-1 h-8 bg-accent-color mr-3"></span>
+                <h3 class="text-2xl font-semibold text-white">Preguntas Frecuentes</h3>
+            </div>
+            <div id="faq-container" class="space-y-4">
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE CONTENIDO -->
+        <main class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Columna Principal (Contenido) -->
+            <div class="lg:col-span-2">
+                
+                <!-- Experiencia -->
+                <section id="experiencia">
+                    <div class="flex items-center mb-4">
+                        <span class="w-1 h-8 bg-accent-color mr-3"></span>
+                        <h3 class="text-2xl font-semibold text-white">Experiencia Laboral</h3>
+                    </div>
+                    <div id="experience-container" class="space-y-6">
+                    </div>
+                </section>
+
+                <!-- Educación -->
+                <section id="educacion" class="mt-10">
+                    <div class="flex items-center mb-4">
+                        <span class="w-1 h-8 bg-accent-color mr-3"></span>
+                        <h3 class="text-2xl font-semibold text-white">Educación</h3>
+                    </div>
+                    <div id="education-container" class="space-y-6">
+                    </div>
+                </section>
+
+
+
+
+
+            </div>
+
+            <!-- Columna Lateral (Contacto) -->
+            <aside id="contacto">
+                <div class="bg-gray-900 p-6 rounded-lg shadow-sm sticky top-8">
+                    <h3 class="text-xl font-semibold text-white border-b pb-3">Información de Contacto</h3>
+                    <ul class="mt-4 space-y-4 text-gray-200">
+                        <li class="flex items-center hover:text-accent-color transition-colors duration-300">
+                            <i class='bx bx-map text-xl accent-color mr-3'></i>
+                            <span id="contact-location">Mendoza, Argentina</span>
+                        </li>
+                        <li class="flex items-center hover:text-accent-color transition-colors duration-300">
+                            <i class='bx bx-envelope text-xl accent-color mr-3'></i>
+                            <a id="contact-email-link" href="mailto:gerardo.nunez@email.com" class="hover:underline break-all"><span id="contact-email-text">gerardo.nunez@email.com</span></a>
+                        </li>
+                        <li class="flex items-center hover:text-accent-color transition-colors duration-300">
+                            <i class='bx bx-phone text-xl accent-color mr-3'></i>
+                            <a id="contact-phone-link" href="tel:+549261XXXXXXX" class="hover:underline"><span id="contact-phone-text">+54 9 261 XXX XXXX</span></a>
+                        </li>
+                        <li class="flex items-center hover:text-accent-color transition-colors duration-300">
+                            <i class='bx bx-world text-xl accent-color mr-3'></i>
+                            <a id="contact-website-link" href="#" class="hover:underline"><span id="contact-website-text">www.gerardonunez.dev</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+        </main>
+
+    </div>
+
+    <script>
+        document.getElementById('mobile-menu-button').onclick = function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        };
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const profileDataElement = document.getElementById('profile-data');
+            const data = JSON.parse(profileDataElement.textContent);
+
+            // Populate Profile Section
+            document.getElementById('nav-profile-name').textContent = data.profile.name;
+            document.getElementById('profile-image').src = data.profile.image.src;
+            document.getElementById('profile-image').alt = data.profile.image.alt;
+            document.getElementById('profile-name').textContent = data.profile.name;
+            document.getElementById('profile-title').textContent = data.profile.title;
+            document.getElementById('profile-description').textContent = data.profile.description;
+            document.getElementById('whatsapp-link').href = data.profile.social_links[0].href;
+            document.getElementById('linkedin-link').href = data.profile.social_links[1].href;
+
+            // Populate Skills Section
+            const skillsContainer = document.getElementById('skills-container');
+            data.skills.forEach((skill, index) => {
+                const skillCard = `
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-sm text-center hover:shadow-lg hover:-translate-y-2 hover:scale-110 transition-all duration-300 animate-slideUp" style="animation-delay: ${0.1 + index * 0.1}s;">
+                        <div class="w-16 h-16 bg-accent-pale rounded-full mx-auto flex items-center justify-center">
+                            <i class='${skill.icon_class} text-3xl accent-color'></i>
+                        </div>
+                        <h5 class="font-semibold mt-3">${skill.name}</h5>
+                        <div class="w-full bg-gray-700 rounded-full h-2.5 mt-2">
+                            <div class="bg-accent-color h-2.5 rounded-full animate-pulseProgress" style="width: ${skill.percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+                skillsContainer.innerHTML += skillCard;
+            });
+
+            // Populate Experience Section
+            const experienceContainer = document.getElementById('experience-container');
+            data.experience.forEach((exp, index) => {
+                const experienceCard = `
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-sm relative animate-slideUp hover:shadow-lg hover:-translate-y-2 hover:scale-105 transition-all duration-300" style="animation-delay: ${0.6 + index * 0.1}s;">
+                        <span class="tag-actual absolute top-4 right-4 text-xs font-semibold px-2 py-1 rounded-full">Actual</span>
+                        <h4 class="font-bold text-lg text-white">${exp.title}</h4>
+                        <p class="text-gray-300 font-medium">${exp.company}</p>
+                        <p class="text-sm text-gray-400">${exp.dates}</p>
+                        <p class="mt-3 text-gray-200">${exp.description}</p>
+                    </div>
+                `;
+                experienceContainer.innerHTML += experienceCard;
+            });
+
+            // Populate Education Section
+            const educationContainer = document.getElementById('education-container');
+            data.education.forEach((edu, index) => {
+                const educationCard = `
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-sm animate-slideUp hover:shadow-lg hover:-translate-y-2 hover:scale-105 transition-all duration-300" style="animation-delay: ${0.7 + index * 0.1}s;">
+                        <h4 class="font-bold text-lg text-white">${edu.degree}</h4>
+                        <p class="text-gray-300 font-medium">${edu.institution}</p>
+                        <p class="text-sm text-gray-400">${edu.dates}</p>
+                    </div>
+                `;
+                educationContainer.innerHTML += educationCard;
+            });
+
+            // Populate FAQ Section
+            const faqContainer = document.getElementById('faq-container');
+            data.faq.forEach(item => {
+                const faqItem = `
+                    <details class="bg-gray-800 p-4 rounded-lg shadow-sm cursor-pointer hover:bg-gray-700 transition-colors duration-300">
+                        <summary class="font-semibold text-white flex justify-between items-center">
+                            <span>${item.question}</span>
+                            <i class='bx bx-chevron-down text-xl'></i>
+                        </summary>
+                        <p class="mt-2 text-gray-300">${item.answer}</p>
+                    </details>
+                `;
+                faqContainer.innerHTML += faqItem;
+            });
+
+            // Populate Contact Section
+            document.getElementById('contact-location').textContent = data.contact.location;
+            document.getElementById('contact-email-link').href = `mailto:${data.contact.email}`;
+            document.getElementById('contact-email-text').textContent = data.contact.email;
+            document.getElementById('contact-phone-link').href = `tel:${data.contact.phone}`;
+            document.getElementById('contact-phone-text').textContent = data.contact.phone;
+            document.getElementById('contact-website-link').href = data.contact.website;
+            document.getElementById('contact-website-text').textContent = data.contact.website;
+        });
+    </script>
+</body>
+</html>
+
