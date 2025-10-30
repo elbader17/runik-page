@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Arquitectura - Diseño Sostenible y Vanguardista</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F8F8F8;
+            --text-dark: #333333;
+            --text-light: #4A4A4A;
+            --accent-color: #608090;
+            /* Un azul grisáceo más oscuro para mejor contraste */
+            --border-color: #E0E0E0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--primary-bg);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-bg);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .main-nav ul li {
+            margin-left: 30px;
+        }
+
+        .main-nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .mobile-menu-container {
+            display: none; /* Hidden by default on desktop */
+        }
+
+        .hero {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            margin-top: 70px;
+            /* Adjust for fixed header */
+
+            background: url('assets/Arquitectos_photo.webp') no-repeat center center/cover;
+            /* Eliminado el filtro de brillo directo para que el texto no se vea afectado */
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Capa oscura para mejorar la legibilidad del texto */
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #7C9BAA;
+        }
+
+        /* Menu Toggle */
+        .menu-toggle {
+            display: none; /* Hidden by default on desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001; /* Above header */
+        }
+
+        .hamburger {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-dark);
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: var(--text-dark);
+            position: absolute;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger::before {
+            top: -8px;
+        }
+
+        .hamburger::after {
+            top: 8px;
+        }
+
+        /* Animation for hamburger icon */
+        .menu-toggle.active .hamburger {
+            background-color: transparent;
+        }
+
+        .menu-toggle.active .hamburger::before {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active .hamburger::after {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+            background-color: var(--primary-bg);
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--secondary-bg);
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 15px auto 0;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            text-align: center;
+            padding: 40px 0;
+            background-color: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .social-proof h3 {
+            font-size: 1.2em;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .logos img {
+            max-height: 50px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .logos img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        /* Services Modules */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95em;
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-overlay p {
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-overlay .btn-secondary {
+            background-color: #fff;
+            color: var(--text-dark);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .portfolio-overlay .btn-secondary:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        /* Project Detail Page (Example) */
+        .project-detail {
+            padding: 80px 0;
+        }
+
+        .project-detail h1 {
+            font-family: var(--font-heading);
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .project-meta {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 40px;
+        }
+
+        .project-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .project-images img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-description {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .project-description h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .project-description ul {
+            list-style: inside;
+            margin-left: 20px;
+        }
+
+        .project-testimonial {
+            background-color: var(--secondary-bg);
+            padding: 40px;
+            border-left: 5px solid var(--accent-color);
+            max-width: 800px;
+            margin: 0 auto 60px;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1em;
+        }
+
+        .project-testimonial p:last-child {
+            text-align: right;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        /* Services Detail Page */
+        .service-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--primary-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .service-item i {
+            /* Placeholder for icon */
+            font-size: 2.5em;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        .service-item-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .service-item-content p {
+            color: var(--text-light);
+        }
+
+        .work-process {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 30px;
+        }
+
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .process-step-number {
+            font-family: var(--font-heading);
+            font-size: 3em;
+            color: var(--accent-color);
+            font-weight: 700;
+            flex-shrink: 0;
+            width: 60px;
+            text-align: center;
+        }
+
+        .process-step-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .process-step-content p {
+            color: var(--text-light);
+        }
+
+        /* About/Studio Page */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text h3 {
+            font-family: var(--font-heading);
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .team-member {
+            text-align: center;
+            background-color: var(--primary-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--accent-color);
+        }
+
+        .team-member h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4em;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .team-member p {
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            background-color: var(--primary-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            background-color: var(--primary-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-family: var(--font-body);
+            font-size: 1em;
+            color: var(--text-dark);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #7C9BAA;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .faq-question {
+            font-family: var(--font-heading);
+            font-size: 1.2em;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            color: var(--text-light);
+            padding: 10px 0;
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .footer-social a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.5em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Floating CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            /* WhatsApp green */
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .floating-cta:hover {
+            transform: translateY(-5px);
+        }
+
+        .floating-cta i {
+            /* Placeholder for WhatsApp icon */
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+                margin-top: 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .menu-toggle {
+                display: block; /* Show on mobile */
+            }
+
+            .main-nav {
+                display: none; /* Hide desktop nav on mobile */
+            }
+
+            .mobile-menu-container {
+                display: none; /* Hidden by default */
+                position: absolute; /* Position below header */
+                top: 70px; /* Adjust based on header height */
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-bg);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                border-top: 1px solid var(--border-color);
+                padding: 10px 0;
+                z-index: 998; /* Below header, above other content */
+            }
+
+            .mobile-menu-container.active {
+                display: block; /* Show when active */
+            }
+
+            .mobile-menu-container ul {
+                list-style: none;
+                flex-direction: column;
+                padding: 0; /* Reset padding */
+            }
+
+            .mobile-menu-container ul li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .mobile-menu-container ul li a {
+                padding: 10px 0;
+                display: block;
+                text-decoration: none;
+                color: var(--text-dark);
+                font-weight: 500;
+                transition: color 0.3s ease;
+            }
+
+            .mobile-menu-container ul li a:hover {
+                color: var(--accent-color);
+            }
+
+            .logo {
+                font-size: 1.5em;
+            }
+
+            h2 {
+                font-size: 2em;
+                margin-bottom: 40px;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .contact-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .process-step-number {
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 80px 0;
+            background-color: var(--secondary-bg);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background-color: var(--primary-bg);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            flex-grow: 1;
+        }
+
+        .testimonial-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4em;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-card span {
+            font-size: 0.9em;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Estudio Arquitectura</a>
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+            <nav class="main-nav">
+                <ul class="desktop-menu">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#portfolio">Portafolio</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#about">Estudio</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </nav>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu-container">
+                <ul>
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#portfolio">Portafolio</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#about">Estudio</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Diseño Sostenible y Vanguardista para tus Espacios</h1>
+                <p>Transformamos ideas en realidades arquitectónicas que inspiran y perduran.</p>
+                <a href="#contact" class="btn-primary">Empezar mi Proyecto</a>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>"Excelente trabajo, ahora la oficina no se siente una jaula. El diseño superó nuestras
+                            expectativas, creando un ambiente de trabajo inspirador y funcional."</p>
+                        <h4>Marco Aurelio</h4>
+                        <span>Funder de Presco Company</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Transformaron por completo nuestro hogar. Cada detalle fue pensado para maximizar la luz y
+                            el espacio, resultando en un diseño moderno y acogedor."</p>
+                        <h4>Ana Sofía</h4>
+                        <span>Propietaria de Residencia Familiar</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"La visión de Estudio Arquitectura para nuestro proyecto urbano fue excepcional. Lograron
+                            integrar la sostenibilidad con una estética innovadora, un verdadero acierto."</p>
+                        <h4>Roberto G.</h4>
+                        <span>Director de Desarrollo Urbano</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"La remodelación de nuestra tienda fue un éxito rotundo. El equipo entendió perfectamente
+                            nuestra marca y creó un espacio que atrae a más clientes y mejora su experiencia de compra."
+                        </p>
+                        <h4>Laura M.</h4>
+                        <span>Propietaria de Boutique de Moda</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Su consultoría fue clave para la viabilidad de nuestro proyecto. Nos brindaron una
+                            perspectiva experta y soluciones innovadoras que nos ahorraron tiempo y recursos."</p>
+                        <h4>Dr. Ernesto V.</h4>
+                        <span>Inversor Inmobiliario</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services-home">
+            <div class="container">
+                <h2>Nuestros Servicios Clave</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>Diseño Residencial</h3>
+                        <p>Creación de hogares únicos y funcionales, adaptados a tus sueños y estilo de vida.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Planeamiento Urbano</h3>
+                        <p>Desarrollo de proyectos urbanísticos que integran estética, sostenibilidad y comunidad.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Remodelaciones</h3>
+                        <p>Transformamos espacios existentes, optimizando su potencial y valor estético.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Consultoría Arquitectónica</h3>
+                        <p>Asesoramiento experto para la viabilidad y optimización de tus proyectos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <div class="container">
+                <h2>Nuestro Portafolio de Proyectos</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="../templates/assets/casa_moderna_frente.webp" alt="Residencia Moderna">
+                        <div class="portfolio-overlay">
+                            <h3>Residencia Moderna</h3>
+                            <p>Diseño minimalista y sostenible en un entorno natural.</p>
+                            <a href="#project-detail-1" class="btn-secondary">Ver Proyecto</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="../templates/assets/Edificio_comercial.webp" alt="Edificio Comercial">
+                        <div class="portfolio-overlay">
+                            <h3>Edificio Comercial</h3>
+                            <p>Espacios funcionales y estéticos para el sector empresarial.</p>
+                            <a href="#project-detail-2" class="btn-secondary">Ver Proyecto</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="../templates/assets/Parque_urbano.webp" alt="Parque Urbano">
+                        <div class="portfolio-overlay">
+                            <h3>Parque Urbano</h3>
+                            <p>Integración de naturaleza y diseño en el corazón de la ciudad.</p>
+                            <a href="#project-detail-3" class="btn-secondary">Ver Proyecto</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="../templates/assets/interior_de_oficina.webp" alt="Reforma Oficina">
+                        <div class="portfolio-overlay">
+                            <h3>Reforma de Oficina</h3>
+                            <p>Optimización de espacios de trabajo para mayor productividad.</p>
+                            <a href="#project-detail-4" class="btn-secondary">Ver Proyecto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Example of an individual project page section -->
+        <section id="project-detail-1" class="project-detail">
+            <div class="container">
+                <h1>Residencia Moderna: Armonía y Sostenibilidad</h1>
+                <p class="project-meta">Cliente: Familia García | Ubicación: Marbella, España | Año: 2023</p>
+
+                <div class="project-images">
+                    <img src="../templates/assets/casa_moderna_frente.webp" alt="Residencia Moderna Exterior">
+                    <img src="../templates/assets/casa_moderna_interior.webp" alt="Residencia Moderna Interior">
+                    <img src="../templates/assets/casa_moderna_interior_vista_al_mar.webp"
+                        alt="Residencia Moderna Jardín">
+                </div>
+
+                <div class="project-description">
+                    <h3>El Reto</h3>
+                    <p>La familia García buscaba un hogar que combinara un diseño contemporáneo con principios de
+                        sostenibilidad, maximizando la luz natural y las vistas al mar, a la vez que se integrara
+                        armoniosamente con el paisaje mediterráneo.</p>
+
+                    <h3>Nuestra Solución</h3>
+                    <p>Diseñamos una residencia de líneas limpias y volúmenes puros, utilizando materiales locales y
+                        técnicas de construcción eficientes. La orientación de la casa fue cuidadosamente estudiada para
+                        aprovechar al máximo la luz solar y la ventilación cruzada, reduciendo la necesidad de
+                        climatización artificial. Grandes ventanales y terrazas conectan los espacios interiores con el
+                        exterior, creando una sensación de amplitud y continuidad.</p>
+                    <ul>
+                        <li>Uso de paneles solares para autoconsumo energético.</li>
+                        <li>Sistema de recolección de agua de lluvia para riego.</li>
+                        <li>Jardines con especies autóctonas de bajo consumo hídrico.</li>
+                        <li>Domótica integrada para control de energía y seguridad.</li>
+                    </ul>
+                </div>
+
+                <div class="project-testimonial">
+                    <p>"El equipo de Estudio Arquitectura superó nuestras expectativas. No solo crearon la casa de
+                        nuestros sueños, sino que lo hicieron con un compromiso genuino con el medio ambiente. Cada
+                        detalle fue pensado y ejecutado a la perfección."</p>
+                    <p>- Sra. Elena García</p>
+                </div>
+                <div style="text-align: center;">
+                    <a href="#contact" class="btn-primary">¿Te inspira este proyecto? Hablemos del tuyo.</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2>Nuestros Servicios Detallados</h2>
+                <div class="service-list">
+                    <div class="service-item">
+                        <i>&#9733;</i> <!-- Placeholder for icon -->
+                        <div class="service-item-content">
+                            <h3>Diseño Arquitectónico Integral</h3>
+                            <p>Desde la concepción inicial hasta la entrega final, gestionamos todas las fases del
+                                proyecto, asegurando coherencia y calidad en cada etapa. Incluye estudios de viabilidad,
+                                anteproyectos, proyectos básicos y de ejecución.</p>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <i>&#9733;</i> <!-- Placeholder for icon -->
+                        <div class="service-item-content">
+                            <h3>Rehabilitación y Restauración</h3>
+                            <p>Intervenimos en edificios existentes para mejorar su funcionalidad, estética y eficiencia
+                                energética, respetando su valor histórico y patrimonial.</p>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <i>&#9733;</i> <!-- Placeholder for icon -->
+                        <div class="service-item-content">
+                            <h3>Diseño de Interiores y Paisajismo</h3>
+                            <p>Creamos ambientes interiores y exteriores que complementan la arquitectura, optimizando
+                                la experiencia del usuario y la conexión con el entorno.</p>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <i>&#9733;</i> <!-- Placeholder for icon -->
+                        <div class="service-item-content">
+                            <h3>Gestión de Proyectos y Dirección de Obra</h3>
+                            <p>Supervisamos la ejecución de la obra, coordinando equipos y garantizando que el proyecto
+                                se realice según lo planificado, en tiempo y presupuesto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Nuestro Proceso de Trabajo</h2>
+                <div class="work-process">
+                    <div class="process-step">
+                        <div class="process-step-number">1</div>
+                        <div class="process-step-content">
+                            <h3>Consulta Inicial y Definición</h3>
+                            <p>Nos reunimos para entender tus necesidades, ideas y objetivos. Definimos el alcance del
+                                proyecto, presupuesto estimado y plazos.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step-number">2</div>
+                        <div class="process-step-content">
+                            <h3>Diseño Conceptual y Anteproyecto</h3>
+                            <p>Desarrollamos las primeras ideas, bocetos y planos preliminares. Presentamos propuestas
+                                de diseño que reflejan tu visión y nuestra experiencia.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step-number">3</div>
+                        <div class="process-step-content">
+                            <h3>Desarrollo de Proyecto y Documentación</h3>
+                            <p>Elaboramos los planos técnicos detallados, especificaciones de materiales y toda la
+                                documentación necesaria para la obtención de licencias y la construcción.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step-number">4</div>
+                        <div class="process-step-content">
+                            <h3>Ejecución y Dirección de Obra</h3>
+                            <p>Supervisamos la construcción, asegurando que se cumplan los estándares de calidad,
+                                seguridad y diseño. Mantenemos una comunicación constante contigo.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="process-step-number">5</div>
+                        <div class="process-step-content">
+                            <h3>Entrega y Seguimiento</h3>
+                            <p>Una vez finalizada la obra, realizamos la entrega y ofrecemos seguimiento
+                                post-construcción para garantizar tu plena satisfacción.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>Nuestro Estudio</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Filosofía y Experiencia</h3>
+                        <p>En Estudio Arquitectura, creemos que la arquitectura es más que construir edificios; es crear
+                            espacios que mejoren la vida de las personas y respeten el entorno. Con más de 15 años de
+                            experiencia, nuestro equipo se especializa en diseños innovadores, sostenibles y
+                            funcionales.</p>
+                        <p>Nuestra filosofía se centra en la escucha activa de las necesidades del cliente, la
+                            creatividad en la solución de desafíos y la excelencia en cada detalle. Nos apasiona
+                            transformar ideas en realidades tangibles que perduren en el tiempo.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="../templates/assets/Arquitectos_photo.webp" alt="Imagen de nuestro estudio">
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 80px;">Nuestro Equipo</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="../templates/assets/cesar agusto.webp" alt="Arquitecto Principal">
+                        <h4>Juan Pérez</h4>
+                        <p>Arquitecto Principal</p>
+                        <p>Especialista en diseño sostenible y eficiencia energética.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="../templates/assets/londra demeter.webp" alt="Diseñador Senior">
+                        <h4>María López</h4>
+                        <p>Diseñadora Senior</p>
+                        <p>Experta en diseño de interiores y paisajismo.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="../templates/assets/Marco antonio.webp" alt="Jefe de Proyectos">
+                        <h4>Carlos Ruiz</h4>
+                        <p>Jefe de Proyectos</p>
+                        <p>Gestión y dirección de obra con amplia experiencia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Hablemos de tu Próximo Proyecto</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Información de Contacto</h3>
+                        <p>Estamos listos para escuchar tus ideas y convertirlas en realidad.</p>
+                        <p><strong>Email:</strong> <a
+                                href="mailto:info@estudioarquitectura.com">info@estudioarquitectura.com</a></p>
+                        <p><strong>Teléfono:</strong> <a href="tel:+34123456789">+34 123 456 789</a></p>
+                        <p><strong>Dirección:</strong> Calle Ficticia, 123, 28001 Madrid, España</p>
+                        <div class="footer-social" style="text-align: left; margin-top: 20px;">
+                            <a href="#" aria-label="LinkedIn"><img
+                                    src="https://img.icons8.com/ios-filled/50/FFFFFF/linkedin.png" alt="LinkedIn"
+                                    width="24" height="24"></a>
+                            <a href="#" aria-label="Instagram"><img
+                                    src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram"
+                                    width="24" height="24"></a>
+                            <a href="#" aria-label="Facebook"><img
+                                    src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook"
+                                    width="24" height="24"></a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Envíanos un Mensaje</h3>
+                        <form action="#" method="POST">
+                            <div class="form-group">
+                                <label for="name">Nombre Completo</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="project-type">Tipo de Proyecto</label>
+                                <select id="project-type" name="project-type">
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="residencial">Residencial</option>
+                                    <option value="comercial">Comercial</option>
+                                    <option value="urbano">Planeamiento Urbano</option>
+                                    <option value="remodelacion">Remodelación</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="budget">Presupuesto Estimado</label>
+                                <input type="text" id="budget" name="budget" placeholder="Ej: 50.000 - 100.000 EUR">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Tu Mensaje</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Enviar Mensaje">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 80px;">Preguntas Frecuentes</h2>
+                <div class="faq-section">
+                    <div class="faq-item">
+                        <div class="faq-question">¿Cuál es el costo promedio de un proyecto arquitectónico?</div>
+                        <div class="faq-answer">El costo varía significativamente según la complejidad, tamaño y
+                            materiales del proyecto. Te invitamos a una consulta inicial gratuita para ofrecerte un
+                            presupuesto detallado y ajustado a tus necesidades.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">¿Cuánto tiempo toma completar un proyecto?</div>
+                        <div class="faq-answer">Los plazos dependen del tipo y escala del proyecto. Un diseño
+                            residencial puede tomar desde unos pocos meses hasta más de un año, incluyendo fases de
+                            diseño, licencias y construcción. Te proporcionaremos un cronograma claro al inicio.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">¿Trabajan con clientes internacionales?</div>
+                        <div class="faq-answer">Sí, hemos trabajado en proyectos con clientes de diversas
+                            nacionalidades, adaptándonos a las normativas y estilos locales. La comunicación remota y
+                            las herramientas digitales nos permiten colaborar eficazmente a distancia.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">¿Ofrecen servicios de consultoría antes de comprometerse con un
+                            proyecto completo?</div>
+                        <div class="faq-answer">Absolutamente. Ofrecemos sesiones de consultoría para discutir la
+                            viabilidad de tu idea, explorar opciones de diseño y responder a todas tus preguntas antes
+                            de que tomes cualquier decisión importante.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Estudio Arquitectura. Todos los derechos reservados.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="LinkedIn"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/linkedin.png"
+                        alt="LinkedIn" width="24" height="24"></a>
+                <a href="#" aria-label="Instagram"><img
+                        src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" width="24"
+                        height="24"></a>
+                <a href="#" aria-label="Facebook"><img
+                        src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" width="24"
+                        height="24"></a>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/34123456789" class="floating-cta" target="_blank" aria-label="Contactar por WhatsApp">
+        <i>&#x2709;</i> <!-- Placeholder for WhatsApp icon -->
+        Contacto Rápido
+    </a>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav ul li a, .btn-primary, .btn-secondary').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset - 20; // Added extra padding
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                }
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            // Add ARIA attributes and make focusable
+            question.setAttribute('role', 'button');
+            question.setAttribute('tabindex', '0');
+            const answer = question.nextElementSibling;
+            const answerId = 'faq-answer-' + Math.random().toString(36).substr(2, 9); // Generate unique ID
+            answer.setAttribute('id', answerId);
+            question.setAttribute('aria-controls', answerId);
+            question.setAttribute('aria-expanded', 'false'); // Initial state
+
+            const toggleFaq = () => {
+                const isExpanded = question.getAttribute('aria-expanded') === 'true';
+                question.setAttribute('aria-expanded', String(!isExpanded));
+                question.classList.toggle('active');
+                if (answer.style.display === "block") {
+                    answer.style.display = "none";
+                } else {
+                    answer.style.display = "block";
+                }
+            };
+
+            question.addEventListener('click', toggleFaq);
+
+            question.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault(); // Prevent scrolling when space is pressed
+                    toggleFaq();
+                }
+            });
+        });
+
+        // Testimonials Carousel functionality
+        const testimonialsCarouselContainer = document.querySelector('.testimonials-carousel');
+        const testimonialsCarousel = testimonialsCarouselContainer.querySelector('.testimonials-grid');
+        const leftArrow = testimonialsCarouselContainer.querySelector('.carousel-arrow.left');
+        const rightArrow = testimonialsCarouselContainer.querySelector('.carousel-arrow.right');
+
+        let scrollAmount = 0;
+        const scrollStep = 330; // Card width + gap (300px + 30px)
+        const scrollIntervalTime = 3000; // 3 seconds
+        let autoScrollInterval;
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                scrollAmount += scrollStep;
+                if (scrollAmount >= testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth) {
+                    scrollAmount = 0; // Reset to start
+                }
+                testimonialsCarousel.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }, scrollIntervalTime);
+        }
+
+        function stopAutoScroll() {
+            clearInterval(autoScrollInterval);
+        }
+
+        // Start auto-scroll initially
+        startAutoScroll();
+
+        testimonialsCarouselContainer.addEventListener('mouseover', stopAutoScroll);
+        testimonialsCarouselContainer.addEventListener('mouseout', startAutoScroll);
+
+        leftArrow.addEventListener('click', () => {
+            stopAutoScroll();
+            scrollAmount -= scrollStep;
+            if (scrollAmount < 0) {
+                scrollAmount = testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth; // Loop to end
+            }
+            testimonialsCarousel.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+            startAutoScroll(); // Restart auto-scroll after manual interaction
+        });
+
+        rightArrow.addEventListener('click', () => {
+            stopAutoScroll();
+            scrollAmount += scrollStep;
+            if (scrollAmount >= testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth) {
+                scrollAmount = 0; // Loop to start
+            }
+            testimonialsCarousel.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+            startAutoScroll(); // Restart auto-scroll after manual interaction
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu'); // Selects the new mobile menu div
+
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active'); // Toggles 'active' class on mobile menu div
+                menuToggle.classList.toggle('active');
+            });
+
+            // Close menu when a nav link is clicked (for smooth scrolling)
+            document.querySelectorAll('#mobile-menu ul li a').forEach(link => { // Target links inside mobile menu
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                });
+            });
+        }
+        
+    </script>
+    
+</body>
+
+</html>
