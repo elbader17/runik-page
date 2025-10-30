@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lofts Urbanos - Tu Espacio en la Ciudad</title>
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
-    <!-- Iconos (Lucide Icons) -->
-    <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/dist/lucide.min.js"></script>
+
 
     <style>
         body {
@@ -38,29 +35,45 @@
             transform: translateY(0);
         }
 
-        /* Estilos para el carrusel de la galería */
-        .galeria-carousel-item {
-            width: 100%; /* Cada imagen ocupa el 100% del ancho del contenedor */
-            flex-shrink: 0; /* Evita que las imágenes se encojan */
-            scroll-snap-align: start; /* Alinea el inicio de la imagen al inicio del contenedor de scroll */
+        /* ESTILOS DEL SWIPER: Para que no ocupe todo el ancho y se vea centrado */
+        #galeria .swiper-container {
+            max-width: 1400px;
+            /* Limita el ancho máximo del carrusel */
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 5vw;
+            /* Añade padding para ver las imágenes parciales en los lados */
+            overflow: visible;
+            /* Permite que las imágenes laterales se vean */
         }
 
-        /* Ocultar la barra de desplazamiento pero permitir el scroll */
-        .galeria-carousel-track::-webkit-scrollbar {
-            display: none;
+        /* Estilos para los botones de navegación */
+        #galeria .swiper-button-next,
+        #galeria .swiper-button-prev {
+            color: #f97316;
+            /* Tailwind orange-500 */
+            transition: opacity 0.3s;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .galeria-carousel-track {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-            scroll-snap-type: x mandatory; /* Habilitar scroll snap horizontal */
+        /* Estilos para los puntos de paginación */
+        #galeria .swiper-pagination-bullet {
+            background-color: #9ca3af;
+            /* Gris claro (tailwind gray-400) */
+            opacity: 1;
+        }
+
+        /* Estilo para el punto de paginación activo */
+        #galeria .swiper-pagination-bullet-active {
+            background-color: #f97316;
+            /* Naranja (tailwind orange-500) */
         }
     </style>
 </head>
 
 <body class="antialiased">
 
-    <!-- =========== NAVEGACIÓN =========== -->
     <nav id="nav" class="bg-gray-900/80 backdrop-blur-lg shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="font-extrabold text-2xl text-white" id="nav-brand" aria-label="Lofts Urbanos"></a>
@@ -74,23 +87,23 @@
                 </button>
             </div>
             <div class="hidden md:flex space-x-8">
+
                 <a href="#apartamentos"
                     class="text-gray-100 hover:text-orange-400 transition duration-300">Apartamentos</a>
                 <a href="#amenidades" class="text-gray-100 hover:text-orange-400 transition duration-300">Amenidades</a>
-                <a href="#galeria" class="text-gray-100 hover:text-orange-400 transition duration-300">Galería</a>
                 <a href="#contacto" class="text-gray-100 hover:text-orange-400 transition duration-300">Contacto</a>
             </div>
             <a href="#contacto" id="nav-cta-button"
                 class="hidden md:block bg-orange-500 text-white py-2 px-5 rounded-md font-bold hover:bg-orange-600 transition duration-300 shadow-md"
                 aria-label="Consultar"></a>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="absolute top-full left-0 w-full hidden md:hidden bg-gray-800 py-4 px-6 space-y-4 text-center transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+        <div id="mobile-menu"
+            class="absolute top-full left-0 w-full hidden md:hidden bg-gray-800 py-4 px-6 space-y-4 text-center transition-all duration-300 ease-in-out max-h-0 overflow-hidden">
+
             <a href="#apartamentos"
                 class="block text-gray-100 hover:text-orange-400 transition duration-300">Apartamentos</a>
             <a href="#amenidades"
                 class="block text-gray-100 hover:text-orange-400 transition duration-300">Amenidades</a>
-            <a href="#galeria" class="block text-gray-100 hover:text-orange-400 transition duration-300">Galería</a>
             <a href="#contacto" class="block text-gray-100 hover:text-orange-400 transition duration-300">Contacto</a>
             <a href="#contacto"
                 class="block bg-orange-500 text-white py-2 px-5 rounded-md font-bold hover:bg-orange-600 transition duration-300 shadow-md"
@@ -98,26 +111,26 @@
         </div>
     </nav>
 
-    <!-- =========== HERO SECTION (Disposición Dividida) =========== -->
     <header id="hero" class="bg-white">
         <div class="container mx-auto px-6 py-16 md:py-24">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div class="text-center md:text-left">
-                    <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+                    <h1 id="hero-title"
+                        class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
                     </h1>
                     <p id="hero-subtitle" class="text-lg md:text-xl text-gray-600 mb-8"></p>
                     <a href="#apartamentos" id="hero-cta-button"
                         class="bg-gray-900 text-white py-3 px-8 rounded-md font-bold text-lg hover:bg-gray-800 transition duration-300 inline-block shadow-lg"></a>
                 </div>
                 <div id="hero-image-container" class="relative rounded-lg overflow-hidden shadow-2xl">
-                    <!-- La imagen se insertará aquí -->
-                </div>
+                    </div>
             </div>
         </div>
     </header>
 
-    <!-- =========== SECCIÓN DE APARTAMENTOS =========== -->
-    <section id="apartamentos" class="py-16 md:py-24 bg-gray-50">
+
+
+    <section id="apartamentos" class="py-16 md:py-24 bg-white">
         <div class="container mx-auto px-6 text-center">
             <h2 id="apartamentos-title" class="text-3xl md:text-4xl font-bold mb-2 reveal-on-scroll"></h2>
             <p id="apartamentos-description" class="text-gray-600 max-w-2xl mx-auto mb-12 reveal-on-scroll"></p>
@@ -170,49 +183,28 @@
         </div>
     </section>
 
-    <!-- =========== SECCIÓN DE AMENIDADES (Características) =========== -->
-    <section id="amenidades" class="py-16 md:py-24 bg-white">
+    <section id="amenidades" class="py-16 md:py-24 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-                <div id="amenidades-image-container" class="order-first md:order-none rounded-lg overflow-hidden shadow-xl reveal-on-scroll">
-                    <!-- Imagen de amenidades -->
-                </div>
-                <div class="reveal-on-scroll"> <!-- Amenidades List Column -->
+                <div id="amenidades-image-container"
+                    class="order-first md:order-none rounded-lg overflow-hidden shadow-xl reveal-on-scroll">
+                    </div>
+                <div class="reveal-on-scroll">
                     <h2 id="amenidades-title" class="text-3xl md:text-4xl font-bold mb-4"></h2>
                     <p id="amenidades-description" class="text-gray-600 mb-8"></p>
                     <div id="amenidades-list" class="space-y-6">
-                        <!-- Las amenidades se insertarán aquí -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =========== SECCIÓN DE GALERÍA =========== -->
-    <section id="galeria" class="py-16 md:py-24 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 id="galeria-title" class="text-3xl md:text-4xl font-bold text-center mb-12 reveal-on-scroll"></h2>
-            <div id="galeria-carousel-container" class="relative w-full overflow-hidden group">
-                <div id="galeria-carousel-track" class="flex overflow-x-scroll snap-x snap-mandatory scroll-smooth">
-                    <!-- Images will be dynamically inserted here -->
-                </div>
-                <!-- Navigation arrows -->
-                <button id="galeria-prev" class="absolute top-1/2 left-4 -translate-y-1/2 bg-gray-800/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
-                </button>
-                <button id="galeria-next" class="absolute top-1/2 right-4 -translate-y-1/2 bg-gray-800/50 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- =========== SECCIÓN DE CONTACTO (Disposición Centrada) =========== -->
     <section id="contacto" class="py-16 md:py-24 bg-gray-900 text-white">
         <div class="container mx-auto px-6 text-center">
             <h2 id="contacto-title" class="text-3xl md:text-4xl font-bold mb-4 reveal-on-scroll"></h2>
             <p id="contacto-description" class="max-w-xl mx-auto text-gray-300 mb-10 reveal-on-scroll"></p>
-            <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-lg text-left text-gray-800 reveal-on-scroll">
+            <div
+                class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-lg text-left text-gray-800 reveal-on-scroll">
                 <form>
                     <h3 id="form-title" class="text-2xl font-bold mb-6 text-center"></h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -236,23 +228,46 @@
                         class="w-full bg-orange-500 text-white py-3 rounded-md font-bold hover:bg-orange-600 transition duration-300 shadow-md"></button>
                 </form>
             </div>
+
+            <div id="social-links" class="flex flex-col items-center space-y-4 mt-8 text-gray-400">
+                <h4 class="text-xl font-bold text-white mb-2">Redes Sociales</h4>
+                
+                <div class="flex justify-center space-x-6">
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                        class="hover:text-orange-400 transition duration-300 inline-block p-2">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+                        class="hover:text-orange-400 transition duration-300 inline-block p-2">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.07 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z" />
+                        </svg>
+                    </a>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- =========== FOOTER =========== -->
+
     <footer class="bg-gray-800 text-gray-400 py-8">
         <div class="container mx-auto px-6 text-center">
             <p id="footer-text"></p>
-            <div id="social-links" class="flex justify-center space-x-6 mt-4">
-                <!-- Enlaces a redes sociales -->
-            </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/dist/lucide.min.js"></script>
+
+
     <script>
         // ######################################################################
-        // #####  ZONA DE CONFIGURACIÓN: Edita aquí todo el contenido      #####
-        // #####  Simplemente cambia los textos y las URLs de las imágenes. #####
+        // #####  ZONA DE CONFIGURACIÓN: Edita aquí todo el contenido      #####
         // ######################################################################
         const siteData = {
             // --- Contenido General ---
@@ -261,19 +276,8 @@
             // --- Rutas de Imágenes Centralizadas ---
             imagePaths: {
                 hero: "assets/loffts_photo_1.webp",
-                apartamentoSkyline: "assets/loffts_photo_2.webp",
-                apartamentoSoho: "assets/loffts_photo_3.webp",
-                apartamentoPenthouse: "assets/loffts_photo_1.webp",
                 amenidades: "assets/piscina_en_la terraza.webp",
-                galleryImages: [
-                    "assets/loffts_photo_1.webp",
-                    "assets/loffts_photo_2.webp",
-                    "assets/loffts_photo_3.webp",
-                    "assets/piscina_en_la terraza.webp",
-                    "assets/gymnasio.webp",
-                    "assets/seguridad.webp",
-                    "assets/coworking.webp",
-                ],
+                // Se pueden listar más imágenes aquí si es necesario
             },
 
             // --- Navegación ---
@@ -293,23 +297,6 @@
             apartamentos: {
                 title: "Nuestros Espacios",
                 description: "Cada loft está pensado para ofrecer una experiencia superior, con acabados de primera calidad y diseño de vanguardia.",
-                list: [
-                    {
-                        nombre: "Loft 'Skyline'",
-                        detalles: "1 Habitación / 75m²",
-                        descripcion: "Vistas panorámicas de la ciudad y un diseño de concepto abierto que maximiza el espacio y la luz.",
-                    },
-                    {
-                        nombre: "Loft 'Soho'",
-                        detalles: "2 Habitaciones / 95m²",
-                        descripcion: "Perfecto para quienes buscan más espacio. Estilo industrial-chic con detalles en ladrillo visto y madera.",
-                    },
-                    {
-                        nombre: "Penthouse 'The Summit'",
-                        detalles: "3 Habitaciones / 150m²",
-                        descripcion: "Lujo en su máxima expresión. Terraza privada, jacuzzi y las mejores vistas de la ciudad.",
-                    }
-                ]
             },
 
             // --- Sección de Amenidades ---
@@ -324,14 +311,9 @@
                 ]
             },
 
-            // --- Sección de Galería ---
-            galeria: {
-                title: "Explora Nuestros Espacios",
-            },
-
             // --- Sección de Contacto y Formulario ---
             contacto: {
-                title: "Interesado?",
+                title: "¿Interesado?",
                 description: "Déjanos tu mensaje y un asesor se pondrá en contacto contigo a la brevedad para coordinar una visita.",
                 formTitle: "Formulario de Contacto",
                 formSubmitButton: "Enviar Consulta",
@@ -339,23 +321,18 @@
 
             // --- Footer y Redes Sociales ---
             footer: {
-                // Este texto es fijo según tu requerimiento
                 copyright: `© ${new Date().getFullYear()} Runik Studio. Todos los derechos reservados.`,
                 copyrightLink: "https://www.runik.studio",
-                social: [
-                    { red: "Instagram", url: "https://instagram.com", icono: "instagram" },
-                    { red: "Linkedin", url: "https://linkedin.com", icono: "linkedin" },
-                    { red: "Twitter", url: "https://twitter.com", icono: "twitter" },
-                ]
             }
         };
         // ######################################################################
-        // ##### FIN DE LA ZONA DE CONFIGURACIÓN                             #####
+        // ##### FIN DE LA ZONA DE CONFIGURACIÓN                             #####
         // ######################################################################
 
 
         // --- Lógica para poblar la página con los datos de "siteData" ---
         document.addEventListener('DOMContentLoaded', () => {
+
             // Navegación
             document.getElementById('nav-brand').textContent = siteData.nav.brand;
             document.getElementById('nav-cta-button').textContent = siteData.nav.ctaButton;
@@ -365,30 +342,32 @@
             const mobileMenu = document.getElementById('mobile-menu');
 
             if (mobileMenuButton && mobileMenu) {
-                                                    mobileMenuButton.addEventListener('click', () => {
-                                                        if (mobileMenu.classList.contains('hidden')) {
-                                                            mobileMenu.classList.remove('hidden');
-                                                            setTimeout(() => {
-                                                                mobileMenu.classList.remove('max-h-0');
-                                                                mobileMenu.classList.add('max-h-screen');
-                                                            }, 10); // Small delay to allow 'display' change to register
-                                                        } else {
-                                                            mobileMenu.classList.remove('max-h-screen');
-                                                            mobileMenu.classList.add('max-h-0');
-                                                            mobileMenu.addEventListener('transitionend', () => {
-                                                                mobileMenu.classList.add('hidden');
-                                                            }, { once: true });
-                                                        }
-                                                    });            }
+                mobileMenuButton.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.remove('hidden');
+                        setTimeout(() => {
+                            mobileMenu.classList.remove('max-h-0');
+                            mobileMenu.classList.add('max-h-screen');
+                        }, 10);
+                    } else {
+                        mobileMenu.classList.remove('max-h-screen');
+                        mobileMenu.classList.add('max-h-0');
+                        mobileMenu.addEventListener('transitionend', () => {
+                            mobileMenu.classList.add('hidden');
+                        }, { once: true });
+                    }
+                });
+            }
 
             // Sticky Nav Bar Style Change on Scroll
             const navbar = document.getElementById('nav');
             if (navbar) {
                 window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) { // Adjust scroll threshold as needed
+                    if (window.scrollY > 50) {
                         navbar.classList.remove('bg-gray-900/80', 'backdrop-blur-lg');
                         navbar.classList.add('bg-gray-900');
-                    } else {
+                    }
+                    else {
                         navbar.classList.remove('bg-gray-900');
                         navbar.classList.add('bg-gray-900/80', 'backdrop-blur-lg');
                     }
@@ -402,17 +381,21 @@
             const heroImageContainer = document.getElementById('hero-image-container');
             heroImageContainer.innerHTML = `<img src="${siteData.imagePaths.hero}" alt="Imagen principal de ${siteData.nombreDelLugar}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/30"></div>`;
 
+
+
+
+
             // Apartamentos
             document.getElementById('apartamentos-title').textContent = siteData.apartamentos.title;
             document.getElementById('apartamentos-description').textContent = siteData.apartamentos.description;
 
 
-            // Amenidades
+            // Amenidades (Lógica de Carrusel de Amenidades: imagen y lista)
             document.getElementById('amenidades-title').textContent = siteData.amenidades.title;
             document.getElementById('amenidades-description').textContent = siteData.amenidades.description;
             const amenidadesList = document.getElementById('amenidades-list');
             const amenidadesImageContainer = document.getElementById('amenidades-image-container');
-            amenidadesImageContainer.innerHTML = `<img id="amenidades-carousel-image" src="" alt="Imagen de las amenidades" class="w-full h-full object-cover">`;
+            amenidadesImageContainer.innerHTML = `<img id="amenidades-carousel-image" src="" alt="Imagen de las amenidades" class="w-full h-[300px] md:h-[500px] object-cover rounded-lg">`;
             const amenidadesCarouselImage = document.getElementById('amenidades-carousel-image');
 
             const amenityImageMap = {
@@ -444,12 +427,16 @@
                 // Update image
                 const amenityName = siteData.amenidades.list[index].nombre;
                 if (amenityImageMap[amenityName]) {
-                    amenidadesCarouselImage.src = amenityImageMap[amenityName];
+                    amenidadesCarouselImage.classList.add('opacity-0');
+                    setTimeout(() => {
+                        amenidadesCarouselImage.src = amenityImageMap[amenityName];
+                        amenidadesCarouselImage.classList.remove('opacity-0');
+                    }, 200);
                 }
             };
 
             const startAmenityCarousel = () => {
-                clearInterval(amenityInterval); // Clear any existing interval
+                clearInterval(amenityInterval);
                 amenityInterval = setInterval(() => {
                     currentAmenityIndex = (currentAmenityIndex + 1) % siteData.amenidades.list.length;
                     updateAmenityDisplay(currentAmenityIndex);
@@ -458,201 +445,28 @@
 
             siteData.amenidades.list.forEach((item, index) => {
                 const amenidadItem = document.createElement('div');
-                amenidadItem.className = 'flex items-start p-4 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-200';
+                amenidadItem.className = 'flex items-start p-4 rounded-lg cursor-pointer hover:bg-gray-200 transition-colors duration-200';
                 amenidadItem.innerHTML = `
-                <div class="bg-orange-100 p-3 rounded-full mr-4 flex-shrink-0">
-                    <i data-lucide="${item.icono}" class="w-6 h-6 text-orange-600"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-lg">${item.nombre}</h3>
-                    <p class="text-gray-600">${item.descripcion}</p>
-                </div>
-            `;
+                    <div class="bg-gray-200 p-3 rounded-full mr-4 flex-shrink-0 transition-colors duration-200">
+                        <i data-lucide="${item.icono}" class="w-6 h-6 text-gray-800 transition-colors duration-200"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">${item.nombre}</h3>
+                        <p class="text-gray-600">${item.descripcion}</p>
+                    </div>
+                `;
                 amenidadesList.appendChild(amenidadItem);
 
                 amenidadItem.addEventListener('click', () => {
-                    clearInterval(amenityInterval); // Stop carousel on manual click
-                    currentAmenityIndex = index; // Set current index to clicked item
+                    clearInterval(amenityInterval);
+                    currentAmenityIndex = index;
                     updateAmenityDisplay(currentAmenityIndex);
-                    startAmenityCarousel(); // Restart carousel after a delay
                 });
             });
 
             // Initial display and start carousel
             updateAmenityDisplay(currentAmenityIndex);
             startAmenityCarousel();
-
-            // Galería
-            document.getElementById('galeria-title').textContent = siteData.galeria.title;
-
-            // Galería Carousel
-            const galeriaCarouselContainer = document.getElementById('galeria-carousel-container');
-            const galeriaCarouselTrack = document.getElementById('galeria-carousel-track');
-            const galeriaPrevButton = document.getElementById('galeria-prev');
-            const galeriaNextButton = document.getElementById('galeria-next');
-
-            const galleryImages = siteData.imagePaths.galleryImages;
-            const totalImages = galleryImages.length;
-            const imagesToDuplicate = 2; // Number of images to duplicate at each end for infinite effect
-
-            // Populate carousel track with original and duplicated images
-            // Prepend duplicates
-            for (let i = 0; i < imagesToDuplicate; i++) {
-                const img = document.createElement('img');
-                img.src = galleryImages[totalImages - imagesToDuplicate + i];
-                img.alt = `Galería ${totalImages - imagesToDuplicate + i + 1}`;
-                img.className = 'galeria-carousel-item w-full h-64 md:h-96 object-cover rounded-lg shadow-md';
-                galeriaCarouselTrack.appendChild(img);
-            }
-            // Original images
-            galleryImages.forEach((src, index) => {
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = `Galería ${index + 1}`;
-                img.className = 'galeria-carousel-item w-full h-64 md:h-96 object-cover rounded-lg shadow-md';
-                galeriaCarouselTrack.appendChild(img);
-            });
-            // Append duplicates
-            for (let i = 0; i < imagesToDuplicate; i++) {
-                const img = document.createElement('img');
-                img.src = galleryImages[i];
-                img.alt = `Galería ${i + 1}`;
-                img.className = 'galeria-carousel-item w-full h-64 md:h-96 object-cover rounded-lg shadow-md';
-                galeriaCarouselTrack.appendChild(img);
-            }
-
-            let currentGalleryIndex = 0; // Index of the currently displayed *original* image
-            let galleryCarouselInterval;
-            let isDragging = false;
-            let startX;
-            let scrollLeft;
-            let imageWidth; // Will be calculated after images are rendered
-
-            const updateImageWidth = () => {
-                if (galeriaCarouselTrack.firstElementChild) {
-                    imageWidth = galeriaCarouselTrack.firstElementChild.clientWidth;
-                }
-            };
-
-            const scrollToGalleryImage = (index, smooth = true) => {
-                if (!imageWidth) updateImageWidth(); // Ensure imageWidth is calculated
-                const targetScrollLeft = (index + imagesToDuplicate) * imageWidth;
-                galeriaCarouselTrack.scrollTo({
-                    left: targetScrollLeft,
-                    behavior: smooth ? 'smooth' : 'auto'
-                });
-                currentGalleryIndex = index;
-            };
-
-            const startGalleryCarousel = () => {
-                clearInterval(galleryCarouselInterval);
-                galleryCarouselInterval = setInterval(() => {
-                    let nextIndex = (currentGalleryIndex + 1);
-                    if (nextIndex >= totalImages) {
-                        // If we are about to go past the last original image, scroll to the first appended duplicate
-                        // This will trigger the scroll event listener to jump back to the real start
-                        galeriaCarouselTrack.scrollTo({
-                            left: (totalImages + imagesToDuplicate) * imageWidth,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        scrollToGalleryImage(nextIndex);
-                    }
-                }, 3000); // Change image every 3 seconds
-            };
-
-            const stopGalleryCarousel = () => {
-                clearInterval(galleryCarouselInterval);
-            };
-
-            // Event Listeners for Carousel
-            galeriaCarouselContainer.addEventListener('mouseenter', stopGalleryCarousel);
-            galeriaCarouselContainer.addEventListener('mouseleave', startGalleryCarousel);
-
-            galeriaPrevButton.addEventListener('click', () => {
-                stopGalleryCarousel();
-                currentGalleryIndex = (currentGalleryIndex - 1 + totalImages) % totalImages;
-                scrollToGalleryImage(currentGalleryIndex);
-                startGalleryCarousel();
-            });
-
-            galeriaNextButton.addEventListener('click', () => {
-                stopGalleryCarousel();
-                currentGalleryIndex = (currentGalleryIndex + 1) % totalImages;
-                scrollToGalleryImage(currentGalleryIndex);
-                startGalleryCarousel();
-            });
-
-            // Draggable functionality
-            galeriaCarouselTrack.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                galeriaCarouselTrack.classList.add('cursor-grabbing');
-                startX = e.pageX - galeriaCarouselTrack.offsetLeft;
-                scrollLeft = galeriaCarouselTrack.scrollLeft;
-                stopGalleryCarousel(); // Stop auto-play when dragging starts
-            });
-
-            galeriaCarouselTrack.addEventListener('mouseleave', () => {
-                if (isDragging) {
-                    isDragging = false;
-                    galeriaCarouselTrack.classList.remove('cursor-grabbing');
-                    startGalleryCarousel(); // Restart auto-play if mouse leaves while dragging
-                }
-            });
-
-            galeriaCarouselTrack.addEventListener('mouseup', () => {
-                    isDragging = false;
-                    galeriaCarouselTrack.classList.remove('cursor-grabbing');
-                    // After dragging, snap to the nearest image
-                    const nearestIndex = Math.round(galeriaCarouselTrack.scrollLeft / imageWidth) - imagesToDuplicate;
-                    currentGalleryIndex = (nearestIndex + totalImages) % totalImages;
-                    scrollToGalleryImage(currentGalleryIndex);
-                    startGalleryCarousel(); // Restart auto-play when dragging ends
-            });
-
-            galeriaCarouselTrack.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-                const x = e.pageX - galeriaCarouselTrack.offsetLeft;
-                const walk = (x - startX) * 1.5; // Adjust scroll speed
-                galeriaCarouselTrack.scrollLeft = scrollLeft - walk;
-            });
-
-            // Infinite loop handling on scroll
-            galeriaCarouselTrack.addEventListener('scroll', () => {
-                if (!imageWidth) updateImageWidth(); // Ensure imageWidth is calculated
-
-                const scrollPosition = galeriaCarouselTrack.scrollLeft;
-                const maxScrollLeft = (totalImages + imagesToDuplicate) * imageWidth;
-                const minScrollLeft = (imagesToDuplicate - 1) * imageWidth; // Adjusted to be before the first original image
-
-                // If scrolled to the appended duplicates (end), jump to the start of original images
-                if (scrollPosition >= (totalImages + imagesToDuplicate) * imageWidth) {
-                    galeriaCarouselTrack.scrollTo({
-                        left: imagesToDuplicate * imageWidth,
-                        behavior: 'auto'
-                    });
-                }
-                // If scrolled to the prepended duplicates (start), jump to the end of original images
-                else if (scrollPosition <= 0) { // Check if it's at the very beginning (before prepended duplicates)
-                    galeriaCarouselTrack.scrollTo({
-                        left: totalImages * imageWidth,
-                        behavior: 'auto'
-                    });
-                }
-            });
-
-            // Initial setup
-            updateImageWidth(); // Calculate image width
-            scrollToGalleryImage(0, false); // Go to the first image instantly
-            startGalleryCarousel(); // Start auto-play
-
-            // Recalculate image width on window resize
-            window.addEventListener('resize', () => {
-                updateImageWidth();
-                scrollToGalleryImage(currentGalleryIndex, false); // Adjust scroll position instantly
-            });
-
 
             // Contacto
             document.getElementById('contacto-title').textContent = siteData.contacto.title;
@@ -664,20 +478,14 @@
             const footerText = document.getElementById('footer-text');
             footerText.innerHTML = `<a href="${siteData.footer.copyrightLink}" target="_blank" rel="noopener noreferrer" class="hover:text-white">${siteData.footer.copyright}</a>`;
 
-            const socialLinksContainer = document.getElementById('social-links');
-            siteData.footer.social.forEach(red => {
-                const link = document.createElement('a');
-                link.href = red.url;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                link.className = 'hover:text-orange-400 transition duration-300 inline-block p-2';
-                link.innerHTML = `<i data-lucide="${red.icono}" class="w-6 h-6 text-white inline-block"></i>`;
-                socialLinksContainer.appendChild(link);
-            });
+            // 🌟 FUNCIÓN CRÍTICA: Renderizar Iconos de Lucide
+            // Esto debe estar al final del DOMContentLoaded para asegurar que todos
+            // los elementos dinámicos (amenidades) y el icono de X se hayan creado.
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
 
-            // Renderizar iconos
-            lucide.createIcons();
-        });
+        }); // <-- CIERRE CORRECTO del document.addEventListener('DOMContentLoaded', ...)
 
         // --- Lógica para la animación de scroll ---
         const scrollObserver = new IntersectionObserver((entries, observer) => {
