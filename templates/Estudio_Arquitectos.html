@@ -89,7 +89,8 @@
         }
 
         .mobile-menu-container {
-            display: none; /* Hidden by default on desktop */
+            display: none;
+            /* Hidden by default on desktop */
         }
 
         .hero {
@@ -115,7 +116,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Capa oscura para mejorar la legibilidad del texto */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Capa oscura para mejorar la legibilidad del texto */
             z-index: 0;
         }
 
@@ -139,6 +141,7 @@
         }
 
         .btn-primary {
+            display: inline-block;
             background-color: var(--accent-color);
             color: #fff;
             padding: 15px 30px;
@@ -146,6 +149,7 @@
             border-radius: 5px;
             font-weight: 600;
             transition: background-color 0.3s ease;
+            text-align: center;
         }
 
         .btn-primary:hover {
@@ -154,12 +158,14 @@
 
         /* Menu Toggle */
         .menu-toggle {
-            display: none; /* Hidden by default on desktop */
+            display: none;
+            /* Hidden by default on desktop */
             background: none;
             border: none;
             cursor: pointer;
             padding: 10px;
-            z-index: 1001; /* Above header */
+            z-index: 1001;
+            /* Above header */
         }
 
         .hamburger {
@@ -784,34 +790,42 @@
             }
 
             .menu-toggle {
-                display: block; /* Show on mobile */
+                display: block;
+                /* Show on mobile */
             }
 
             .main-nav {
-                display: none; /* Hide desktop nav on mobile */
+                display: none;
+                /* Hide desktop nav on mobile */
             }
 
             .mobile-menu-container {
-                display: none; /* Hidden by default */
-                position: absolute; /* Position below header */
-                top: 70px; /* Adjust based on header height */
+                display: none;
+                /* Hidden by default */
+                position: absolute;
+                /* Position below header */
+                top: 70px;
+                /* Adjust based on header height */
                 left: 0;
                 width: 100%;
                 background-color: var(--primary-bg);
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
                 border-top: 1px solid var(--border-color);
                 padding: 10px 0;
-                z-index: 998; /* Below header, above other content */
+                z-index: 998;
+                /* Below header, above other content */
             }
 
             .mobile-menu-container.active {
-                display: block; /* Show when active */
+                display: block;
+                /* Show when active */
             }
 
             .mobile-menu-container ul {
                 list-style: none;
                 flex-direction: column;
-                padding: 0; /* Reset padding */
+                padding: 0;
+                /* Reset padding */
             }
 
             .mobile-menu-container ul li {
@@ -1204,6 +1218,35 @@
                     </div>
                 </div>
 
+                <h2 style="margin-top: 80px;">Preguntas Frecuentes</h2>
+                <div class="faq-section">
+                    <div class="faq-item">
+                        <div class="faq-question">¿Cuál es el costo promedio de un proyecto arquitectónico?</div>
+                        <div class="faq-answer">El costo varía significativamente según la complejidad, tamaño y
+                            materiales del proyecto. Te invitamos a una consulta inicial gratuita para ofrecerte un
+                            presupuesto detallado y ajustado a tus necesidades.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">¿Cuánto tiempo toma completar un proyecto?</div>
+                        <div class="faq-answer">Los plazos dependen del tipo y escala del proyecto. Un diseño
+                            residencial puede tomar desde unos pocos meses hasta más de un año, incluyendo fases de
+                            diseño, licencias y construcción. Te proporcionaremos un cronograma claro al inicio.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">¿Trabajan con clientes internacionales?</div>
+                        <div class="faq-answer">Sí, hemos trabajado en proyectos con clientes de diversas
+                            nacionalidades, adaptándonos a las normativas y estilos locales. La comunicación remota y
+                            las herramientas digitales nos permiten colaborar eficazmente a distancia.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">¿Ofrecen servicios de consultoría antes de comprometerse con un
+                            proyecto completo?</div>
+                        <div class="faq-answer">Absolutamente. Ofrecemos sesiones de consultoría para discutir la
+                            viabilidad de tu idea, explorar opciones de diseño y responder a todas tus preguntas antes
+                            de que tomes cualquier decisión importante.</div>
+                    </div>
+                </div>
+
                 <h2 style="margin-top: 80px;">Nuestro Equipo</h2>
                 <div class="team-grid">
                     <div class="team-member">
@@ -1287,35 +1330,6 @@
                         </form>
                     </div>
                 </div>
-
-                <h2 style="margin-top: 80px;">Preguntas Frecuentes</h2>
-                <div class="faq-section">
-                    <div class="faq-item">
-                        <div class="faq-question">¿Cuál es el costo promedio de un proyecto arquitectónico?</div>
-                        <div class="faq-answer">El costo varía significativamente según la complejidad, tamaño y
-                            materiales del proyecto. Te invitamos a una consulta inicial gratuita para ofrecerte un
-                            presupuesto detallado y ajustado a tus necesidades.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">¿Cuánto tiempo toma completar un proyecto?</div>
-                        <div class="faq-answer">Los plazos dependen del tipo y escala del proyecto. Un diseño
-                            residencial puede tomar desde unos pocos meses hasta más de un año, incluyendo fases de
-                            diseño, licencias y construcción. Te proporcionaremos un cronograma claro al inicio.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">¿Trabajan con clientes internacionales?</div>
-                        <div class="faq-answer">Sí, hemos trabajado en proyectos con clientes de diversas
-                            nacionalidades, adaptándonos a las normativas y estilos locales. La comunicación remota y
-                            las herramientas digitales nos permiten colaborar eficazmente a distancia.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">¿Ofrecen servicios de consultoría antes de comprometerse con un
-                            proyecto completo?</div>
-                        <div class="faq-answer">Absolutamente. Ofrecemos sesiones de consultoría para discutir la
-                            viabilidad de tu idea, explorar opciones de diseño y responder a todas tus preguntas antes
-                            de que tomes cualquier decisión importante.</div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>
@@ -1397,63 +1411,65 @@
 
         // Testimonials Carousel functionality
         const testimonialsCarouselContainer = document.querySelector('.testimonials-carousel');
-        const testimonialsCarousel = testimonialsCarouselContainer.querySelector('.testimonials-grid');
-        const leftArrow = testimonialsCarouselContainer.querySelector('.carousel-arrow.left');
-        const rightArrow = testimonialsCarouselContainer.querySelector('.carousel-arrow.right');
+        if (testimonialsCarouselContainer) {
+            const testimonialsCarousel = testimonialsCarouselContainer.querySelector('.testimonials-grid');
+            const leftArrow = testimonialsCarouselContainer.querySelector('.carousel-arrow.left');
+            const rightArrow = testimonialsCarouselContainer.querySelector('.carousel-arrow.right');
 
-        let scrollAmount = 0;
-        const scrollStep = 330; // Card width + gap (300px + 30px)
-        const scrollIntervalTime = 3000; // 3 seconds
-        let autoScrollInterval;
+            let scrollAmount = 0;
+            const scrollStep = 330; // Card width + gap (300px + 30px)
+            const scrollIntervalTime = 3000; // 3 seconds
+            let autoScrollInterval;
 
-        function startAutoScroll() {
-            autoScrollInterval = setInterval(() => {
-                scrollAmount += scrollStep;
-                if (scrollAmount >= testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth) {
-                    scrollAmount = 0; // Reset to start
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(() => {
+                    scrollAmount += scrollStep;
+                    if (scrollAmount >= testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth) {
+                        scrollAmount = 0; // Reset to start
+                    }
+                    testimonialsCarousel.scrollTo({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }, scrollIntervalTime);
+            }
+
+            function stopAutoScroll() {
+                clearInterval(autoScrollInterval);
+            }
+
+            // Start auto-scroll initially
+            startAutoScroll();
+
+            testimonialsCarouselContainer.addEventListener('mouseover', stopAutoScroll);
+            testimonialsCarouselContainer.addEventListener('mouseout', startAutoScroll);
+
+            leftArrow.addEventListener('click', () => {
+                stopAutoScroll();
+                scrollAmount -= scrollStep;
+                if (scrollAmount < 0) {
+                    scrollAmount = testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth; // Loop to end
                 }
                 testimonialsCarousel.scrollTo({
                     left: scrollAmount,
                     behavior: 'smooth'
                 });
-            }, scrollIntervalTime);
-        }
-
-        function stopAutoScroll() {
-            clearInterval(autoScrollInterval);
-        }
-
-        // Start auto-scroll initially
-        startAutoScroll();
-
-        testimonialsCarouselContainer.addEventListener('mouseover', stopAutoScroll);
-        testimonialsCarouselContainer.addEventListener('mouseout', startAutoScroll);
-
-        leftArrow.addEventListener('click', () => {
-            stopAutoScroll();
-            scrollAmount -= scrollStep;
-            if (scrollAmount < 0) {
-                scrollAmount = testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth; // Loop to end
-            }
-            testimonialsCarousel.scrollTo({
-                left: scrollAmount,
-                behavior: 'smooth'
+                startAutoScroll(); // Restart auto-scroll after manual interaction
             });
-            startAutoScroll(); // Restart auto-scroll after manual interaction
-        });
 
-        rightArrow.addEventListener('click', () => {
-            stopAutoScroll();
-            scrollAmount += scrollStep;
-            if (scrollAmount >= testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth) {
-                scrollAmount = 0; // Loop to start
-            }
-            testimonialsCarousel.scrollTo({
-                left: scrollAmount,
-                behavior: 'smooth'
+            rightArrow.addEventListener('click', () => {
+                stopAutoScroll();
+                scrollAmount += scrollStep;
+                if (scrollAmount >= testimonialsCarousel.scrollWidth - testimonialsCarousel.clientWidth) {
+                    scrollAmount = 0; // Loop to start
+                }
+                testimonialsCarousel.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+                startAutoScroll(); // Restart auto-scroll after manual interaction
             });
-            startAutoScroll(); // Restart auto-scroll after manual interaction
-        });
+        }
 
         // Mobile Menu Toggle
         const menuToggle = document.querySelector('.menu-toggle');
@@ -1473,9 +1489,9 @@
                 });
             });
         }
-        
+
     </script>
-    
+
 </body>
 
 </html>
