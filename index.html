@@ -17,24 +17,8 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-gold': '#D4AF37',
-                        'dark-bg': '#121212',
-                        'light-bg': '#F9F9F9',
-                        'dark-card': '#1a1a1a',
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="/styles.css"> <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
     
     <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
@@ -130,9 +114,12 @@
         <section class="bg-dark-bg text-white text-center py-28 md:py-48 relative overflow-hidden">
             <div class="hero-runic-bg"></div>
             <div class="container mx-auto px-6 relative z-10">
-                <h2 class="text-3xl sm:text-4xl md:text-6xl font-light brand-heading uppercase mb-6" data-aos="fade-down">Ingeniería Digital a Medida</h2>
-                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10" data-aos="fade-up" data-aos-delay="200">Desarrollamos soluciones tecnológicas que no solo funcionan, sino que escalan su negocio y definen su liderazgo en el mercado.</p>
-                <a href="#soluciones" class="bg-brand-gold text-dark-bg font-semibold py-3 px-10 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider" data-aos="fade-up" data-aos-delay="400">Nuestras Soluciones</a>
+                
+                <h2 class="text-3xl sm:text-4xl md:text-6xl font-light brand-heading uppercase mb-6">Ingeniería Digital a Medida</h2>
+                
+                <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10">Desarrollamos soluciones tecnológicas que no solo funcionan, sino que escalan su negocio y definen su liderazgo en el mercado.</p>
+                
+                <a href="#soluciones" class="bg-brand-gold text-dark-bg font-semibold py-3 px-10 rounded-sm hover:bg-yellow-500 transition duration-300 uppercase text-sm tracking-wider" data-aos="fade-up" data-aos-delay="100">Nuestras Soluciones</a>
             </div>
         </section>
 
@@ -245,8 +232,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             const mobileBreakpoint = 768;
-            const defaultAnimationDuration = 300;
-            const mobileAnimationDuration = 150;
+            const defaultAnimationDuration = 300; // Duración acelerada
+            const mobileAnimationDuration = 150; // Duración acelerada
             const isMobileViewport = window.innerWidth < mobileBreakpoint;
             const activeAnimationDuration = isMobileViewport ? mobileAnimationDuration : defaultAnimationDuration;
 
