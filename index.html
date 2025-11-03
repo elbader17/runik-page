@@ -238,8 +238,15 @@
 	
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 	<script>
+		const mobileBreakpoint = 768;
+		const defaultAnimationDuration = 600;
+		const mobileAnimationDuration = 300;
+
+		const isMobileViewport = window.innerWidth < mobileBreakpoint;
+		const activeAnimationDuration = isMobileViewport ? mobileAnimationDuration : defaultAnimationDuration;
+
 		AOS.init({
-			duration: 800,
+			duration: activeAnimationDuration,
 			once: true,
 			offset: 50,
 		});
