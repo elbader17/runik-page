@@ -14,8 +14,12 @@
 	<title>RUNIK | Consultoría IT de Alta Gama</title>
 	<link rel="canonical" href="https://www.runik.studio/index.html">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
+	
 	<script src="https://cdn.tailwindcss.com"></script>
-	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 	<script>
 		tailwind.config = {
 			darkMode: 'class',
@@ -31,9 +35,10 @@
 			}
 		}
 	</script>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600&family=Major+Mono+Display&display=swap" rel="stylesheet">
+	
+	<link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
+	
 	<script>
 		if (localStorage.getItem('theme') === 'dark') {
 			document.documentElement.classList.add('dark');
@@ -60,7 +65,6 @@
 			box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
 		}
 		.hero-runic-bg {
-			background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="0.5"/></svg>');
 			background-size: 150px;
 			background-repeat: repeat;
 			opacity: 0.03;
@@ -236,57 +240,65 @@
 		</svg>
 	</a>
 	
-	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 	<script>
-		const mobileBreakpoint = 768;
-		const defaultAnimationDuration = 600;
-		const mobileAnimationDuration = 300;
+		document.addEventListener('DOMContentLoaded', () => {
+			
+			const mobileBreakpoint = 768;
+			const defaultAnimationDuration = 600;
+			const mobileAnimationDuration = 300;
+			const isMobileViewport = window.innerWidth < mobileBreakpoint;
+			const activeAnimationDuration = isMobileViewport ? mobileAnimationDuration : defaultAnimationDuration;
 
-		const isMobileViewport = window.innerWidth < mobileBreakpoint;
-		const activeAnimationDuration = isMobileViewport ? mobileAnimationDuration : defaultAnimationDuration;
-
-		AOS.init({
-			duration: activeAnimationDuration,
-			once: true,
-			offset: 50,
-		});
-	</script>
-	
-	<script>
-		const themeToggleBtn = document.getElementById('theme-toggle');
-		const darkIcon = document.getElementById('theme-toggle-dark-icon');
-		const lightIcon = document.getElementById('theme-toggle-light-icon');
-		const htmlEl = document.documentElement;
-
-		function updateIcons() {
-			if (htmlEl.classList.contains('dark')) {
-				darkIcon.classList.add('hidden');
-				lightIcon.classList.remove('hidden');
-			} else {
-				darkIcon.classList.remove('hidden');
-				lightIcon.classList.add('hidden');
-			}
-		}
-		updateIcons();
-		themeToggleBtn.addEventListener('click', () => {
-			htmlEl.classList.toggle('dark');
-			const isDarkMode = htmlEl.classList.contains('dark');
-			localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-			updateIcons();
-		});
-
-		const mobileMenuButton = document.getElementById('mobile-menu-button');
-		const mobileMenu = document.getElementById('mobile-menu');
-		const mobileMenuLinks = mobileMenu.querySelectorAll('a'); 
-
-		mobileMenuButton.addEventListener('click', () => {
-			mobileMenu.classList.toggle('hidden');
-		});
-
-		mobileMenuLinks.forEach(link => {
-			link.addEventListener('click', () => {
-				mobileMenu.classList.add('hidden');
+			AOS.init({
+				duration: activeAnimationDuration,
+				once: true,
+				offset: 50,
 			});
+			
+			const themeToggleBtn = document.getElementById('theme-toggle');
+			const darkIcon = document.getElementById('theme-toggle-dark-icon');
+			const lightIcon = document.getElementById('theme-toggle-light-icon');
+			const htmlEl = document.documentElement;
+
+			function updateIcons() {
+				if (htmlEl.classList.contains('dark')) {
+					darkIcon.classList.add('hidden');
+					lightIcon.classList.remove('hidden');
+				} else {
+					darkIcon.classList.remove('hidden');
+					lightIcon.classList.add('hidden');
+				}
+			}
+			
+			updateIcons();
+			
+			themeToggleBtn.addEventListener('click', () => {
+				htmlEl.classList.toggle('dark');
+				const isDarkMode = htmlEl.classList.contains('dark');
+				localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+				updateIcons();
+			});
+
+			const mobileMenuButton = document.getElementById('mobile-menu-button');
+			const mobileMenu = document.getElementById('mobile-menu');
+			const mobileMenuLinks = mobileMenu.querySelectorAll('a'); 
+
+			mobileMenuButton.addEventListener('click', () => {
+				mobileMenu.classList.toggle('hidden');
+			});
+
+			mobileMenuLinks.forEach(link => {
+				link.addEventListener('click', () => {
+					mobileMenu.classList.add('hidden');
+				});
+			});
+
+			const heroBackground = document.querySelector('.hero-runic-bg');
+			if (heroBackground) {
+				const svgDataUri = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='none'/%3E%3Cpath d='M50 100L75 50L100 100L75 150L50 100Z' fill='none' stroke='%23333' stroke-width='0.5'/%3E%3Cpath d='M100 100L125 50L150 100L125 150L100 100Z' fill='none' stroke='%23333' stroke-width='0.5'/%3E%3Cpath d='M75 125L75 75' fill='none' stroke='%23333' stroke-width='0.5'/%3E%3Cpath d='M125 125L125 75' fill='none' stroke='%23333' stroke-width='0.5'/%3E%3C/svg%3E\")";
+				heroBackground.style.backgroundImage = svgDataUri;
+			}
 		});
 	</script>
 </body>
