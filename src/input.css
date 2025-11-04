@@ -1,0 +1,52 @@
+/* 1. Directivas de Tailwind (importan la base) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Tus estilos personalizados (movidos desde el <style> del HTML) */
+body {
+    /* Aquí le decimos que use la fuente 'jost' definida en el config */
+    @apply font-jost; 
+    scroll-behavior: smooth;
+}
+
+.brand-heading {
+    letter-spacing: 0.15em;
+}
+
+.logo-font {
+    /* Aquí usamos la fuente 'mono-display' */
+    @apply font-mono-display; 
+}
+
+.service-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+}
+
+.hero-runic-bg {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="none"/><path d="M50 100L75 50L100 100L75 150L50 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M100 100L125 50L150 100L125 150L100 100Z" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M75 125L75 75" fill="none" stroke="%23333" stroke-width="0.5"/><path d="M125 125L125 75" fill="none" stroke="%23333" stroke-width="0.5"/></svg>');
+    background-size: 150px;
+    background-repeat: repeat;
+    opacity: 0.03;
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+}
+
+.rune-icon {
+    height: 48px; width: 48px; margin: auto;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+    transition: stroke 0.3s;
+}
+
+.service-card:hover .rune-icon {
+    /* Aquí usamos el color 'brand-gold' del config */
+    stroke: theme('colors.brand-gold');
+}
